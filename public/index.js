@@ -78,9 +78,13 @@ function fillRecipesTable(recipes) {
  */
 function fillRecipeDetails(recipe) {
   for (let key in recipe) {
-    let item = document.getElementById(`recipe.${key}`);
+    let item = document.getElementById(`recipe_${key}`);
     if (item) {
-      item.textContent = recipe[key];
+      if (key === 'image') {
+        item.src = recipe[key];        
+      } else {
+        item.textContent = recipe[key];
+      }
     }
   }
 }

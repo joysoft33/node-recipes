@@ -3,6 +3,11 @@
   margin-top: 30px;
 }
 
+#list {
+  border-collapse: separate;
+  border-spacing: 0 4px;
+}
+
 #list tr {
   background-color: #eee;
 }
@@ -16,7 +21,21 @@
   padding: 10px;
 }
 
+#list tr > td img {
+  max-width: 200px;
+}
+
 #details {
   background-color: #eee; 
   padding: 30px; 
+}
+
+#details #recipe_image {
+  max-width: 100%;
+  margin-bottom: 20px;
+}
+#details #recipe_title {
+  font-weight: bold;
+  font-size: 110%;
+  margin-bottom: 10px;
 }
