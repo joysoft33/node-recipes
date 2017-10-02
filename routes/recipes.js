@@ -1,32 +1,54 @@
+let Sequelize = require('sequelize');
 let express = require('express');
 
 let router = express.Router();
 
-let recipes = [{
-  title: 'Ma première recette',
-  description: 'Ma description qsdf sdf dfqds f',
-  image: '',
-  count: 2,
-  date: Date.now()
-}, {
-  title: 'Ma seconde recette',
-  description: 'Description 2 zkjfg zdfze fd',
-  image: '',
-  count: 2,
-  date: Date.now()
-}];
+module.exports = function (sequelize) {
 
-router.get('/', function(req, res) {
-  res.json(recipes);
-});
+  const Recipe = sequelize.define('recipe', {
+    title: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      unique: true
+    },
+    description: Sequelize.TEXT,
+    image: Sequelize.STRING,
+    count: {
+      type: Sequelize.INTEGER,
+      validate: {
+        min: 1,
+        max: 12
+      }
+    }
+  });
 
-router.get('/:id', function(req, res) {
-  res.json(recipes[req.params.id]);
-});
+  router.get('/', function (req, res) {
+    Recipe.findAll().then(recipes => {
+      res.json(recipes);
+    }).catch(err => {
+      res.sendStatus(500);
+    });
+  });
 
-router.post('/add', function(req, res) {
-  recipes.push(req.body);
-  res.redirect('/');
-});
+  router.get('/:id', function (req, res) {
+    Recipe.findAll({
+      where: {
+        id: req.params.id
+      }
+    }).then(recipe => {
+      res.json(recipe[0]);
+    }).catch(err => {
+      res.sendStatus(500);
+    });
+  });
 
-module.exports = router;
+  router.post('/add', function (req, res) {
+    Recipe.create(req.body).then(() => {
+      res.redirect('/');
+    }).catch(err => {
+      res.sendStatus(500);      
+    });
+  });
+
+  return router;
+}

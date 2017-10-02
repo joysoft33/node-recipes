@@ -62,7 +62,7 @@ function fillRecipesTable(recipes) {
     markup += `<td class="title">${recipes[i].title}</td>`;
 
     tr.innerHTML = markup;
-    tr.id = i;
+    tr.id = recipes[i].id;
 
     tr.onclick = function (evt) {
       getRecipe(evt.currentTarget.id);
@@ -78,6 +78,9 @@ function fillRecipesTable(recipes) {
  */
 function fillRecipeDetails(recipe) {
   for (let key in recipe) {
-    document.getElementById(`recipe.${key}`).textContent = recipe[key];
+    let item = document.getElementById(`recipe.${key}`);
+    if (item) {
+      item.textContent = recipe[key];
+    }
   }
 }
