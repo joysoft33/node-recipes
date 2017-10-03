@@ -35,14 +35,14 @@ module.exports = function (sequelize) {
       where: {
         id: req.params.id
       }
-    }).then(recipe => {
-      res.json(recipe[0]);
+    }).then(recipes => {
+      res.json(recipes[0]);
     }).catch(err => {
       res.sendStatus(500);
     });
   });
 
-  router.post('/add', function (req, res) {
+  router.post('/', function (req, res) {
     Recipe.create(req.body).then(() => {
       res.redirect('/');
     }).catch(err => {
