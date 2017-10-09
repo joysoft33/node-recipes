@@ -1,7 +1,8 @@
-let Sequelize = require('sequelize');
-let express = require('express');
+const Sequelize = require('sequelize');
+const express = require('express');
+const sendMail = require('../mailer');
 
-let router = express.Router();
+const router = express.Router();
 
 module.exports = function (sequelize) {
 
@@ -22,7 +23,7 @@ module.exports = function (sequelize) {
     }
   });
 
-  router.get('/', function (req, res) {
+  router.get('/', (req, res) => {
     Recipe.findAll().then(recipes => {
       res.json(recipes);
     }).catch(err => {
@@ -30,23 +31,26 @@ module.exports = function (sequelize) {
     });
   });
 
-  router.get('/:id', function (req, res) {
-    Recipe.findAll({
+  router.get('/:id', (req, res) => {
+    Recipe.findOne({
       where: {
         id: req.params.id
       }
-    }).then(recipes => {
-      res.json(recipes[0]);
+    }).then(recipe => {
+      res.json(recipe);
     }).catch(err => {
       res.sendStatus(500);
     });
   });
 
-  router.post('/', function (req, res) {
-    Recipe.create(req.body).then(() => {
+  router.post('/', (req, res) => {
+    Recipe.create(req.body).then(recipe => {
+      return sendMail(recipe);
+    }).then(info => {
+      console.log(info);
       res.redirect('/');
     }).catch(err => {
-      res.sendStatus(500);      
+      res.sendStatus(500);
     });
   });
 

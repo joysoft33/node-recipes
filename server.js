@@ -1,12 +1,10 @@
-let express = require('express');
-let bodyParser = require('body-parser');
-let Sequelize = require('sequelize');
-let recipesRoutes = require('./routes/recipes');
+const express = require('express');
+const bodyParser = require('body-parser');
+const Sequelize = require('sequelize');
+const recipesRoutes = require('./routes/recipes');
 
-const URI = 'mysql://root@localhost:3306/recipes';
-
-let sequelize = new Sequelize(URI);
-let app = express();
+const sequelize = new Sequelize('mysql://root@localhost:3306/recipes');
+const app = express();
 
 app.use(bodyParser.urlencoded({
   extended: true
@@ -22,6 +20,6 @@ sequelize.sync().then((db) => {
   console.log('Error connecting database:', err);
 });
 
-let server = app.listen(8080, function () {
+app.listen(8080, () => {
   console.log('Server started on port 8080');
 });
