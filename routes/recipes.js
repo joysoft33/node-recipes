@@ -1,54 +1,25 @@
-let Sequelize = require('sequelize');
-let express = require('express');
+'use strict';
 
-let router = express.Router();
+const RecipesController = require('../controllers/recipes');
+const express = require('express');
 
-module.exports = function (sequelize) {
+const recipesController = new RecipesController;
+const router = express.Router();
 
-  const Recipe = sequelize.define('recipe', {
-    title: {
-      type: Sequelize.STRING,
-      allowNull: false,
-      unique: true
-    },
-    description: Sequelize.TEXT,
-    image: Sequelize.STRING,
-    count: {
-      type: Sequelize.INTEGER,
-      validate: {
-        min: 1,
-        max: 12
-      }
-    }
-  });
+router.get('/', (req, res) => {
+  recipesController.findAll(req, res);
+});
 
-  router.get('/', function (req, res) {
-    Recipe.findAll().then(recipes => {
-      res.json(recipes);
-    }).catch(err => {
-      res.sendStatus(500);
-    });
-  });
+router.get('/:id', (req, res) => {
+  recipesController.findOne(req, res);
+});
 
-  router.get('/:id', function (req, res) {
-    Recipe.findAll({
-      where: {
-        id: req.params.id
-      }
-    }).then(recipes => {
-      res.json(recipes[0]);
-    }).catch(err => {
-      res.sendStatus(500);
-    });
-  });
+router.post('/', (req, res) => {
+  recipesController.create(req, res);
+});
 
-  router.post('/', function (req, res) {
-    Recipe.create(req.body).then(() => {
-      res.redirect('/');
-    }).catch(err => {
-      res.sendStatus(500);      
-    });
-  });
+router.delete('/', (req, res) => {
+  recipesController.delete(req, res);
+});
 
-  return router;
-}
+module.exports = router;

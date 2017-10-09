@@ -1,27 +1,35 @@
-let express = require('express');
-let bodyParser = require('body-parser');
-let Sequelize = require('sequelize');
-let recipesRoutes = require('./routes/recipes');
+'use strict';
 
-const URI = 'mysql://root@localhost:3306/recipes';
+const express = require('express');
+const bodyParser = require('body-parser');
+const models = require('./models');
+const recipesRoutes = require('./routes/recipes');
+const categoriesRoutes = require('./routes/categories');
 
-let sequelize = new Sequelize(URI);
-let app = express();
+const app = express();
+let port = 3000;
 
 app.use(bodyParser.urlencoded({
   extended: true
 }));
 
+// Set static file directory
 app.use(express.static('./public'));
 
-app.use('/recipes', recipesRoutes(sequelize));
+// Set API routes
+app.use('/recipes', recipesRoutes);
+app.use('/categories', categoriesRoutes);
 
-sequelize.sync().then((db) => {
+// Synchronize database with the previously declared models
+models.sequelize.sync({
+  alter: true
+}).then((db) => {
   console.log('Database connected');
 }).catch(err => {
   console.log('Error connecting database:', err);
 });
 
-let server = app.listen(8080, function () {
-  console.log('Server started on port 8080');
+// Start listening to external http requests
+let server = app.listen(port, function () {
+  console.log(`Server started on port ${port}`);
 });
