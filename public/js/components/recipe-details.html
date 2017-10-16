@@ -1,0 +1,8 @@
+<div class="error" ng-show="$ctrl.error">{{$ctrl.error}}</div>
+<div ng-hide="$ctrl.error">
+  <img ng-src="{{$ctrl.recipe.image}}">
+  <div>{{$ctrl.recipe.title}}</div>
+  <div>{{$ctrl.recipe.description}}</div>
+  <div>{{$ctrl.recipe.count}}</div>
+  <div>{{$ctrl.recipe.createdAt | date:"dd/MM/yyyy"}}</div>
+</div>
