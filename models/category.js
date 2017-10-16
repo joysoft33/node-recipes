@@ -2,7 +2,7 @@
 
 module.exports = (sequelize, DataTypes) => {
 
-  const Category = sequelize.define('Category', {
+  const category = sequelize.define('category', {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -10,9 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
 
-  Category.associate = (models) => {
-    Category.hasMany(models.Recipe);
-  };
+  category.associate = (models) => {};
 
-  return Category;
+  return category;
 };

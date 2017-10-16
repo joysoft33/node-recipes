@@ -22,7 +22,7 @@ app.use('/categories', categoriesRoutes);
 
 // Synchronize database with the previously declared models
 models.sequelize.sync({
-  alter: true
+  alter: false
 }).then((db) => {
   console.log('Database connected');
 }).catch(err => {

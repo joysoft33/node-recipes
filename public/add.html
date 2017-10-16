@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Ajout d'une nouvelle recette</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="css/index.css">
 </head>
 
 <body>
@@ -29,11 +29,19 @@
         <label for="image">Image</label>
         <input class="form-control" id="image" type="text" name="image">
       </div>
+      <div class="form-group">
+        <label for="categories">Catégorie</label>
+        <select class="form-control" id="categories" name="categoryId">
+          <option>----</option>
+        </select>
+      </div>
       <hr/>
       <button type="submit" class="btn btn-success">Valider</button>
       <a href="/" class="btn btn-default">Annuler</a>
     </form>
   </div>
+
+  <script src="js/add.js" type="text/javascript"></script>
 </body>
 
 </html>

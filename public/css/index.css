@@ -22,11 +22,11 @@
 }
 
 #list tr > td img {
-  max-width: 200px;
+  max-width: 100px;
 }
 
 #details {
-  background-color: #eee; 
+  border: 1px solid #ccc;
   padding: 30px; 
 }
 

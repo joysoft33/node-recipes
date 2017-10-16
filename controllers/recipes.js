@@ -5,7 +5,9 @@ const models = require('../models');
 module.exports = class {
 
   findAll(req, res) {
-    models.Recipe.findAll().then(recipes => {
+    models.recipe.findAll({
+      attributes: ['id', 'title', 'image', 'categoryId']
+    }).then(recipes => {
       res.json(recipes);
     }).catch(err => {
       res.status(500).send(err);
@@ -13,11 +15,16 @@ module.exports = class {
   }
 
   findOne(req, res) {
-    models.Recipe.findById(req.params.id).then(recipe => {
+    models.recipe.findById(req.params.id, {
+      include: [{
+        model: models.category,
+        as: 'category'
+      }]
+    }).then(recipe => {
       if (recipe) {
         res.json(recipe);
       } else {
-        res.sendStatus(404);        
+        res.sendStatus(404);
       }
     }).catch(err => {
       res.status(500).send(err);
@@ -25,7 +32,7 @@ module.exports = class {
   }
 
   create(req, res) {
-    models.Recipe.create(req.body).then(() => {
+    models.recipe.create(req.body).then(recipe => {
       res.redirect('/');
     }).catch(err => {
       res.status(500).send(err);
@@ -33,7 +40,7 @@ module.exports = class {
   }
 
   delete(req, res) {
-    models.Recipe.destroy({
+    models.recipe.destroy({
       where: {
         id: req.params.id
       }

@@ -5,7 +5,7 @@ const models = require('../models');
 module.exports = class {
 
   findAll(req, res) {
-    models.Category.findAll().then(categories => {
+    models.category.findAll().then(categories => {
       res.json(categories);
     }).catch(err => {
       res.status(500).send(err);
@@ -13,11 +13,11 @@ module.exports = class {
   }
 
   findOne(req, res) {
-    models.Category.findById(req.params.id).then(category => {
+    models.category.findById(req.params.id).then(category => {
       if (category) {
         res.json(category);
       } else {
-        res.sendStatus(404);        
+        res.sendStatus(404);
       }
     }).catch(err => {
       res.status(500).send(err);
@@ -25,7 +25,7 @@ module.exports = class {
   }
 
   create(req, res) {
-    models.Category.create(req.body).then(() => {
+    models.category.create(req.body).then(() => {
       res.redirect('/');
     }).catch(err => {
       res.status(500).send(err);
@@ -33,7 +33,7 @@ module.exports = class {
   }
 
   delete(req, res) {
-    models.Category.destroy({
+    models.category.destroy({
       where: {
         id: req.params.id
       }
