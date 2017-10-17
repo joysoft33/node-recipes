@@ -30,6 +30,6 @@ models.sequelize.sync({
 });
 
 // Start listening to external http requests
-let server = app.listen(port, function () {
+app.listen(port, function () {
   console.log(`Server started on port ${port}`);
 });
