@@ -7,7 +7,12 @@ module.exports = class {
 
   findAll(req, res) {
     models.recipe.findAll({
-      attributes: ['id', 'title', 'image', 'categoryId']
+      attributes: ['id', 'title', 'image', 'categoryId'],
+      include: [{
+        attributes: ['name'],
+        model: models.category,
+        as: 'category'
+      }]
     }).then(recipes => {
       res.json(recipes);
     }).catch(err => {

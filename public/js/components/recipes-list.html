@@ -1,7 +1,7 @@
 <div class="error" ng-show="$ctrl.error.length">{{$ctrl.error}}</div>
 <table ng-hide="$ctrl.error.length" class="table">
   <tbody>
-    <tr ng-repeat="recipe in $ctrl.recipes" ng-click="$ctrl.displayDetails(recipe.id)">
+    <tr ng-repeat="recipe in $ctrl.recipes track by recipe.id" ng-click="$ctrl.displayDetails(recipe.id)">
       <td class="image">
         <img ng-src="{{recipe.image}}" alt="image">
       </td>

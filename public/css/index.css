@@ -3,6 +3,13 @@
   margin-top: 30px;
 }
 
+.error {
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: rgb(206, 24, 24);
+  color: white;
+}
+
 recipes-list > table {
   border-collapse: separate;
   border-spacing: 0 4px;

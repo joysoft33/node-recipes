@@ -1,8 +1,10 @@
-const URL = '/recipes';
+'use strict';
 
 angular.module('recipesApp')
 
   .service('RecipesService', function ($q, $http) {
+
+    const URL = '/recipes';
 
     this.getRecipes = () => {
       var defer = $q.defer();

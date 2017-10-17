@@ -6,9 +6,16 @@ angular.module('recipesApp')
 
     templateUrl: '/js/components/recipe-add.html',
 
-    controller: function (RecipesService, $scope, $rootScope) {
+    controller: function (RecipesService, CategoriesService, $scope, $rootScope) {
 
       this.$onInit = () => {
+
+        CategoriesService.getCategories().then(categories => {
+          this.categories = categories;
+        }).catch(error => {
+          this.error = error;
+        });
+
         $scope.$on('RECIPE.ADD', (msg) => {
           this.recipe = {};
           this.addMode = true;
