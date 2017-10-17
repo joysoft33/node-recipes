@@ -2,6 +2,7 @@
 
 const nodemailer = require('nodemailer');
 const Email = require('email-templates');
+const path = require('path');
 
 // Create reusable transporter object using the default SMTP transport
 const transporter = nodemailer.createTransport({
@@ -20,6 +21,7 @@ const email = new Email({
     from: 'toto@wildcodeschool.fr'
   },
   views: {
+    root: path.join(__dirname, '/emails'),
     options: {
       extension: 'ejs'
     }
