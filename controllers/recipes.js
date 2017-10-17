@@ -1,5 +1,6 @@
 'use strict';
 
+const sendMail = require('../mailer');
 const models = require('../models');
 
 module.exports = class {
@@ -33,6 +34,9 @@ module.exports = class {
 
   create(req, res) {
     models.recipe.create(req.body).then(recipe => {
+      return sendMail(recipe);
+    }).then(info => {
+      console.log(info);
       res.redirect('/');
     }).catch(err => {
       res.status(500).send(err);

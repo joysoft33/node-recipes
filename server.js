@@ -6,8 +6,8 @@ const models = require('./models');
 const recipesRoutes = require('./routes/recipes');
 const categoriesRoutes = require('./routes/categories');
 
+const port = process.env.NODE_PORT || 3000;
 const app = express();
-let port = 3000;
 
 app.use(bodyParser.urlencoded({
   extended: true

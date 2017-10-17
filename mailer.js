@@ -1,3 +1,5 @@
+'use strict';
+
 const nodemailer = require('nodemailer');
 const Email = require('email-templates');
 
@@ -7,8 +9,8 @@ const transporter = nodemailer.createTransport({
   port: 2525,
   secure: false,
   auth: {
-    user: '7f92fd987ccfce',
-    pass: 'c5f2b44a229634'
+    user: process.env.MAILTRAP_USER || '',
+    pass: process.env.MAILTRAP_PASSWORD || ''
   }
 });
 
