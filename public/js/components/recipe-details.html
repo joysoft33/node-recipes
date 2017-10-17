@@ -1,10 +1,11 @@
 <div>
   <div class="error" ng-show="$ctrl.error">{{$ctrl.error}}</div>
-  <div ng-hide="$ctrl.error">
+  <div ng-show="$ctrl.recipe">
     <img ng-src="{{$ctrl.recipe.image}}">
     <div>{{$ctrl.recipe.title}}</div>
     <div>{{$ctrl.recipe.description}}</div>
     <div>{{$ctrl.recipe.count}}</div>
     <div>{{$ctrl.recipe.createdAt | date:"dd/MM/yyyy"}}</div>
+    <button type="button" class="btn btn-danger" ng-click="$ctrl.delete($ctrl.recipe.id)">Delete</button>
   </div>
 </div>

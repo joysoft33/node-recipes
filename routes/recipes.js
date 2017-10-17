@@ -18,7 +18,7 @@ router.post('/', (req, res) => {
   recipesController.create(req, res);
 });
 
-router.delete('/', (req, res) => {
+router.delete('/:id', (req, res) => {
   recipesController.delete(req, res);
 });
 

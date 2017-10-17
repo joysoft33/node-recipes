@@ -19,6 +19,10 @@ angular.module('recipesApp')
         $scope.$on('RECIPE.NEW', (msg, recipe) => {
           this.recipes.push(recipe);
         });
+
+        $scope.$on('RECIPE.DELETE', (msg, id) => {
+          this.recipes = this.recipes.filter(recipe => recipe.id != id);
+        });
       };
 
       this.displayDetails = (id) => {
