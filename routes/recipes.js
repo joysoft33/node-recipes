@@ -44,11 +44,12 @@ module.exports = function (sequelize) {
   });
 
   router.post('/', (req, res) => {
+    let result;
     Recipe.create(req.body).then(recipe => {
+      result = recipe;
       return sendMail(recipe);
     }).then(info => {
-      console.log(info);
-      res.redirect('/');
+      res.json(result);
     }).catch(err => {
       res.sendStatus(500);
     });

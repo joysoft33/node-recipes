@@ -1,0 +1,21 @@
+<div ng-show="$ctrl.addMode">
+  <div class="form-group">
+    <label for="title">Titre</label>
+    <input class="form-control" id="title" type="text" ng-model="$ctrl.recipe.title">
+  </div>
+  <div class="form-group">
+    <label for="description">Description</label>
+    <textarea class="form-control" id="description" ng-model="$ctrl.recipe.description"></textarea>
+  </div>
+  <div class="form-group">
+    <label for="count">Nombre de personnes</label>
+    <input class="form-control" id="count" type="number" min="1" max="12" ng-model="$ctrl.recipe.count">
+  </div>
+  <div class="form-group">
+    <label for="image">Image</label>
+    <input class="form-control" id="image" type="text" ng-model="$ctrl.recipe.image">
+  </div>
+  <hr/>
+  <button type="button" class="btn btn-success" ng-click="$ctrl.validate()">Valider</button>
+  <button type="button" class="btn btn-default" ng-click="$ctrl.cancel()">Annuler</a>
+</div>

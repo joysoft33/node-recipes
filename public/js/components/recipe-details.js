@@ -6,10 +6,10 @@ angular.module('recipesApp')
 
     templateUrl: '/js/components/recipe-details.html',
     
-    controller: function(RecipesService, $rootScope) {
+    controller: function(RecipesService, $scope) {
 
       this.$onInit = () => {
-        $rootScope.$on('DETAILS', (msg, id) => {
+        $scope.$on('RECIPE.DETAILS', (msg, id) => {
           RecipesService.getRecipe(id).then(recipe => {
             this.recipe = recipe;
           }).catch(error => {
