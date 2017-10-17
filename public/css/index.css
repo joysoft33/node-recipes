@@ -22,16 +22,16 @@ recipes-list > table tr > td > img {
   max-width: 100px;
 }
 
-#details {
-  background-color: #eee; 
+recipe-details {
+  border: 1px solid #ccc;  
   display: block;
   padding: 30px; 
 }
-#details img {
+recipe-details img {
   max-width: 100%;
   margin-bottom: 20px;
 }
-#details .title {
+recipe-details .title {
   font-weight: bold;
   font-size: 110%;
   margin-bottom: 10px;
