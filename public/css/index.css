@@ -3,38 +3,35 @@
   margin-top: 30px;
 }
 
-#list {
+recipes-list > table {
   border-collapse: separate;
   border-spacing: 0 4px;
 }
 
-#list tr {
+recipes-list > table tr {
   background-color: #eee;
 }
-
-#list tr:hover {
+recipes-list > table tr:hover {
   background-color: #ccc;
   cursor: pointer;
 }
-
-#list tr > td {
+recipes-list > table tr > td {
   padding: 10px;
 }
-
-#list tr > td img {
+recipes-list > table tr > td > img {
   max-width: 100px;
 }
 
 #details {
-  border: 1px solid #ccc;
+  background-color: #eee; 
+  display: block;
   padding: 30px; 
 }
-
-#details #recipe_image {
+#details img {
   max-width: 100%;
   margin-bottom: 20px;
 }
-#details #recipe_title {
+#details .title {
   font-weight: bold;
   font-size: 110%;
   margin-bottom: 10px;
