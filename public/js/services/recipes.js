@@ -28,4 +28,27 @@ angular.module('recipesApp')
       return defer.promise;
     };
 
+    this.addRecipe = (recipe) => {
+      var defer = $q.defer();
+
+      $http.post(URL, recipe).then(response => {
+        defer.resolve(response.data);
+      }).catch(response => {
+        defer.reject(response.statusText);
+      });
+
+      return defer.promise;
+    };
+
+    this.deleteRecipe = (id) => {
+      var defer = $q.defer();
+
+      $http.delete(`${URL}/${id}`).then(response => {
+        defer.resolve(response.data);
+      }).catch(response => {
+        defer.reject(response.statusText);
+      });
+
+      return defer.promise;
+    };
   });

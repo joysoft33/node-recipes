@@ -33,11 +33,12 @@ module.exports = class {
   }
 
   create(req, res) {
+    let result;
     models.recipe.create(req.body).then(recipe => {
+      result = recipe;
       return sendMail(recipe);
     }).then(info => {
-      console.log(info);
-      res.redirect('/');
+      res.json(result);
     }).catch(err => {
       res.status(500).send(err);
     });
