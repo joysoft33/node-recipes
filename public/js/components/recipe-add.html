@@ -1,33 +1,33 @@
 <div ng-show="$ctrl.addMode">
   <div class="error" ng-show="$ctrl.error">{{$ctrl.error}}</div>
   <div class="form-group">
-    <label for="title">Title</label>
+    <label for="title">{{'ADD_TITLE' | translate}}</label>
     <input class="form-control" id="title" type="text" ng-model="$ctrl.recipe.title">
   </div>
   <div class="form-group">
-    <label for="description">Description</label>
+    <label for="description">{{'ADD_DESCRIPTION' | translate}}</label>
     <textarea class="form-control" id="description" ng-model="$ctrl.recipe.description"></textarea>
   </div>
   <div class="form-group">
-    <label for="image">Image</label>
+    <label for="image">{{'ADD_IMAGE' | translate}}</label>
     <input class="form-control" id="image" type="text" ng-model="$ctrl.recipe.image">
   </div>
   <div class="row">
     <div class="col-xs-6">
       <div class="form-group">
-        <label for="count">Persons count</label>
+        <label for="count">{{'ADD_COUNT' | translate}}</label>
         <input class="form-control" id="count" type="number" min="1" max="12" ng-model="$ctrl.recipe.count">
       </div>
     </div>
     <div class="col-xs-6">
       <div class="form-group">
-        <label for="categories">Category</label>
+        <label for="categories">{{'ADD_CATEGORY' | translate}}</label>
         <select class="form-control" id="categories" ng-model="$ctrl.recipe.categoryId" ng-options="category.id as category.name for category in $ctrl.categories">
         </select>
       </div>
     </div>
   </div>
-  <button type="button" class="btn btn-success" ng-click="$ctrl.validate()">Save</button>
-  <button type="button" class="btn btn-default" ng-click="$ctrl.cancel()">Cancel</button>
+  <button type="button" class="btn btn-success" ng-click="$ctrl.validate()">{{'BTN_SAVE' | translate}}</button>
+  <button type="button" class="btn btn-default" ng-click="$ctrl.cancel()">{{'BTN_CANCEL' | translate}}</button>
   <hr/>
 </div>

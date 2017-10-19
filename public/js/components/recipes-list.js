@@ -4,7 +4,7 @@ angular.module('recipesApp')
 
   .component('recipesList', {
 
-    templateUrl: '/js/components/recipes-list.html',
+    templateUrl: 'js/components/recipes-list.html',
 
     controller: function (RecipesService, $scope, $rootScope) {
 

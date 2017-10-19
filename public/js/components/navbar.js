@@ -4,12 +4,21 @@ angular.module('recipesApp')
 
   .component('navbar', {
 
-    templateUrl: '/js/components/navbar.html',
+    templateUrl: 'js/components/navbar.html',
 
-    controller: function ($rootScope) {
+    controller: function ($translate, $rootScope) {
 
       this.newRecipe = () => {
         $rootScope.$broadcast('RECIPE.ADD');
       };
+
+      this.setLanguage = (code) => {
+        $translate.use(code);
+      };
+
+      this.getLanguage = () => {
+        $translate.use();
+      };
+
     }
   });

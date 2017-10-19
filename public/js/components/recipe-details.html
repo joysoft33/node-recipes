@@ -7,6 +7,6 @@
     <div>{{$ctrl.recipe.count}}</div>
     <div>{{$ctrl.recipe.createdAt | date:"dd/MM/yyyy"}}</div>
     <div>{{$ctrl.recipe.category.name}}</div>
-    <button type="button" class="btn btn-danger" ng-click="$ctrl.delete($ctrl.recipe.id)">Delete</button>
+    <button type="button" class="btn btn-danger" ng-click="$ctrl.delete($ctrl.recipe.id)">{{'BTN_DELETE' | translate}}</button>
   </div>
 </div>

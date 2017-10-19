@@ -1,3 +1,5 @@
 'use strict';
 
-angular.module('recipesApp', []);
+angular.module('recipesApp', [
+  'pascalprecht.translate'
+]);
