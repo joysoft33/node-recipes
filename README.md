@@ -21,3 +21,4 @@ Tags:
 - **v1.06**: recipe add
 - **v1.07**: recipe delete
 - **v1.08**: recipe categories and new directories organization
+- **v1.09**: english/french localization
