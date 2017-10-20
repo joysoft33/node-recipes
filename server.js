@@ -19,6 +19,7 @@ app.use(bodyParser.json());
 
 // Set static files directory
 app.use(express.static('./public'));
+app.use('/vendors', express.static('node_modules'));
 
 // Set API routes
 app.use('/recipes', recipesRoutes);

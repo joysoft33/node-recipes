@@ -1,5 +1,5 @@
 {
-  "name": "recettes",
+  "name": "recipes",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -11,10 +11,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "angular": "^1.6.6",
+    "angular-translate": "^2.15.2",
     "body-parser": "^1.18.2",
+    "bootstrap": "^3.3.7",
     "ejs": "^2.5.7",
     "email-templates": "^3.0.8",
     "express": "^4.16.2",
+    "jquery": "^3.2.1",
     "mysql2": "^1.4.2",
     "nodemailer": "^4.2.0",
     "sequelize": "^4.15.0"
