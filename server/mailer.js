@@ -1,5 +1,3 @@
-'use strict';
-
 const nodemailer = require('nodemailer');
 const Email = require('email-templates');
 const path = require('path');

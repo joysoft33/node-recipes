@@ -1,5 +1,3 @@
-'use strict';
-
 const RecipesController = require('../controllers/recipes');
 const express = require('express');
 

@@ -1,6 +1,3 @@
-'use strict';
-
-const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 
@@ -30,7 +27,7 @@ models.sequelize.sync({
   alter: false
 }).then((db) => {
   console.log('Database connected');
-}).catch(err => {
+}).catch((err) => {
   console.log('Error connecting database:', err);
 });
 

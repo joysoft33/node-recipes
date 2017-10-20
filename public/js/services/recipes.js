@@ -7,11 +7,12 @@ angular.module('recipesApp')
     const URL = '/recipes';
 
     this.getRecipes = () => {
-      var defer = $q.defer();
 
-      $http.get(URL).then(response => {
+      let defer = $q.defer();
+
+      $http.get(URL).then((response) => {
         defer.resolve(response.data);
-      }).catch(response => {
+      }).catch((response) => {
         defer.reject(response.statusText);
       });
 
@@ -19,11 +20,12 @@ angular.module('recipesApp')
     };
 
     this.getRecipe = (id) => {
-      var defer = $q.defer();
 
-      $http.get(`${URL}/${id}`).then(response => {
+      let defer = $q.defer();
+
+      $http.get(`${URL}/${id}`).then((response) => {
         defer.resolve(response.data);
-      }).catch(response => {
+      }).catch((response) => {
         defer.reject(response.statusText);
       });
 
@@ -31,11 +33,12 @@ angular.module('recipesApp')
     };
 
     this.addRecipe = (recipe) => {
-      var defer = $q.defer();
 
-      $http.post(URL, recipe).then(response => {
+      let defer = $q.defer();
+
+      $http.post(URL, recipe).then((response) => {
         defer.resolve(response.data);
-      }).catch(response => {
+      }).catch((response) => {
         defer.reject(response.statusText);
       });
 
@@ -43,11 +46,12 @@ angular.module('recipesApp')
     };
 
     this.deleteRecipe = (id) => {
-      var defer = $q.defer();
 
-      $http.delete(`${URL}/${id}`).then(response => {
+      let defer = $q.defer();
+
+      $http.delete(`${URL}/${id}`).then((response) => {
         defer.resolve(response.data);
-      }).catch(response => {
+      }).catch((response) => {
         defer.reject(response.statusText);
       });
 

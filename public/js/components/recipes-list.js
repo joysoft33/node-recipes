@@ -10,9 +10,9 @@ angular.module('recipesApp')
 
       this.$onInit = () => {
 
-        RecipesService.getRecipes().then(recipes => {
+        RecipesService.getRecipes().then((recipes) => {
           this.recipes = recipes;
-        }).catch(error => {
+        }).catch((error) => {
           this.error = error;
         });
 
@@ -21,7 +21,7 @@ angular.module('recipesApp')
         });
 
         $scope.$on('RECIPE.DELETE', (msg, id) => {
-          this.recipes = this.recipes.filter(recipe => recipe.id != id);
+          this.recipes = this.recipes.filter((recipe) => recipe.id != id);
         });
       };
 

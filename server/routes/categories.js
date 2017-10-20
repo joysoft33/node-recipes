@@ -1,5 +1,3 @@
-'use strict';
-
 const CategoryController = require('../controllers/categories');
 const express = require('express');
 

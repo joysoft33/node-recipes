@@ -5,14 +5,14 @@ angular.module('recipesApp')
   .component('recipeDetails', {
 
     templateUrl: 'js/components/recipe-details.html',
-    
-    controller: function(RecipesService, $scope, $rootScope) {
+
+    controller: function (RecipesService, $scope, $rootScope) {
 
       this.$onInit = () => {
         $scope.$on('RECIPE.DETAILS', (msg, id) => {
-          RecipesService.getRecipe(id).then(recipe => {
+          RecipesService.getRecipe(id).then((recipe) => {
             this.recipe = recipe;
-          }).catch(error => {
+          }).catch((error) => {
             this.error = error;
           });
         });  
@@ -22,8 +22,8 @@ angular.module('recipesApp')
         RecipesService.deleteRecipe(id).then(() => {
           $rootScope.$broadcast('RECIPE.DELETE', id);
           this.recipe = undefined;
-        }).catch(error => {
-          this.error = error;          
+        }).catch((error) => {
+          this.error = error;
         });
       };
     }

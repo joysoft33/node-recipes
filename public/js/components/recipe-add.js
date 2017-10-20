@@ -10,9 +10,9 @@ angular.module('recipesApp')
 
       this.$onInit = () => {
 
-        CategoriesService.getCategories().then(categories => {
+        CategoriesService.getCategories().then((categories) => {
           this.categories = categories;
-        }).catch(error => {
+        }).catch((error) => {
           this.error = error;
         });
 
@@ -27,10 +27,10 @@ angular.module('recipesApp')
       };
 
       this.validate = () => {
-        RecipesService.addRecipe(this.recipe).then(recipe => {
+        RecipesService.addRecipe(this.recipe).then((recipe) => {
           $rootScope.$broadcast('RECIPE.NEW', recipe);
           this.addMode = false;
-        }).catch(error => {
+        }).catch((error) => {
           this.error = error;
         });
       };
