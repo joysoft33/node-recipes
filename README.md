@@ -22,3 +22,5 @@ Tags:
 - **v1.07**: recipe delete
 - **v1.08**: recipe categories and new directories organization
 - **v1.09**: english/french localization
+- **v1.10**: use vendor files installed via npm instead of public/vendors directory
+
