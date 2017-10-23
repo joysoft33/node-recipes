@@ -4,7 +4,7 @@ angular.module('recipesApp')
 
   .component('recipesList', {
 
-    templateUrl: 'js/components/recipes-list.html',
+    templateUrl: 'js/components/recipesList.html',
 
     controller: function (RecipesService, $scope, $rootScope) {
 
@@ -21,7 +21,7 @@ angular.module('recipesApp')
         });
 
         $scope.$on('RECIPE.DELETE', (msg, id) => {
-          this.recipes = this.recipes.filter((recipe) => recipe.id != id);
+          this.recipes = this.recipes.filter((recipe) => recipe.id !== id);
         });
       };
 

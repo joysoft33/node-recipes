@@ -24,3 +24,4 @@ Tags:
 - **v1.09**: english/french localization
 - **v1.10**: use vendor files installed via npm instead of public/vendors directory
 - **v1.11**: eslint added
+- **v1.12**: Localization namespaces

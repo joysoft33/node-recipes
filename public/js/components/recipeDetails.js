@@ -4,7 +4,7 @@ angular.module('recipesApp')
 
   .component('recipeDetails', {
 
-    templateUrl: 'js/components/recipe-details.html',
+    templateUrl: 'js/components/recipeDetails.html',
 
     controller: function (RecipesService, $scope, $rootScope) {
 
@@ -15,7 +15,7 @@ angular.module('recipesApp')
           }).catch((error) => {
             this.error = error;
           });
-        });  
+        });
       };
 
       this.delete = (id) => {
