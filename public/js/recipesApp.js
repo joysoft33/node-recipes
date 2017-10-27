@@ -2,5 +2,6 @@
 
 angular.module('recipesApp', [
   'pascalprecht.translate',
-  'ngFileUpload'
+  'ngFileUpload',
+  'ui.router'
 ]);

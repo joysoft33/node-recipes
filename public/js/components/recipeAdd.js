@@ -6,24 +6,14 @@ angular.module('recipesApp')
 
     templateUrl: 'js/components/recipeAdd.html',
 
-    controller: function (RecipesService, CategoriesService, $scope, $rootScope) {
+    bindings: {
+      categories: '<'
+    },
+
+    controller: function ($log, $state, RecipesService) {
 
       this.$onInit = () => {
-
-        CategoriesService.getCategories().then((categories) => {
-          this.categories = categories;
-        }).catch((error) => {
-          this.error = error;
-        });
-
-        $scope.$on('RECIPE.ADD', (msg) => {
-          this.recipe = {};
-          this.addMode = true;
-        });
-      };
-
-      this.cancel = () => {
-        this.addMode = false;
+        $log.info('recipeAdd component init');
       };
 
       this.validate = (file) => {
@@ -33,8 +23,7 @@ angular.module('recipesApp')
           this.recipe.image = result.url;
           return RecipesService.addRecipe(this.recipe);
         }).then((newRecipe) => {
-          $rootScope.$broadcast('RECIPE.NEW', newRecipe);
-          this.addMode = false;
+          $state.go('list');
         }).catch((error) => {
           this.error = error;
         });

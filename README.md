@@ -26,3 +26,4 @@ Tags:
 - **v1.11**: eslint added
 - **v1.12**: localization namespaces
 - **v1.13**: images upload, new global config module
+- **v1.14**: angular ui router

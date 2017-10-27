@@ -6,27 +6,20 @@ angular.module('recipesApp')
 
     templateUrl: 'js/components/recipesList.html',
 
-    controller: function (RecipesService, $scope, $rootScope) {
+    bindings: {
+      recipes: '<'
+    },
+
+    controller: function ($log, $state) {
 
       this.$onInit = () => {
-
-        RecipesService.getRecipes().then((recipes) => {
-          this.recipes = recipes;
-        }).catch((error) => {
-          this.error = error;
-        });
-
-        $scope.$on('RECIPE.NEW', (msg, recipe) => {
-          this.recipes.push(recipe);
-        });
-
-        $scope.$on('RECIPE.DELETE', (msg, id) => {
-          this.recipes = this.recipes.filter((recipe) => recipe.id !== id);
-        });
+        $log.info('recipesList component init');
       };
 
       this.displayDetails = (id) => {
-        $rootScope.$broadcast('RECIPE.DETAILS', id);
+        $state.go('details', {
+          id: id
+        });
       };
     }
   });

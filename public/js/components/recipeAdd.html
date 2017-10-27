@@ -1,4 +1,4 @@
-<form name="$ctrl.form" ng-show="$ctrl.addMode" ng-submit="$ctrl.validate(file)">
+<form name="$ctrl.form" ng-submit="$ctrl.validate(file)">
   <div class="error" ng-show="$ctrl.error">{{$ctrl.error}}</div>
   <div class="form-group">
     <label for="title">{{'VIEW_ADD.TITLE' | translate}}</label>
@@ -7,16 +7,6 @@
   <div class="form-group">
     <label for="description">{{'VIEW_ADD.DESCRIPTION' | translate}}</label>
     <textarea class="form-control" id="description" ng-model="$ctrl.recipe.description"></textarea>
-  </div>
-  <div class="form-group">
-    <label for="image">{{'VIEW_ADD.IMAGE' | translate}}</label>
-    <input id="image" type="file" name="file" accept="image/*" ng-model="file" ngf-pattern="'image/*'" ngf-max-size="10MB"
-      ngf-select />
-    <img style="width:100px;" ngf-thumbnail="file || '/thumb.jpg'" />
-    <i ng-show="$ctrl.form.file.$error.required">*required</i>
-    <br>
-    <i ng-show="$ctrl.form.file.$error.maxSize">File too large {{ $ctrl.form.form.file.size / 1000000 | number:1 }}MB: max 10M</i>
-    <p>{{$ctrl.progress}}</p>
   </div>
   <div class="row">
     <div class="col-xs-6">
@@ -33,7 +23,17 @@
       </div>
     </div>
   </div>
+  <div class="form-group">
+    <label for="image">{{'VIEW_ADD.IMAGE' | translate}}</label>
+    <input id="image" type="file" name="file" accept="image/*" ng-model="file" ngf-pattern="'image/*'" ngf-max-size="10MB"
+      ngf-select />
+    <img style="width:100px;" ngf-thumbnail="file || '/thumb.jpg'" />
+    <i ng-show="$ctrl.form.file.$error.required">*required</i>
+    <br>
+    <i ng-show="$ctrl.form.file.$error.maxSize">File too large {{ $ctrl.form.form.file.size / 1000000 | number:1 }}MB: max 10M</i>
+    <p>{{$ctrl.progress}}</p>
+  </div>
   <button type="submit" class="btn btn-success">{{'BUTTON.SAVE' | translate}}</button>
-  <button type="button" class="btn btn-default" ng-click="$ctrl.cancel()">{{'BUTTON.CANCEL' | translate}}</button>
+  <button type="button" class="btn btn-default" ui-sref="list">{{'BUTTON.CANCEL' | translate}}</button>
   <hr/>
 </form>

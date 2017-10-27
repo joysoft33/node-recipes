@@ -6,11 +6,7 @@ angular.module('recipesApp')
 
     templateUrl: 'js/components/navbar.html',
 
-    controller: function ($translate, $rootScope) {
-
-      this.newRecipe = () => {
-        $rootScope.$broadcast('RECIPE.ADD');
-      };
+    controller: function ($translate) {
 
       this.setLanguage = (code) => {
         $translate.use(code);
