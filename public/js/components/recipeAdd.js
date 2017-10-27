@@ -26,9 +26,14 @@ angular.module('recipesApp')
         this.addMode = false;
       };
 
-      this.validate = () => {
-        RecipesService.addRecipe(this.recipe).then((recipe) => {
-          $rootScope.$broadcast('RECIPE.NEW', recipe);
+      this.validate = (file) => {
+        RecipesService.addImage(file, (progress) => {
+          this.progress = progress;
+        }).then((result) => {
+          this.recipe.image = result.url;
+          return RecipesService.addRecipe(this.recipe);
+        }).then((newRecipe) => {
+          $rootScope.$broadcast('RECIPE.NEW', newRecipe);
           this.addMode = false;
         }).catch((error) => {
           this.error = error;

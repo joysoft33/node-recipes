@@ -2,14 +2,16 @@ const nodemailer = require('nodemailer');
 const Email = require('email-templates');
 const path = require('path');
 
+const config = require('./config')();
+
 // Create reusable transporter object using the default SMTP transport
 const transporter = nodemailer.createTransport({
-  host: 'mailtrap.io',
-  port: 2525,
-  secure: false,
+  host: config.mail.host,
+  port: config.mail.port,
+  secure: config.mail.secure,
   auth: {
-    user: process.env.MAILTRAP_USER || '',
-    pass: process.env.MAILTRAP_PASSWORD || ''
+    user: config.mail.user,
+    pass: config.mail.passwd
   }
 });
 
@@ -19,7 +21,7 @@ const email = new Email({
     from: 'toto@wildcodeschool.fr'
   },
   views: {
-    root: path.join(__dirname, '/emails'),
+    root: path.join(config.serverPath, 'emails'),
     options: {
       extension: 'ejs'
     }

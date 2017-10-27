@@ -1,11 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
+// Initialize the global config with server base path
+const config = require('./server/config')(__dirname);
+
 const models = require('./server/models');
 const recipesRoutes = require('./server/routes/recipes');
 const categoriesRoutes = require('./server/routes/categories');
 
-const port = process.env.NODE_PORT || 3000;
 const app = express();
 
 // Declare parsers for urlencoded and json bodies
@@ -15,7 +17,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 // Set static files directory
-app.use(express.static('./public'));
+app.use(express.static(config.publicPath));
 app.use('/vendors', express.static('node_modules'));
 
 // Set API routes
@@ -32,6 +34,6 @@ models.sequelize.sync({
 });
 
 // Start listening to external http requests
-app.listen(port, () => {
-  console.log(`Server started on port ${port}`);
+app.listen(config.port, () => {
+  console.log(`Server started on port ${config.port}`);
 });

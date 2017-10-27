@@ -1,4 +1,4 @@
-<form ng-show="$ctrl.addMode" ng-submit="$ctrl.validate()">
+<form name="$ctrl.form" ng-show="$ctrl.addMode" ng-submit="$ctrl.validate(file)">
   <div class="error" ng-show="$ctrl.error">{{$ctrl.error}}</div>
   <div class="form-group">
     <label for="title">{{'VIEW_ADD.TITLE' | translate}}</label>
@@ -10,7 +10,13 @@
   </div>
   <div class="form-group">
     <label for="image">{{'VIEW_ADD.IMAGE' | translate}}</label>
-    <input class="form-control" id="image" type="text" ng-model="$ctrl.recipe.image">
+    <input id="image" type="file" name="file" accept="image/*" ng-model="file" ngf-pattern="'image/*'" ngf-max-size="10MB"
+      ngf-select />
+    <img style="width:100px;" ngf-thumbnail="file || '/thumb.jpg'" />
+    <i ng-show="$ctrl.form.file.$error.required">*required</i>
+    <br>
+    <i ng-show="$ctrl.form.file.$error.maxSize">File too large {{ $ctrl.form.form.file.size / 1000000 | number:1 }}MB: max 10M</i>
+    <p>{{$ctrl.progress}}</p>
   </div>
   <div class="row">
     <div class="col-xs-6">
@@ -30,4 +36,4 @@
   <button type="submit" class="btn btn-success">{{'BUTTON.SAVE' | translate}}</button>
   <button type="button" class="btn btn-default" ng-click="$ctrl.cancel()">{{'BUTTON.CANCEL' | translate}}</button>
   <hr/>
-</div>
+</form>

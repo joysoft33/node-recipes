@@ -2,7 +2,7 @@
 
 angular.module('recipesApp')
 
-  .service('RecipesService', function ($q, $http) {
+  .service('RecipesService', function (Upload, $q, $http, $httpParamSerializer) {
 
     const URL = '/recipes';
 
@@ -27,6 +27,38 @@ angular.module('recipesApp')
         defer.resolve(response.data);
       }).catch((response) => {
         defer.reject(response.statusText);
+      });
+
+      return defer.promise;
+    };
+
+    this.addImage = (file, progress) => {
+
+      let defer = $q.defer();
+
+      Upload.upload({
+        url: URL + '/image',
+        data: {
+          file: file
+        }
+      }).then((response) => {
+        // Image uploaded
+        if (response.status === 200) {
+          // No error, return the image url
+          defer.resolve(response.data);
+        } else {
+          // Error detected
+          defer.reject(response.statusText);
+        }
+      }, (error) => {
+        // Error detected
+        defer.reject(error);
+      }, (evt) => {
+        // Upload progression
+        if (typeof progress === 'function') {
+          let progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+          progress(progressPercentage);
+        }
       });
 
       return defer.promise;

@@ -1,5 +1,6 @@
 'use strict';
 
 angular.module('recipesApp', [
-  'pascalprecht.translate'
+  'pascalprecht.translate',
+  'ngFileUpload'
 ]);

@@ -19,7 +19,9 @@
     "email-templates": "^3.0.8",
     "express": "^4.16.2",
     "jquery": "^3.2.1",
+    "multer": "^1.3.0",
     "mysql2": "^1.4.2",
+    "ng-file-upload": "^12.2.13",
     "nodemailer": "^4.2.0",
     "sequelize": "^4.15.0"
   },

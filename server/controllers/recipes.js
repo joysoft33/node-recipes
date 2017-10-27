@@ -1,5 +1,16 @@
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
+
 const sendMail = require('../mailer');
 const models = require('../models');
+
+const config = require('../config')();
+
+const uploadPath = path.resolve(config.publicPath, config.imagesPath);
+const upload = multer({
+  dest: uploadPath
+}).single('file');
 
 module.exports = class {
 
@@ -63,15 +74,44 @@ module.exports = class {
   }
 
   /**
-   * Delete the specified recipe
+   * Upload recipe image
+   * @param {*} req 
+   * @param {*} res 
+   */
+  uploadImage(req, res) {
+    upload(req, res, (err) => {
+      if (err) {
+        res.json(err);
+      } else {
+        res.json({
+          originalFilename: req.file.originalname,
+          url: path.join(config.imagesPath, req.file.filename)
+        });
+      }
+    });
+  }
+
+  /**
+   * Delete the specified recipe. First find the requested recipe, then delete the downloaded image if any
+   * and terminate by deleting the recipe itself
    * @param {*} req 
    * @param {*} res 
    */
   delete(req, res) {
-    models.recipe.destroy({
+    models.recipe.findOne({
       where: {
         id: req.params.id
       }
+    }).then((recipe) => {
+      if (recipe.image) {
+        let imagePath = path.resolve(config.publicPath, recipe.image);
+        fs.unlink(imagePath, (err) => {
+          if (err) {
+            console.log(`Error deleting image ${recipe.image}`, err);
+          }
+        });
+      }
+      return recipe.destroy();
     }).then(() => {
       res.sendStatus(200);
     }).catch((err) => {
