@@ -2,42 +2,18 @@
 
 angular.module('recipesApp')
 
-  .service('RecipesService', function (Upload, $q, $http, $httpParamSerializer) {
+  .factory('RecipesService', function ($resource, $q, Upload) {
 
-    const URL = '/recipes';
+    let Recipe = $resource('/recipes/:id', {
+      id: '@id'
+    });
 
-    this.getRecipes = () => {
-
-      let defer = $q.defer();
-
-      $http.get(URL).then((response) => {
-        defer.resolve(response.data);
-      }).catch((response) => {
-        defer.reject(response.statusText);
-      });
-
-      return defer.promise;
-    };
-
-    this.getRecipe = (id) => {
-
-      let defer = $q.defer();
-
-      $http.get(`${URL}/${id}`).then((response) => {
-        defer.resolve(response.data);
-      }).catch((response) => {
-        defer.reject(response.statusText);
-      });
-
-      return defer.promise;
-    };
-
-    this.addImage = (file, progress) => {
+    Recipe.prototype.uploadImage = (file, progress) => {
 
       let defer = $q.defer();
 
       Upload.upload({
-        url: URL + '/image',
+        url: '/recipes/image',
         data: {
           file: file
         }
@@ -47,14 +23,14 @@ angular.module('recipesApp')
           // No error, return the image url
           defer.resolve(response.data);
         } else {
-          // Error detected
+          // Error detected, return the error text
           defer.reject(response.statusText);
         }
       }, (error) => {
         // Error detected
         defer.reject(error);
       }, (evt) => {
-        // Upload progression
+        // Upload progression, update UI if a callback has been supplied
         if (typeof progress === 'function') {
           let progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
           progress(progressPercentage);
@@ -64,29 +40,5 @@ angular.module('recipesApp')
       return defer.promise;
     };
 
-    this.addRecipe = (recipe) => {
-
-      let defer = $q.defer();
-
-      $http.post(URL, recipe).then((response) => {
-        defer.resolve(response.data);
-      }).catch((response) => {
-        defer.reject(response.statusText);
-      });
-
-      return defer.promise;
-    };
-
-    this.deleteRecipe = (id) => {
-
-      let defer = $q.defer();
-
-      $http.delete(`${URL}/${id}`).then((response) => {
-        defer.resolve(response.data);
-      }).catch((response) => {
-        defer.reject(response.statusText);
-      });
-
-      return defer.promise;
-    };
+    return Recipe;
   });

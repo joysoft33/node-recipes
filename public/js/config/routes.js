@@ -11,7 +11,7 @@ angular.module('recipesApp')
         component: 'recipesList',
         resolve: {
           recipes: function (RecipesService) {
-            return RecipesService.getRecipes();
+            return RecipesService.query().$promise;
           }
         }
       })
@@ -21,7 +21,9 @@ angular.module('recipesApp')
         component: 'recipeDetails',
         resolve: {
           recipe: function (RecipesService, $transition$) {
-            return RecipesService.getRecipe($transition$.params().id);
+            return RecipesService.get({
+              id: $transition$.params().id
+            }).$promise;
           }
         }
       })
@@ -31,10 +33,10 @@ angular.module('recipesApp')
         component: 'recipeAdd',
         resolve: {
           categories: function (CategoriesService) {
-            return CategoriesService.getCategories();
+            return CategoriesService.query().$promise;
           }
         }
       });
 
-      $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/');
   });

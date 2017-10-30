@@ -2,20 +2,8 @@
 
 angular.module('recipesApp')
 
-  .service('CategoriesService', function ($q, $http) {
-
-    const URL = '/categories';
-
-    this.getCategories = () => {
-
-      let defer = $q.defer();
-
-      $http.get(URL).then((response) => {
-        defer.resolve(response.data);
-      }).catch((response) => {
-        defer.reject(response.statusText);
-      });
-
-      return defer.promise;
-    };
+  .factory('CategoriesService', function ($resource, Upload) {
+    return $resource('/categories/:id', {
+      id: '@id'
+    });
   });

@@ -17,7 +17,9 @@ angular.module('recipesApp')
       };
 
       this.delete = () => {
-        RecipesService.deleteRecipe(this.recipe.id).then(() => {
+        RecipesService.delete({
+          id: this.recipe.id
+        }).$promise.then(() => {
           $state.go('list');
         }).catch((error) => {
           this.error = error;

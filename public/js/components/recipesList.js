@@ -13,7 +13,7 @@ angular.module('recipesApp')
     controller: function ($log, $state) {
 
       this.$onInit = () => {
-        $log.info('recipesList component init');
+        $log.info(`recipesList component init, ${this.recipes.length} recipes`);
       };
 
       this.displayDetails = (id) => {
