@@ -2,41 +2,54 @@
 
 angular.module('recipesApp')
 
-  .config(function ($stateProvider, $urlRouterProvider) {
+  .config(($stateProvider, $urlRouterProvider) => {
 
     $stateProvider
-      .state({
-        name: 'list',
+
+      .state('main', {
         url: '/',
-        component: 'recipesList',
+        component: 'main',
+        abstract: true,
         resolve: {
-          recipes: function (RecipesService) {
-            return RecipesService.query().$promise;
+          categories: (CategoriesService) => {
+            return CategoriesService.query().$promise;
           }
         }
       })
-      .state({
-        name: 'details',
-        url: '/details/:id',
+
+      .state('main.list', {
+        url: 'list?{categoryId:int}',
+        params: {
+          categoryId: {
+            value: 0
+          }
+        },
+        component: 'recipesList',
+        resolve: {
+          recipes: (RecipesService, $transition$) => {
+            return RecipesService.query({
+              categoryId: $transition$.params().categoryId
+            }).$promise;
+          }
+        }
+      })
+
+      .state('main.details', {
+        url: 'details/:id',
         component: 'recipeDetails',
         resolve: {
-          recipe: function (RecipesService, $transition$) {
+          recipe: (RecipesService, $transition$) => {
             return RecipesService.get({
               id: $transition$.params().id
             }).$promise;
           }
         }
       })
-      .state({
-        name: 'add',
-        url: '/add',
-        component: 'recipeAdd',
-        resolve: {
-          categories: function (CategoriesService) {
-            return CategoriesService.query().$promise;
-          }
-        }
+
+      .state('main.add', {
+        url: 'add',
+        component: 'recipeAdd'
       });
 
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/list');
   });

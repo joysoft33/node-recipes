@@ -1,11 +1,21 @@
-<div class="error" ng-show="$ctrl.error.length">{{$ctrl.error}}</div>
-<table ng-hide="$ctrl.error.length" class="table">
-  <tbody>
-    <tr ng-repeat="recipe in $ctrl.recipes track by recipe.id" ng-click="$ctrl.displayDetails(recipe.id)">
-      <td class="image">
-        <img ng-src="{{recipe.image}}" alt="image">
-      </td>
-      <td class="title">{{recipe.title}}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="container">
+  <ul class="categories">
+    <li ui-sref="main.list({categoryId: 0})" ui-sref-active="selected">
+      {{'ALL' | translate}}
+    </li>
+    <li ng-repeat="category in $ctrl.categories track by category.id" ui-sref="main.list({categoryId: category.id})" ui-sref-active="selected">
+      {{category.name}}
+    </li>
+  </ul>
+  <div class="error" ng-show="$ctrl.error.length">{{$ctrl.error}}</div>
+  <table ng-hide="$ctrl.error.length" class="table">
+    <tbody>
+      <tr ng-repeat="recipe in $ctrl.recipes track by recipe.id" ui-sref="main.details({id: recipe.id})">
+        <td class="image">
+          <img ng-src="{{recipe.image}}" alt="image">
+        </td>
+        <td class="title">{{recipe.title}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

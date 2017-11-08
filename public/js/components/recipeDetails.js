@@ -10,18 +10,16 @@ angular.module('recipesApp')
       recipe: '<'
     },
 
-    controller: function ($log, $state, RecipesService) {
+    controller: function ($log, $state) {
 
       this.$onInit = () => {
         $log.info('recipeDetails component init');
       };
 
       this.delete = () => {
-        RecipesService.delete({
-          id: this.recipe.id
-        }).$promise.then(() => {
-          $state.go('list');
-        }).catch((error) => {
+        this.recipe.$delete(() => {
+          $state.go('main.list');
+        }, (error) => {
           this.error = error;
         });
       };

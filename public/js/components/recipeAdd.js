@@ -13,18 +13,19 @@ angular.module('recipesApp')
     controller: function ($log, $state, RecipesService) {
 
       this.$onInit = () => {
-        $log.info(`recipeAdd component init, ${this.categories.length} categories`);
+        $log.info(`recipeAdd component init, ${this.categories ? this.categories.length : 0} categories`);
+        this.recipe = new RecipesService();
+        this.maxFileSize = 2;
       };
 
       this.validate = (file) => {
-        let recipe = new RecipesService(this.recipe);
-        recipe.uploadImage(file, (progress) => {
+        this.recipe.uploadImage(file, (progress) => {
           this.progress = progress;
         }).then((result) => {
-          recipe.image = result.url;
-          return recipe.$save();
+          this.recipe.image = result.url;
+          return this.recipe.$save();
         }).then((newRecipe) => {
-          $state.go('list');
+          $state.go('main.list');
         }).catch((error) => {
           this.error = error;
         });

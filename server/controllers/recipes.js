@@ -20,14 +20,21 @@ module.exports = class {
    * @param {*} res 
    */
   findAll(req, res) {
-    models.recipe.findAll({
+    let options = {
       attributes: ['id', 'title', 'image', 'categoryId'],
       include: [{
         attributes: ['name'],
         model: models.category,
         as: 'category'
       }]
-    }).then((recipes) => {
+    };
+    let categoryId = parseInt(req.query.categoryId);
+    if (categoryId) {
+      options.where = {
+        categoryId: categoryId
+      };
+    }
+    models.recipe.findAll(options).then((recipes) => {
       res.json(recipes);
     }).catch((err) => {
       res.status(500).send(err);

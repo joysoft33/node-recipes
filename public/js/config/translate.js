@@ -11,7 +11,8 @@ angular.module('recipesApp')
           ADD: 'Add',
           DELETE: 'Delete',
           SAVE: 'Save',
-          CANCEL: 'Cancel'
+          CANCEL: 'Cancel',
+          RETURN: 'Return'
         },
         NAVBAR: {
           TITLE: 'Recipes',
@@ -24,8 +25,13 @@ angular.module('recipesApp')
           DESCRIPTION: 'Description',
           IMAGE: 'Image',
           COUNT: 'Person count',
-          CATEGORY: 'Category'
-        }
+          CATEGORY: 'Category',
+          FILESIZE: 'File too large',
+          SELECT: 'Select image file',
+          DROP: 'or drop it here',
+          PREVIEW: 'Preview'
+        },
+        ALL: 'All'
       })
 
       .translations('fr', {
@@ -33,7 +39,8 @@ angular.module('recipesApp')
           ADD: 'Ajouter',
           DELETE: 'Effacer',
           SAVE: 'Sauver',
-          CANCEL: 'Annuler'
+          CANCEL: 'Annuler',
+          RETURN: 'Retour'
         },
         NAVBAR: {
           TITLE: 'Recettes',
@@ -46,10 +53,16 @@ angular.module('recipesApp')
           DESCRIPTION: 'Description',
           IMAGE: 'Image',
           COUNT: 'Nombre de personnes',
-          CATEGORY: 'Categorie'
-        }
+          CATEGORY: 'Categorie',
+          FILESIZE: 'Fichier trop lourd',
+          SELECT: 'Choisir un fichier',
+          DROP: 'ou le déposer ici',
+          PREVIEW: 'Aperçu'
+        },
+        ALL: 'Toutes'
       })
 
       .useSanitizeValueStrategy('escape')
-      .preferredLanguage('fr');
-  });
+      .preferredLanguage('fr')
+      .fallbackLanguage('fr');
+    });

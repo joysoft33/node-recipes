@@ -1,39 +1,54 @@
-<form name="$ctrl.form" ng-submit="$ctrl.validate(file)">
-  <div class="error" ng-show="$ctrl.error">{{$ctrl.error}}</div>
-  <div class="form-group">
-    <label for="title">{{'VIEW_ADD.TITLE' | translate}}</label>
-    <input class="form-control" id="title" type="text" ng-model="$ctrl.recipe.title">
-  </div>
-  <div class="form-group">
-    <label for="description">{{'VIEW_ADD.DESCRIPTION' | translate}}</label>
-    <textarea class="form-control" id="description" ng-model="$ctrl.recipe.description"></textarea>
-  </div>
-  <div class="row">
-    <div class="col-xs-6">
-      <div class="form-group">
-        <label for="count">{{'VIEW_ADD.COUNT' | translate}}</label>
-        <input class="form-control" id="count" type="number" min="1" max="12" ng-model="$ctrl.recipe.count">
+<div class="container">
+  <form name="$ctrl.form" ng-submit="$ctrl.validate(file)">
+    <div class="error" ng-show="$ctrl.error">{{$ctrl.error}}</div>
+    <div class="form-group">
+      <label for="title">{{'VIEW_ADD.TITLE' | translate}}</label>
+      <input class="form-control" id="title" type="text" ng-model="$ctrl.recipe.title">
+    </div>
+    <div class="form-group">
+      <label for="description">{{'VIEW_ADD.DESCRIPTION' | translate}}</label>
+      <textarea class="form-control" id="description" ng-model="$ctrl.recipe.description"></textarea>
+    </div>
+    <div class="row">
+      <div class="col-xs-6">
+        <div class="form-group">
+          <label for="count">{{'VIEW_ADD.COUNT' | translate}}</label>
+          <input class="form-control" id="count" type="number" min="1" max="12" ng-model="$ctrl.recipe.count">
+        </div>
+      </div>
+      <div class="col-xs-6">
+        <div class="form-group">
+          <label for="categories">{{'VIEW_ADD.CATEGORY' | translate}}</label>
+          <select class="form-control" id="categories" ng-model="$ctrl.recipe.categoryId" ng-options="category.id as category.name for category in $ctrl.categories">
+          </select>
+        </div>
       </div>
     </div>
-    <div class="col-xs-6">
-      <div class="form-group">
-        <label for="categories">{{'VIEW_ADD.CATEGORY' | translate}}</label>
-        <select class="form-control" id="categories" ng-model="$ctrl.recipe.categoryId" ng-options="category.id as category.name for category in $ctrl.categories">
-        </select>
+    <div class="row">
+      <div class="col-xs-6">
+        <div class="form-group">
+          <label for="image">{{'VIEW_ADD.IMAGE' | translate}}</label>
+          <div id="image" class="button btn btn-primary" name="file" accept="image/*" 
+            ngf-pattern="'image/*'" 
+            ng-model="file" 
+            ngf-max-size="{{$ctrl.maxFileSize}}MB"
+            ngf-resize="{width: 1024, height: 1024}"
+            ngf-select>
+            {{'VIEW_ADD.SELECT' | translate}}
+          </div>
+          <div ngf-drop ng-model="file" class="drop-box">{{'VIEW_ADD.DROP' | translate}}</div>
+          <i ng-show="$ctrl.form.file.$error.required">*required</i>
+          <br>
+          <i ng-show="$ctrl.form.file.$error.maxSize">{{'VIEW_ADD.FILESIZE' | translate}} {{ file.size / 1000000 | number:1 }}MB: max {{$ctrl.maxFileSize}}MB</i>
+        </div>
+      </div>
+      <div class="col-xs-6">
+        <label for="preview">{{'VIEW_ADD.PREVIEW' | translate}}</label>
+        <img id="preview" ngf-thumbnail="file" />
+        <p>{{$ctrl.progress}}</p>
       </div>
     </div>
-  </div>
-  <div class="form-group">
-    <label for="image">{{'VIEW_ADD.IMAGE' | translate}}</label>
-    <input id="image" type="file" name="file" accept="image/*" ng-model="file" ngf-pattern="'image/*'" ngf-max-size="10MB"
-      ngf-select />
-    <img style="width:100px;" ngf-thumbnail="file || '/thumb.jpg'" />
-    <i ng-show="$ctrl.form.file.$error.required">*required</i>
-    <br>
-    <i ng-show="$ctrl.form.file.$error.maxSize">File too large {{ $ctrl.form.form.file.size / 1000000 | number:1 }}MB: max 10M</i>
-    <p>{{$ctrl.progress}}</p>
-  </div>
-  <button type="submit" class="btn btn-success">{{'BUTTON.SAVE' | translate}}</button>
-  <button type="button" class="btn btn-default" ui-sref="list">{{'BUTTON.CANCEL' | translate}}</button>
-  <hr/>
-</form>
+    <button type="submit" class="btn btn-success">{{'BUTTON.SAVE' | translate}}</button>
+    <button type="button" class="btn btn-default" ui-sref="main.list">{{'BUTTON.CANCEL' | translate}}</button>
+  </form>
+</div>

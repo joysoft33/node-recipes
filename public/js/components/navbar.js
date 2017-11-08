@@ -8,12 +8,13 @@ angular.module('recipesApp')
 
     controller: function ($translate) {
 
-      this.setLanguage = (code) => {
-        $translate.use(code);
+      this.$onInit = () => {
+        this.lang = $translate.use();
       };
 
-      this.getLanguage = () => {
-        $translate.use();
+      this.setLanguage = (code) => {
+        $translate.use(code);
+        this.lang = $translate.use();
       };
 
     }

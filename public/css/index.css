@@ -1,45 +1,94 @@
+.nav ul.dropdown-menu li a.selected {
+  background-color: #eee;
+  font-weight: bold;
+}
 
 .container {
   margin-top: 30px;
 }
 
 .error {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   padding: 20px;
   background-color: rgb(206, 24, 24);
   color: white;
 }
 
-recipes-list > table {
+main ul.categories {
+  -webkit-padding-start: 0;
+  display: inline-flex;
+  list-style: none;
+}
+
+main ul.categories li {
+  padding: 5px 10px;
+}
+
+main ul.categories li:hover {
+  background-color: #eee;
+  cursor: pointer;
+}
+
+main ul.categories li.selected {
+  font-weight: bold;
+}
+
+recipes-list table {
   border-collapse: separate;
   border-spacing: 0 4px;
 }
 
-recipes-list > table tr {
+recipes-list table tr {
   background-color: #eee;
 }
-recipes-list > table tr:hover {
+
+recipes-list table tr:hover {
   background-color: #ccc;
   cursor: pointer;
 }
-recipes-list > table tr > td {
+
+recipes-list table tr>td {
   padding: 10px;
 }
-recipes-list > table tr > td > img {
+
+recipes-list table tr>td>img {
   max-width: 100px;
 }
 
-recipe-details > div {
-  border: 1px solid #ccc;  
+recipe-details>div {
   display: block;
-  padding: 30px; 
+  padding: 0 30px;
 }
-recipe-details > div img {
-  max-width: 100%;
+
+recipe-details>div .commands button {
+  margin-bottom: 10px;
+  margin-left: 10px;
+  float: right;
+}
+
+recipe-details>div img {
+  width: 100%;
   margin-bottom: 20px;
 }
-recipe-details > div .title {
+
+recipe-details>div .title {
   font-weight: bold;
   font-size: 110%;
   margin-bottom: 10px;
+}
+
+recipe-add div.button {
+  display: block;
+}
+recipe-add div.drop-box {
+  display: block;
+  width: 100%;
+  height: 50px;
+  text-align: center;
+  border: 1px dashed #eee;
+  margin-top: 10px;
+  padding: 12px;
+}
+recipe-add img {
+  width: 100%;
 }

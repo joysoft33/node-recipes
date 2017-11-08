@@ -7,19 +7,14 @@ angular.module('recipesApp')
     templateUrl: 'js/components/recipesList.html',
 
     bindings: {
+      categories: '<',
       recipes: '<'
     },
 
-    controller: function ($log, $state) {
+    controller: function ($log) {
 
       this.$onInit = () => {
-        $log.info(`recipesList component init, ${this.recipes.length} recipes`);
-      };
-
-      this.displayDetails = (id) => {
-        $state.go('details', {
-          id: id
-        });
+        $log.info(`recipesList component init, ${this.recipes.length} recipes, ${this.categories.length} categories`);
       };
     }
   });
