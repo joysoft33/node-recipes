@@ -11,7 +11,9 @@ let settings = {
     secure: false,
     user: process.env.MAILTRAP_USER || '',
     passwd: process.env.MAILTRAP_PASSWORD || ''
-  }
+  },
+  jwtCookie: 'recipes',
+  jwtSecret: '/;ae$ra§ù!efze.',
 };
 
 module.exports = (basePath) => {

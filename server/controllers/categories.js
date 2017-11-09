@@ -38,8 +38,8 @@ module.exports = class {
    * @param {*} res 
    */
   create(req, res) {
-    models.category.create(req.body).then(() => {
-      res.redirect('/');
+    models.category.create(req.body).then((category) => {
+      res.json(category);
     }).catch((err) => {
       res.status(500).send(err);
     });

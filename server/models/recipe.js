@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
 
-  const recipe = sequelize.define('recipe', {
+  const Recipe = sequelize.define('recipe', {
     title: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -17,9 +17,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
 
-  recipe.associate = (models) => {
-    recipe.belongsTo(models.category);
+  Recipe.associate = (models) => {
+    Recipe.belongsTo(models.category);
   };
 
-  return recipe;
+  return Recipe;
 };

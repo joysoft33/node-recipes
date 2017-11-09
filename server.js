@@ -1,14 +1,17 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 
 // Initialize the global config with server base path
 const config = require('./server/config')(__dirname);
 
 const models = require('./server/models');
-const recipesRoutes = require('./server/routes/recipes');
-const categoriesRoutes = require('./server/routes/categories');
+const routes = require('./server/routes');
 
 const app = express();
+
+// DEclare the cookie parser middleware
+app.use(cookieParser());
 
 // Declare parsers for urlencoded and json bodies
 app.use(bodyParser.urlencoded({
@@ -21,8 +24,7 @@ app.use(express.static(config.publicPath));
 app.use('/vendors', express.static('node_modules'));
 
 // Set API routes
-app.use('/recipes', recipesRoutes);
-app.use('/categories', categoriesRoutes);
+routes(app, express);
 
 // Synchronize database with the previously declared models
 models.sequelize.sync({
