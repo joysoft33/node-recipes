@@ -3,7 +3,12 @@
     "use_env_variable": "DATABASE_URI"
   },
   "test": {
-    "use_env_variable": "DATABASE_URI"
+    "username": "root",
+    "password": null,
+    "database": "recipes_test",
+    "host": "localhost",
+    "dialect": "mysql",
+    "port": 3306
   },
   "production": {
     "use_env_variable": "DATABASE_URI"

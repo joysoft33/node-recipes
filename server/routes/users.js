@@ -21,7 +21,7 @@ module.exports = (express, auth) => {
     usersController.update(req, res);
   });
 
-  router.delete('/', auth, (req, res) => {
+  router.delete('/:id', auth, (req, res) => {
     usersController.delete(req, res);
   });
 

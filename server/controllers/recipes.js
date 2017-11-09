@@ -8,6 +8,7 @@ const models = require('../models');
 const config = require('../config')();
 
 const uploadPath = path.resolve(config.publicPath, config.imagesPath);
+
 const upload = multer({
   dest: uploadPath
 }).single('file');
@@ -119,8 +120,8 @@ module.exports = class {
         });
       }
       return recipe.destroy();
-    }).then(() => {
-      res.sendStatus(200);
+    }).then((count) => {
+      res.sendStatus(count === 1 ? 200 : 404);
     }).catch((err) => {
       res.status(500).send(err);
     });

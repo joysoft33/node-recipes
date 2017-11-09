@@ -36,6 +36,6 @@ models.sequelize.sync({
 });
 
 // Start listening to external http requests
-app.listen(config.port, () => {
-  console.log(`Server started on port ${config.port}`);
+app.listen(config.serverPort, () => {
+  console.log(`Server started on port ${config.serverPort}, launch mode is "${config.env}"`);
 });

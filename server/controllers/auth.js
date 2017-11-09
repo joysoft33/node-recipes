@@ -10,7 +10,9 @@ module.exports = class {
   authenticate(req, res) {
     // First retrieve the user given its email address, do not hide password
     models.user.findOne({
-      email: req.body.email,
+      where: {
+        email: req.body.email
+      },
       keepPassword: true
     }).then((user) => {
       // We are checking if password is the same as the one stored and encrypted in db

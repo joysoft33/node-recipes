@@ -72,8 +72,8 @@ module.exports = class {
       where: {
         id: req.params.id
       }
-    }).then(() => {
-      res.sendStatus(200);
+    }).then((count) => {
+      res.sendStatus(count === 1 ? 200 : 404);
     }).catch((err) => {
       res.status(500).send(err.errors);
     });

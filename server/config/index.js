@@ -1,7 +1,7 @@
 const path = require('path');
 
 let settings = {
-  port: process.env.NODE_PORT || 3000,
+  serverPort: process.env.NODE_PORT || 3000,
   imagesPath: 'images',
   publicPath: '',
   basePath: '',
@@ -20,8 +20,8 @@ module.exports = (basePath) => {
 
   if (basePath) {
     // Read the sequelize config file
-    const env = process.env.NODE_ENV || 'development';
-    let dbSettings = require('./config.json')[env];
+    settings.env = process.env.NODE_ENV || 'development';
+    let dbSettings = require('./config.json')[settings.env];
 
     // Build the base front directory path
     settings.publicPath = path.join(basePath, 'public');
