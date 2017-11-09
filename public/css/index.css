@@ -58,6 +58,7 @@ recipes-list table tr>td>img {
 recipe-details>div {
   display: block;
   padding: 0 30px;
+  margin-bottom: 30px;
 }
 
 recipe-details>div .commands button {

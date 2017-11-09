@@ -27,7 +27,7 @@ angular.module('recipesApp')
         }).then((newRecipe) => {
           $state.go('main.list');
         }).catch((error) => {
-          this.error = error;
+          this.error = error.statusText;
         });
       };
     }
