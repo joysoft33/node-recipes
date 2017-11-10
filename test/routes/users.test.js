@@ -1,7 +1,12 @@
 const supertest = require('supertest');
 const should = require('should');
 
-const config = require('../../server/config')('../../');
+// Load and start the server (force test mode just in case env variable not correctly set)
+process.env.NODE_ENV = 'test';
+const app = require('../../server');
+
+// Retrieve config and models
+const config = require('../../server/config')();
 const models = require('../../server/models');
 
 // This agent refers to PORT where program is running.
@@ -9,18 +14,29 @@ const server = supertest.agent(`http://localhost:${config.serverPort}`);
 
 describe('Testing /users route', function () {
 
+  // The authentication token
   let token;
 
-  // this.timeout(10000);
+  // Override mocha timeout
+  this.timeout(10000);
 
+  // Before tests start, empty the users table
   before((done) => {
     models.user.sync({
       force: true
     }).then(() => {
-      done(null);
+      done();
     }).catch((error) => {
       done(error);
     });
+  });
+
+  // When test terminated, close our server app
+  after((done) => {
+    app.close(() => {
+      console.log('Server closed');
+    });
+    done();
   });
 
   it('GET /users should fail 403', (done) => {

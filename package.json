@@ -5,7 +5,6 @@
   "main": "server.js",
   "scripts": {
     "test": "NODE_ENV='test' node_modules/.bin/mocha test/**/*.js",
-    "start_test": "NODE_ENV='test' node server.js",
     "start": "node server.js"
   },
   "keywords": [],
