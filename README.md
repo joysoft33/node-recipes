@@ -1,4 +1,4 @@
-# node-dom-sample
+# node-recipes
 Minimal node/express DOM sample (Livecoding)
 
 Run the following command to see all tags:
