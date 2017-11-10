@@ -36,46 +36,72 @@ module.exports = (sequelize, DataTypes) => {
 
   User.associate = (models) => {};
 
+  /**
+   * Callback used to suppress password of found objects
+   */
   User.beforeFind((options) => {
     if (!options.keepPassword) {
       return excludePassword(options);
     }
   });
 
+  /**
+   * Activates the beforeUpdate callback
+   */
   User.beforeBulkUpdate((options) => {
     options.individualHooks = true;
   });
 
+  /**
+   * Call user object sanitization before updating it into db
+   */
   User.beforeUpdate((user, options) => {
-    return changePassword(user);
+    return sanitize(user);
   });
 
+  /**
+   * Call user object sanitization before creating it into db
+   */
   User.beforeCreate((user, options) => {
-    return changePassword(user);
+    return sanitize(user);
   });
 
+  /**
+   * Delete password field from the newlly created user before
+   * sending it back to the caller
+   */
   User.afterCreate((user, options) => {
     delete user.password;
   });
 
+  /**
+   * User authentication method: verify that the given string password 
+   * match the user encrypted one
+   * @param {*} password The clear string password
+   * @return {*}
+   */
   User.prototype.authenticate = function (password) {
     let user = this;
     return new Promise((resolve, reject) => {
       bcrypt.compare(password, user.password).then((match) => {
         if (match) {
           resolve(user.generateJWT());
-         } else {
-           reject(false);
-         }
+        } else {
+          reject(false);
+        }
       }).catch((err) => {
         reject(err);
       });
     });
   };
 
+  /**
+   * Generate a new authentication token for this user
+   * @return {*} A JWT containing some usefull but not sensitive user info
+   */
   User.prototype.generateJWT = () => {
     return jwt.sign({
-        _id: this._id,
+        id: this.id,
         email: this.email,
         name: this.name,
         isAdmin: this.isAdmin
@@ -85,6 +111,11 @@ module.exports = (sequelize, DataTypes) => {
       });
   };
 
+  /**
+   * Disable password retrieval for all find requests
+   * @param {*} options The options object given to the before callbacks
+   * @return {*}
+   */
   excludePassword = function (options) {
     if (typeof options.attributes === 'undefined') {
       options.attributes = {};
@@ -93,7 +124,12 @@ module.exports = (sequelize, DataTypes) => {
     return options;
   };
 
-  changePassword = function (user) {
+  /**
+   * Do some user object sanitization before storing it in db
+   * @param {*} user The user object beeing stored
+   * @return {*}
+   */
+  sanitize = function (user) {
     user.email = user.email.toLowerCase();
     if (user.password) {
       return new Promise((resolve, reject) => {
