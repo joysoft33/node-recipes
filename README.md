@@ -30,3 +30,4 @@ Tags:
 - **v1.15**: angular-resource
 - **v1.16**: angular-ui-router parent/children views
 - **v1.17**: server side JWT authentication + first tests for users routes
+- **v1.18**: launch server directly from test module
