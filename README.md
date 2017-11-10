@@ -29,4 +29,4 @@ Tags:
 - **v1.14**: angular-ui-router
 - **v1.15**: angular-resource
 - **v1.16**: angular-ui-router parent/children views
-
+- **v1.17**: server side JWT authentication + first tests for users routes
