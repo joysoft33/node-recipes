@@ -3,27 +3,31 @@
     <div class="navbar-header">
       <a href="#" class="navbar-brand">{{'NAVBAR.TITLE' | translate}}</a>
     </div>
-    <ul class="nav navbar-nav">
-      <li ng-if="$ctrl.loggedUser"><a ui-sref="main.add">{{'NAVBAR.ADD' | translate}}</a></li>
-      <li ng-if="$ctrl.loggedUser"><a ng-click="$ctrl.logout()">{{'NAVBAR.LOGOUT' | translate}}</a></li>
-      <li ng-if="!$ctrl.loggedUser"><a ui-sref="main.auth.login">{{'NAVBAR.LOGIN' | translate}}</a></li>
-      <li ng-if="!$ctrl.loggedUser"><a ui-sref="main.auth.signup">{{'NAVBAR.SIGNUP' | translate}}</a></li>
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-          {{'NAVBAR.LANGUAGE' | translate}}
-          <span class="caret"></span>
-        </a>
-        <ul class="dropdown-menu">
-          <li>
-            <a href="#" ng-class="{selected: $ctrl.lang == 'en'}" ng-click="$ctrl.setLanguage('en');">{{'NAVBAR.ENGLISH' | translate}}</a>
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav">
+          <li ng-if="$ctrl.parent.loggedUser">
+            <a href ng-click="$ctrl.logout()">{{'NAVBAR.LOGOUT' | translate}}</a>
           </li>
-          <li>
-            <a href="#" ng-class="{selected: $ctrl.lang == 'fr'}" ng-click="$ctrl.setLanguage('fr');">{{'NAVBAR.FRENCH' | translate}}</a>
+          <li ng-if="!$ctrl.parent.loggedUser">
+            <a ui-sref="main.login">{{'NAVBAR.LOGIN' | translate}}</a>
           </li>
         </ul>
-      </li>
-    </ul>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            {{'NAVBAR.LANGUAGE' | translate}}
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href ng-class="{selected: $ctrl.lang == 'en'}" ng-click="$ctrl.setLanguage('en');">{{'NAVBAR.ENGLISH' | translate}}</a>
+            </li>
+            <li>
+              <a href ng-class="{selected: $ctrl.lang == 'fr'}" ng-click="$ctrl.setLanguage('fr');">{{'NAVBAR.FRENCH' | translate}}</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>

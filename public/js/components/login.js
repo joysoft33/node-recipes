@@ -6,17 +6,31 @@ angular.module('recipesApp')
 
     templateUrl: 'js/components/login.html',
 
-    controller: function (AuthService, $state) {
+    controller: function (AuthService, UsersService, $log, $state) {
+
+      this.$onInit = () => {
+        $log.info('login component init');
+      };
 
       this.validate = () => {
 
         this.errorMessage = '';
 
-        AuthService.login(this.user).then((user) => {
-          $state.go('main.list');
-        }).catch((err) => {
-          this.errorMessage = err;
-        });
+        if (this.createAccount) {
+          UsersService.save(this.user).$promise.then(() => {
+            return AuthService.login(this.user);
+          }).then(() => {
+            $state.go('main.list');
+          }).catch((err) => {
+            this.errorMessage = err;
+          });
+        } else {
+          AuthService.login(this.user).then(() => {
+            $state.go('main.list');
+          }).catch((err) => {
+            this.errorMessage = err;
+          });
+        }
       };
     }
   });

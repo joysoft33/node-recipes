@@ -10,10 +10,11 @@ let settings = {
     port: 2525,
     secure: false,
     user: process.env.MAILTRAP_USER || '',
-    passwd: process.env.MAILTRAP_PASSWORD || ''
+    passwd: process.env.MAILTRAP_PASSWORD || '',
+    adminEmail: 'admin@recipes.fr'
   },
   jwtCookie: 'recipes',
-  jwtSecret: '0123456789876543210',
+  jwtSecret: '0123456789876543210'
 };
 
 module.exports = (basePath) => {

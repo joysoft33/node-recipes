@@ -21,6 +21,7 @@ module.exports = class {
    * @param {*} res 
    */
   findAll(req, res) {
+
     let options = {
       attributes: ['id', 'title', 'image', 'categoryId'],
       include: [{
@@ -29,12 +30,14 @@ module.exports = class {
         as: 'category'
       }]
     };
+
     let categoryId = parseInt(req.query.categoryId);
     if (categoryId) {
       options.where = {
         categoryId: categoryId
       };
     }
+
     models.recipe.findAll(options).then((recipes) => {
       res.json(recipes);
     }).catch((err) => {
@@ -73,7 +76,7 @@ module.exports = class {
     let result;
     models.recipe.create(req.body).then((recipe) => {
       result = recipe;
-      return sendMail(recipe);
+      return sendMail('newRecipe', recipe);
     }).then((info) => {
       res.json(result);
     }).catch((err) => {

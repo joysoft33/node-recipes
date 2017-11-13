@@ -1,12 +1,15 @@
 <div class="container">
-  <ul class="categories">
-    <li ui-sref="main.list({categoryId: 0})" ui-sref-active="selected">
-      {{'ALL' | translate}}
-    </li>
-    <li ng-repeat="category in $ctrl.categories track by category.id" ui-sref="main.list({categoryId: category.id})" ui-sref-active="selected">
-      {{category.name}}
-    </li>
-  </ul>
+  <header>
+    <ul class="categories">
+      <li ui-sref="main.list({categoryId: 0})" ui-sref-active="selected">
+        {{'ALL' | translate}}
+      </li>
+      <li ng-repeat="category in $ctrl.categories track by category.id" ui-sref="main.list({categoryId: category.id})" ui-sref-active="selected">
+        {{category.name}}
+      </li>
+    </ul>
+    <a ng-if="$ctrl.parent.loggedUser" ui-sref="main.add" class="btn btn-success">{{'BUTTON.ADD' | translate}}</a>
+  </header>
   <div class="error" ng-show="$ctrl.error.length">{{$ctrl.error}}</div>
   <table ng-hide="$ctrl.error.length" class="table">
     <tbody>

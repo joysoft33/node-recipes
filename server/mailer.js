@@ -18,7 +18,7 @@ const transporter = nodemailer.createTransport({
 // Create a new template
 const email = new Email({
   message: {
-    from: 'toto@wildcodeschool.fr'
+    from: config.mail.adminEmail
   },
   views: {
     root: path.join(config.serverPath, 'emails'),
@@ -29,11 +29,11 @@ const email = new Email({
   transport: transporter
 });
 
-module.exports = (recipe) => {
+module.exports = (template, data, dest) => {
   return email.send({
-    template: 'newRecipe',
+    template: template,
     message: {
-      to: 'lulu@free.fr'
+      to: dest ? dest : config.mail.adminEmail
     },
     locals: {
       title: recipe.title,

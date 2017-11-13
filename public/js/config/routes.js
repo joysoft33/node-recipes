@@ -13,6 +13,9 @@ angular.module('recipesApp')
         resolve: {
           categories: (CategoriesService) => {
             return CategoriesService.query().$promise;
+          },
+          loggedUser: (AuthService) => {
+            return AuthService.getCurrent();
           }
         }
       })
@@ -51,20 +54,9 @@ angular.module('recipesApp')
         component: 'recipeAdd'
       })
 
-      .state('main.auth', {
-        url: 'auth',
-        abstract: true
-      })
-      .state('main.auth.login', {
+      .state('main.login', {
         url: 'login',
         component: 'login'
-      })
-      .state('main.auth.logout', {
-        url: 'logout'
-      })
-      .state('main.auth.signup', {
-        url: 'signup',
-        component: 'signup'
       });
 
     $urlRouterProvider.otherwise('/list');

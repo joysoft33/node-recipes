@@ -6,6 +6,10 @@ angular.module('recipesApp')
 
     templateUrl: 'js/components/recipesList.html',
 
+    require: {
+      parent: '^main'
+    },
+
     bindings: {
       categories: '<',
       recipes: '<'
@@ -14,7 +18,7 @@ angular.module('recipesApp')
     controller: function ($log) {
 
       this.$onInit = () => {
-        $log.info(`recipesList component init, ${this.recipes.length} recipes, ${this.categories.length} categories`);
+        $log.info('recipesList component init');
       };
     }
   });

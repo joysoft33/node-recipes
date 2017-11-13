@@ -33,6 +33,10 @@ main ul.categories li.selected {
   font-weight: bold;
 }
 
+recipes-list header a.btn {
+  float: right;
+}
+
 recipes-list table {
   border-collapse: separate;
   border-spacing: 0 4px;
@@ -92,4 +96,8 @@ recipe-add div.drop-box {
 }
 recipe-add img {
   width: 100%;
+}
+
+login .commands {
+  margin-top: 30px;
 }
