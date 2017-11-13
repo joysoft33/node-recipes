@@ -24,13 +24,22 @@ module.exports = (sequelize, DataTypes) => {
     },
     isAdmin: {
       type: DataTypes.BOOLEAN,
-      default: false
+      default: 0
     },
     password: {
       type: DataTypes.STRING,
       validate: {
         notEmpty: true
       }
+    }
+  }, {
+    hooks: {
+      beforeCreate: function (e, fn) {
+        console.log('beforeCreate');
+      },
+      beforeBulkCreate: function (e, fn) {
+        console.log('beforeBulkCreate');
+      },
     }
   });
 
@@ -49,6 +58,9 @@ module.exports = (sequelize, DataTypes) => {
    * Activates the beforeUpdate callback
    */
   User.beforeBulkUpdate((options) => {
+    options.individualHooks = true;
+  });
+  User.beforeBulkCreate((options) => {
     options.individualHooks = true;
   });
 
@@ -71,7 +83,7 @@ module.exports = (sequelize, DataTypes) => {
    * sending it back to the caller
    */
   User.afterCreate((user, options) => {
-    delete user.password;
+    user.password = undefined;
   });
 
   /**
@@ -99,16 +111,15 @@ module.exports = (sequelize, DataTypes) => {
    * Generate a new authentication token for this user
    * @return {*} A JWT containing some usefull but not sensitive user info
    */
-  User.prototype.generateJWT = () => {
+  User.prototype.generateJWT = function () {
     return jwt.sign({
-        id: this.id,
-        email: this.email,
-        name: this.name,
-        isAdmin: this.isAdmin
-      },
-      config.jwtSecret, {
-        expiresIn: '1h'
-      });
+      id: this.id,
+      name: this.name,
+      isAdmin: this.isAdmin
+    },
+    config.jwtSecret, {
+      expiresIn: '1h'
+    });
   };
 
   /**
@@ -133,11 +144,11 @@ module.exports = (sequelize, DataTypes) => {
     user.email = user.email.toLowerCase();
     if (user.password) {
       return new Promise((resolve, reject) => {
-        bcrypt.hash(user.get('password'), SALT_FACTOR, (err, hash) => {
+        bcrypt.hash(user.password, SALT_FACTOR, (err, hash) => {
           if (err) {
             reject(err);
           } else {
-            user.set('password', hash);
+            user.password = hash;
             resolve(user);
           }
         });

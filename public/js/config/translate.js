@@ -8,7 +8,6 @@ angular.module('recipesApp')
 
       .translations('en', {
         BUTTON: {
-          ADD: 'Add',
           DELETE: 'Delete',
           SAVE: 'Save',
           CANCEL: 'Cancel',
@@ -19,6 +18,10 @@ angular.module('recipesApp')
           LANGUAGE: 'Language',
           ENGLISH: 'English',
           FRENCH: 'French',
+          ADD: 'Add',
+          LOGOUT: 'Logout',
+          LOGIN: 'Login',
+          SIGNUP: 'Signup'
         },
         VIEW_ADD: {
           TITLE: 'Title',
@@ -36,7 +39,6 @@ angular.module('recipesApp')
 
       .translations('fr', {
         BUTTON: {
-          ADD: 'Ajouter',
           DELETE: 'Effacer',
           SAVE: 'Sauver',
           CANCEL: 'Annuler',
@@ -46,7 +48,11 @@ angular.module('recipesApp')
           TITLE: 'Recettes',
           LANGUAGE: 'Langage',
           ENGLISH: 'Anglais',
-          FRENCH: 'Français'
+          FRENCH: 'Français',
+          ADD: 'Nouvelle recette',
+          LOGOUT: 'Déconnexion',
+          LOGIN: 'Connexion',
+          SIGNUP: 'Enregistrement'
         },
         VIEW_ADD: {
           TITLE: 'Titre',

@@ -6,13 +6,19 @@ module.exports = {
       email: 'john@free.fr',
       password: 'toto',
       name: 'John Doe',
-      isAdmin: false
+      isAdmin: false,
+      createdAt: new Date(),
+      updatedAt: new Date()
     }, {
       email: 'admin@free.fr',
       password: 'admin',
       name: 'Admin',
-      isAdmin: true
-    }]);
+      isAdmin: true,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }], {
+      individualHooks: true
+    });
   },
 
   down: (queryInterface, Sequelize) => {

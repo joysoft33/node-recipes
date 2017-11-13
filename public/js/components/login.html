@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      Vous devez vous identifier
+    </div>
+    <div class="panel-body">
+      <div class="alert alert-danger" ng-show="$ctrl.errorMessage">
+        {{$ctrl.errorMessage}}
+      </div>
+      <div class="form-group">
+        <input ng-model="$ctrl.user.email" placeholder="Adresse mail" type="text" class="form-control" />
+      </div>
+      <div class="form-group">
+        <input ng-model="$ctrl.user.password" placeholder="Mot de passe" type="password" class="form-control" />
+      </div>
+      <button class="btn btn-primary" ng-click="$ctrl.validate()">
+        Valider
+      </button>
+    </div>
+  </div>
+</div>

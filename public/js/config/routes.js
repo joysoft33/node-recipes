@@ -49,6 +49,22 @@ angular.module('recipesApp')
       .state('main.add', {
         url: 'add',
         component: 'recipeAdd'
+      })
+
+      .state('main.auth', {
+        url: 'auth',
+        abstract: true
+      })
+      .state('main.auth.login', {
+        url: 'login',
+        component: 'login'
+      })
+      .state('main.auth.logout', {
+        url: 'logout'
+      })
+      .state('main.auth.signup', {
+        url: 'signup',
+        component: 'signup'
       });
 
     $urlRouterProvider.otherwise('/list');

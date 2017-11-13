@@ -13,7 +13,7 @@ let settings = {
     passwd: process.env.MAILTRAP_PASSWORD || ''
   },
   jwtCookie: 'recipes',
-  jwtSecret: '/;ae$ra§ù!efze.',
+  jwtSecret: '0123456789876543210',
 };
 
 module.exports = (basePath) => {

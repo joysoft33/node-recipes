@@ -15,8 +15,12 @@ module.exports = class {
       },
       keepPassword: true
     }).then((user) => {
-      // We are checking if password is the same as the one stored and encrypted in db
-      return user.authenticate(req.body.password);
+      if (user) {
+        // We are checking if password is the same as the one stored and encrypted in db
+        return user.authenticate(req.body.password);
+      } else {
+        res.sendStatus(404);
+      }
     }).then((token) => {
       // The returned value upon success is a new JWT token
       res.json({

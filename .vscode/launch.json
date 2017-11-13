@@ -21,15 +21,6 @@
       "request": "launch",
       "name": "Launch Program",
       "program": "${workspaceRoot}/server.js"
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Launch Program for Tests",
-      "program": "${workspaceRoot}/server.js",
-      "env": {
-        "NODE_ENV": "test"
-      }      
     }    
   ]
 }
