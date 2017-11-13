@@ -10,15 +10,22 @@ angular.module('recipesApp')
       parent: '^main'
     },
 
-    controller: function (AuthService, $log, $state, $translate) {
+    controller: function (CONSTANTS, AuthService, $log, $cookies, $state, $translate) {
 
       this.$onInit = () => {
-        this.lang = $translate.use();
+        let lang = $cookies.get(CONSTANTS.COOKIE);
+        if (lang) {
+          $translate.use(lang);
+          this.lang = lang;
+        } else {
+          this.lang = $translate.use();
+        }
       };
 
       this.setLanguage = (code) => {
         $translate.use(code);
         this.lang = $translate.use();
+        $cookies.put(CONSTANTS.COOKIE, this.lang);
       };
 
       this.logout = () => {

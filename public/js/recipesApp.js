@@ -5,5 +5,6 @@ angular.module('recipesApp', [
   'ngFileUpload',
   'ui.router',
   'ngResource',
-  'LocalStorageModule'
+  'LocalStorageModule',
+  'ngCookies'
 ]);
