@@ -6,6 +6,10 @@ angular.module('recipesApp')
 
     templateUrl: 'js/components/recipeDetails.html',
 
+    require: {
+      parent: '^main'
+    },
+
     bindings: {
       recipe: '<'
     },

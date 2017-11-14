@@ -35,9 +35,6 @@ module.exports = (template, data, dest) => {
     message: {
       to: dest ? dest : config.mail.adminEmail
     },
-    locals: {
-      title: recipe.title,
-      description: recipe.description
-    }
+    locals: data
   });
 };

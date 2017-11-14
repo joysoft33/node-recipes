@@ -76,7 +76,7 @@ module.exports = class {
     let result;
     models.recipe.create(req.body).then((recipe) => {
       result = recipe;
-      return sendMail('newRecipe', recipe);
+      return sendMail('newRecipe', recipe.get({plain: true}));
     }).then((info) => {
       res.json(result);
     }).catch((err) => {
@@ -103,6 +103,28 @@ module.exports = class {
   }
 
   /**
+   * Delete the recipe image if any. Always resolve the promise,
+   * even upon image deletion error
+   * @param {*} recipe
+   * @return {Promise}
+   */
+  _deleteImage(recipe) {
+    return new Promise((resolve, reject) => {
+      if (recipe.image) {
+        let imagePath = path.resolve(config.publicPath, recipe.image);
+        fs.unlink(imagePath, (err) => {
+          if (err) {
+            console.log(`Error deleting image ${recipe.image}`, err);
+          }
+          resolve(recipe);
+        });
+      } else {
+        resolve(recipe);
+      }
+    });
+  }
+
+  /**
    * Delete the specified recipe. First find the requested recipe, then delete the downloaded image if any
    * and terminate by deleting the recipe itself
    * @param {*} req 
@@ -114,17 +136,11 @@ module.exports = class {
         id: req.params.id
       }
     }).then((recipe) => {
-      if (recipe.image) {
-        let imagePath = path.resolve(config.publicPath, recipe.image);
-        fs.unlink(imagePath, (err) => {
-          if (err) {
-            console.log(`Error deleting image ${recipe.image}`, err);
-          }
-        });
-      }
+      return this._deleteImage(recipe);
+    }).then((recipe) => {
       return recipe.destroy();
-    }).then((count) => {
-      res.sendStatus(count === 1 ? 200 : 404);
+    }).then(() => {
+      res.sendStatus(200);
     }).catch((err) => {
       res.status(500).send(err);
     });

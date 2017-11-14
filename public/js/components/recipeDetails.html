@@ -2,7 +2,7 @@
   <div class="error" ng-show="$ctrl.error">{{$ctrl.error}}</div>
   <div ng-show="$ctrl.recipe">
     <div class="commands">
-      <button type="button" class="btn btn-danger" ng-click="$ctrl.delete()">{{'BUTTON.DELETE' | translate}}</button>
+      <button ng-if="$ctrl.parent.loggedUser" type="button" class="btn btn-danger" ng-click="$ctrl.delete()">{{'BUTTON.DELETE' | translate}}</button>
       <button type="button" class="btn btn-default" ui-sref="main.list">{{'BUTTON.RETURN' | translate}}</button>
     </div>
     <img ng-src="{{$ctrl.recipe.image}}">
