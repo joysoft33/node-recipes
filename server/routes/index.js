@@ -11,16 +11,8 @@ const config = require('../config')();
  * Build the authentication middleware object.
  * JWT will be found in the request authorization header.
  */
-let authCheck = jwtExpress({
-  secret: config.jwtSecret,
-  getToken: function (req) {
-    if (req.headers.authorization) {
-      let auth = req.headers.authorization.split(' ');
-      if (auth[0] === 'Bearer') {
-        return auth[1];
-      }
-    }
-  }
+const authCheck = jwtExpress({
+  secret: config.jwtSecret
 });
 
 module.exports = (app, express) => {

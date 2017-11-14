@@ -34,6 +34,14 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('recipes', null, {});
+    return new Promise((resolve, reject) => {
+      queryInterface.bulkDelete('recipes').then(() => {
+        return queryInterface.sequelize.query('ALTER TABLE recipes AUTO_INCREMENT = 1');
+      }).then(() => {
+        resolve();
+      }).catch((error) => {
+        reject(error);
+      });
+    });
   }
 };

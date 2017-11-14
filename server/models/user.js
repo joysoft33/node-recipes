@@ -32,15 +32,6 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: true
       }
     }
-  }, {
-    hooks: {
-      beforeCreate: function (e, fn) {
-        console.log('beforeCreate');
-      },
-      beforeBulkCreate: function (e, fn) {
-        console.log('beforeBulkCreate');
-      },
-    }
   });
 
   User.associate = (models) => {};
@@ -55,25 +46,12 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   /**
-   * Activates the beforeUpdate callback
-   */
-  User.beforeBulkUpdate((options) => {
-    options.individualHooks = true;
-  });
-  User.beforeBulkCreate((options) => {
-    options.individualHooks = true;
-  });
-
-  /**
    * Call user object sanitization before updating it into db
    */
   User.beforeUpdate((user, options) => {
     return sanitize(user);
   });
 
-  /**
-   * Call user object sanitization before creating it into db
-   */
   User.beforeCreate((user, options) => {
     return sanitize(user);
   });
