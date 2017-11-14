@@ -22,8 +22,18 @@ describe('Testing /users route', function () {
 
   // Before tests start, empty the users table
   before((done) => {
-    models.user.sync({
-      force: true
+    models.sequelize.sync({
+      force: false
+    }).then(() => {
+      return models.user.destroy({
+        where: {
+          id: {
+            [models.Sequelize.Op.ne]: null
+          }
+        }
+      });
+    }).then(() => {
+      return models.sequelize.query('ALTER TABLE users AUTO_INCREMENT = 1');
     }).then(() => {
       done();
     }).catch((error) => {
