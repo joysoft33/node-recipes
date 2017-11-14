@@ -2,7 +2,7 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
-const sendMail = require('../mailer');
+const mails = require('../utilities/mails');
 const models = require('../models');
 
 const config = require('../config')();
@@ -76,7 +76,7 @@ module.exports = class {
     let result;
     models.recipe.create(req.body).then((recipe) => {
       result = recipe;
-      return sendMail('newRecipe', recipe.get({plain: true}));
+      return mails.sendRecipeValidation(recipe.get({plain: true}));
     }).then((info) => {
       res.json(result);
     }).catch((err) => {

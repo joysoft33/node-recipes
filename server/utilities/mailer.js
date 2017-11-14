@@ -2,7 +2,7 @@ const nodemailer = require('nodemailer');
 const Email = require('email-templates');
 const path = require('path');
 
-const config = require('./config')();
+const config = require('../config')();
 
 // Create reusable transporter object using the default SMTP transport
 const transporter = nodemailer.createTransport({
