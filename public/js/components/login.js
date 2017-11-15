@@ -20,13 +20,13 @@ angular.module('recipesApp')
           UsersService.save(this.user).$promise.then(() => {
             return AuthService.login(this.user);
           }).then(() => {
-            $state.go('main.list');
+            $state.go('main.recipes');
           }).catch((err) => {
             this.errorMessage = err;
           });
         } else {
           AuthService.login(this.user).then(() => {
-            $state.go('main.list');
+            $state.go('main.recipes');
           }).catch((err) => {
             this.errorMessage = err;
           });

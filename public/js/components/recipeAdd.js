@@ -25,7 +25,7 @@ angular.module('recipesApp')
           this.recipe.image = result.url;
           return this.recipe.$save();
         }).then((newRecipe) => {
-          $state.go('main.list');
+          $state.go('main.recipes');
         }).catch((error) => {
           this.error = error.statusText;
         });

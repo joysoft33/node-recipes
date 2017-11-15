@@ -2,7 +2,7 @@
 
 angular.module('recipesApp')
 
-  .config(($stateProvider, $urlRouterProvider) => {
+  .config(function ($stateProvider, $urlRouterProvider) {
 
     $stateProvider
 
@@ -11,17 +11,15 @@ angular.module('recipesApp')
         component: 'main',
         abstract: true,
         resolve: {
-          categories: (CategoriesService) => {
-            return CategoriesService.query().$promise;
-          },
           loggedUser: (AuthService) => {
             return AuthService.getCurrent();
           }
         }
       })
 
-      .state('main.list', {
+      .state('main.recipes', {
         url: 'list?{categoryId:int}',
+        publicRoute: true,
         params: {
           categoryId: {
             value: 0
@@ -29,6 +27,9 @@ angular.module('recipesApp')
         },
         component: 'recipesList',
         resolve: {
+          categories: (CategoriesService) => {
+            return CategoriesService.query().$promise;
+          },
           recipes: (RecipesService, $transition$) => {
             return RecipesService.query({
               categoryId: $transition$.params().categoryId
@@ -39,6 +40,7 @@ angular.module('recipesApp')
 
       .state('main.details', {
         url: 'details/:id',
+        publicRoute: true,
         component: 'recipeDetails',
         resolve: {
           recipe: (RecipesService, $transition$) => {
@@ -51,12 +53,28 @@ angular.module('recipesApp')
 
       .state('main.add', {
         url: 'add',
-        component: 'recipeAdd'
+        component: 'recipeAdd',
+        resolve: {
+          categories: (CategoriesService) => {
+            return CategoriesService.query().$promise;
+          }
+        }
       })
 
       .state('main.login', {
         url: 'login',
+        publicRoute: true,
         component: 'login'
+      })
+
+      .state('main.users', {
+        url: 'users',
+        component: 'usersList',
+        resolve: {
+          users: (UsersService) => {
+            return UsersService.query().$promise;
+          }
+        }
       });
 
     $urlRouterProvider.otherwise('/list');

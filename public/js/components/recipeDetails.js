@@ -22,7 +22,7 @@ angular.module('recipesApp')
 
       this.delete = () => {
         this.recipe.$delete(() => {
-          $state.go('main.list');
+          $state.go('main.recipes');
         }, (error) => {
           this.error = error.statusText;
         });

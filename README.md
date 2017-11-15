@@ -35,3 +35,4 @@ Tags:
 - **v1.19**: front side authentication
 - **v1.20**: use cookie to save language preference
 - **v1.21**: enhanced evolutive mailer
+- **v1.22**: basic admin role

@@ -7,6 +7,10 @@
   margin-top: 30px;
 }
 
+.container header .btn {
+  float: right;
+}
+
 .error {
   margin-bottom: 20px;
   padding: 20px;
@@ -31,10 +35,6 @@ main ul.categories li:hover {
 
 main ul.categories li.selected {
   font-weight: bold;
-}
-
-recipes-list header a.btn {
-  float: right;
 }
 
 recipes-list table {
@@ -100,4 +100,8 @@ recipe-add img {
 
 login .commands {
   margin-top: 30px;
+}
+
+users-list table {
+  margin-top: 50px;
 }

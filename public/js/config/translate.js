@@ -2,7 +2,7 @@
 
 angular.module('recipesApp')
 
-  .config(($translateProvider) => {
+  .config(function ($translateProvider) {
 
     $translateProvider
 
@@ -22,9 +22,11 @@ angular.module('recipesApp')
           FRENCH: 'French',
           LOGOUT: 'Logout',
           LOGIN: 'Login',
-          SIGNUP: 'Signup'
+          SIGNUP: 'Signup',
+          USERS: 'Users',
+          HELLO: 'Hello'
         },
-        VIEW_ADD: {
+        RECIPE_ADD: {
           TITLE: 'Title',
           DESCRIPTION: 'Description',
           IMAGE: 'Image',
@@ -41,6 +43,12 @@ angular.module('recipesApp')
           EMAIL: 'Mail address',
           PASSWORD: 'Password',
           CREATE: 'Create my account'
+        },
+        USERS: {
+          NAME: 'Name',
+          EMAIL: 'Email',
+          DATE: 'Date',
+          ADMIN: 'Admin'
         },
         ALL: 'All'
       })
@@ -61,9 +69,11 @@ angular.module('recipesApp')
           FRENCH: 'Français',
           LOGOUT: 'Déconnexion',
           LOGIN: 'Connexion',
-          SIGNUP: 'Enregistrement'
+          SIGNUP: 'Enregistrement',
+          USERS: 'Utilisateurs',
+          HELLO: 'Bonjour'
         },
-        VIEW_ADD: {
+        RECIPE_ADD: {
           TITLE: 'Titre',
           DESCRIPTION: 'Description',
           IMAGE: 'Image',
@@ -81,10 +91,16 @@ angular.module('recipesApp')
           PASSWORD: 'Mot de passe',
           CREATE: 'Créer mon compte'
         },
+        USERS: {
+          NAME: 'Nom',
+          EMAIL: 'Mail',
+          DATE: 'Date',
+          ADMIN: 'Admin'
+        },
         ALL: 'Toutes'
       })
 
       .useSanitizeValueStrategy('escape')
       .preferredLanguage('fr')
       .fallbackLanguage('fr');
-    });
+  });

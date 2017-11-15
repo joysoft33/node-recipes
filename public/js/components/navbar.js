@@ -10,7 +10,7 @@ angular.module('recipesApp')
       parent: '^main'
     },
 
-    controller: function (CONSTANTS, AuthService, $log, $cookies, $state, $translate) {
+    controller: function (CONSTANTS, $log, $cookies, $translate) {
 
       this.$onInit = () => {
         let lang = $cookies.get(CONSTANTS.COOKIE);
@@ -26,14 +26,6 @@ angular.module('recipesApp')
         $translate.use(code);
         this.lang = $translate.use();
         $cookies.put(CONSTANTS.COOKIE, this.lang);
-      };
-
-      this.logout = () => {
-        AuthService.logout().then(() => {
-          $state.go('main.list');
-        }).catch(() => {
-          $log.debug('Not logged');
-        });
       };
     }
   });
