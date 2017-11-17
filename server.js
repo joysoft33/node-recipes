@@ -4,7 +4,6 @@ const cookieParser = require('cookie-parser');
 
 // Initialize the global config with server base path
 const config = require('./server/config')(__dirname);
-
 const models = require('./server/models');
 const routes = require('./server/routes');
 
@@ -29,14 +28,14 @@ routes(app, express);
 // Synchronize database with the previously declared models
 models.sequelize.sync({
   alter: false
-}).then((db) => {
+}).then(() => {
   console.log('Database connected');
 }).catch((err) => {
   console.log('Error connecting database:', err);
 });
 
 // Start listening to external http requests
-let server = app.listen(config.serverPort, () => {
+const server = app.listen(config.serverPort, () => {
   console.log(`Server started - port:${config.serverPort} ("${config.env}")`);
 });
 

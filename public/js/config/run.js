@@ -1,7 +1,11 @@
-'use strict';
+export default checkRouteRun;
 
-angular.module('recipesApp')
+/**
+ * The check route initilaization
+ * @param {*} CheckRouteService
+ */
+function checkRouteRun(CheckRouteService) {
+  'ngInject';
 
-  .run(function (CheckRouteService) {
-    CheckRouteService.initialize();
-  });
+  CheckRouteService.initialize();
+}

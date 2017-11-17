@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
 
-  User.associate = (models) => {};
+  User.associate = function associate(models) {};
 
   /**
    * Callback used to suppress password of found objects
@@ -48,36 +48,30 @@ module.exports = (sequelize, DataTypes) => {
   /**
    * Call user object sanitization before updating it into db
    */
-  User.beforeUpdate((user, options) => {
-    return sanitize(user);
-  });
-
-  User.beforeCreate((user, options) => {
-    return sanitize(user);
-  });
+  User.beforeUpdate(sanitize);
+  User.beforeCreate(sanitize);
 
   /**
    * Delete password field from the newlly created user before
-   * sending it back to the caller
-   */
-  User.afterCreate((user, options) => {
+   * sending it back to the caller */
+  User.afterCreate((user) => {
     user.password = undefined;
   });
 
   /**
-   * User authentication method: verify that the given string password 
+   * User authentication method: verify that the given string password
    * match the user encrypted one
    * @param {*} password The clear string password
    * @return {*}
    */
-  User.prototype.authenticate = function (password) {
-    let user = this;
+  User.prototype.authenticate = function authenticate(password) {
+    const user = this;
     return new Promise((resolve, reject) => {
       bcrypt.compare(password, user.password).then((match) => {
         if (match) {
           resolve(user.generateJWT());
         } else {
-          reject(false);
+          reject(Error('Bad credentials'));
         }
       }).catch((err) => {
         reject(err);
@@ -89,7 +83,7 @@ module.exports = (sequelize, DataTypes) => {
    * Generate a new authentication token for this user
    * @return {*} A JWT containing some usefull but not sensitive user info
    */
-  User.prototype.generateJWT = function () {
+  User.prototype.generateJWT = function generateJWT() {
     return jwt.sign({
       id: this.id,
       name: this.name,
@@ -105,34 +99,41 @@ module.exports = (sequelize, DataTypes) => {
    * @param {*} options The options object given to the before callbacks
    * @return {*}
    */
-  excludePassword = function (options) {
+  function excludePassword(options) {
     if (typeof options.attributes === 'undefined') {
       options.attributes = {};
     }
     options.attributes.exclude = ['password'];
     return options;
-  };
+  }
+
+  /**
+   * Sanitize the given user object before storing it into db
+   * @param {*} user
+   * @return {*}
+   */
+  function sanitize(user) {
+    user.email = user.email.toLowerCase();
+    return user.password ? changePassword(user) : null;
+  }
 
   /**
    * Do some user object sanitization before storing it in db
    * @param {*} user The user object beeing stored
    * @return {*}
    */
-  sanitize = function (user) {
-    user.email = user.email.toLowerCase();
-    if (user.password) {
-      return new Promise((resolve, reject) => {
-        bcrypt.hash(user.password, SALT_FACTOR, (err, hash) => {
-          if (err) {
-            reject(err);
-          } else {
-            user.password = hash;
-            resolve(user);
-          }
-        });
+  function changePassword(user) {
+    return new Promise((resolve, reject) => {
+      bcrypt.hash(user.password, SALT_FACTOR, (err, hash) => {
+        if (err) {
+          reject(err);
+        } else {
+          user.password = hash;
+          resolve(user);
+        }
       });
-    }
-  };
+    });
+  }
 
   return User;
 };

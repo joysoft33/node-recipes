@@ -1,9 +1,15 @@
-'use strict';
+export default categoriesService;
 
-angular.module('recipesApp')
+/**
+ * The categories service
+ * @param {*} $resource
+ * @param {*} Upload
+ * @return {*}
+ */
+function categoriesService($resource) {
+  'ngInject';
 
-  .factory('CategoriesService', function ($resource, Upload) {
-    return $resource('/categories/:id', {
-      id: '@id'
-    });
+  return $resource('/categories/:id', {
+    id: '@id'
   });
+}

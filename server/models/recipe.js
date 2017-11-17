@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
 
-  Recipe.associate = (models) => {
+  Recipe.associate = function associate(models) {
     Recipe.belongsTo(models.category);
   };
 

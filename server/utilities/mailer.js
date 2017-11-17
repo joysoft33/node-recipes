@@ -1,7 +1,8 @@
 const nodemailer = require('nodemailer');
 const Email = require('email-templates');
-const path = require('path');
+const ejs = require('ejs');
 
+const templates = require('../emails');
 const config = require('../config')();
 
 // Create reusable transporter object using the default SMTP transport
@@ -15,25 +16,32 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-// Create a new template
+// Create the email template object
 const email = new Email({
+  transport: transporter,
   message: {
     from: config.mail.adminEmail
   },
-  views: {
-    root: path.join(config.serverPath, 'emails'),
-    options: {
-      extension: 'ejs'
-    }
-  },
-  transport: transporter
+  render: (view, locals) => {
+    return new Promise((resolve, reject) => {
+      try {
+        const [name, type] = view.split('/');
+        const rendered = ejs.render(templates[name][type], locals);
+        email.juiceResources(rendered).then((html) => {
+          resolve(html);
+        });
+      } catch (err) {
+        reject(err);
+      }
+    });
+  }
 });
 
 module.exports = (template, data, dest) => {
   return email.send({
     template: template,
     message: {
-      to: dest ? dest : config.mail.adminEmail
+      to: dest || config.mail.adminEmail
     },
     locals: data
   });

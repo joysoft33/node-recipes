@@ -27,10 +27,12 @@ module.exports = (app, express) => {
    */
   app.use((err, req, res, next) => {
     if (err.name === 'UnauthorizedError') {
-      return res.status(403).send({
+      res.status(403).send({
         message: 'No token provided.',
         success: false
       });
+    } else {
+      next();
     }
   });
 };

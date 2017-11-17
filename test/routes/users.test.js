@@ -12,7 +12,7 @@ const models = require('../../server/models');
 // This agent refers to PORT where program is running.
 const server = supertest.agent(`http://localhost:${config.serverPort}`);
 
-describe('Testing /users route', function () {
+describe('Testing /users route', () => {
 
   // The authentication token
   let token;

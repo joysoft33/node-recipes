@@ -2,10 +2,10 @@ const CategoryController = require('../controllers/categories');
 
 module.exports = (express, auth) => {
 
-  const categoriesController = new CategoryController;
+  const categoriesController = new CategoryController();
   const router = express.Router();
 
-    router.get('/', (req, res) => {
+  router.get('/', (req, res) => {
     categoriesController.findAll(req, res);
   });
 

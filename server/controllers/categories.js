@@ -4,8 +4,8 @@ module.exports = class {
 
   /**
    * Return all categories
-   * @param {*} req 
-   * @param {*} res 
+   * @param {*} req
+   * @param {*} res
    */
   findAll(req, res) {
     models.category.findAll().then((categories) => {
@@ -17,8 +17,8 @@ module.exports = class {
 
   /**
    * Return the requested category
-   * @param {*} req 
-   * @param {*} res 
+   * @param {*} req
+   * @param {*} res
    */
   findOne(req, res) {
     models.category.findById(req.params.id).then((category) => {
@@ -34,8 +34,8 @@ module.exports = class {
 
   /**
    * Create a new category from the body
-   * @param {*} req 
-   * @param {*} res 
+   * @param {*} req
+   * @param {*} res
    */
   create(req, res) {
     models.category.create(req.body).then((category) => {
@@ -47,8 +47,8 @@ module.exports = class {
 
   /**
    * Delete the requested category
-   * @param {*} req 
-   * @param {*} res 
+   * @param {*} req
+   * @param {*} res
    */
   delete(req, res) {
     models.category.destroy({

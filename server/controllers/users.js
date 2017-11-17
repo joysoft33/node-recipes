@@ -4,8 +4,8 @@ module.exports = class {
 
   /**
    * Return all users
-   * @param {*} req 
-   * @param {*} res 
+   * @param {*} req
+   * @param {*} res
    */
   findAll(req, res) {
     if (!req.user.isAdmin) {
@@ -21,8 +21,8 @@ module.exports = class {
 
   /**
    * Return the requested user
-   * @param {*} req 
-   * @param {*} res 
+   * @param {*} req
+   * @param {*} res
    */
   findOne(req, res) {
     if ((req.user.id !== req.params.id) && !req.user.isAdmin) {
@@ -42,8 +42,8 @@ module.exports = class {
 
   /**
    * Create a new user from the body
-   * @param {*} req 
-   * @param {*} res 
+   * @param {*} req
+   * @param {*} res
    */
   create(req, res) {
     models.user.create(req.body).then((user) => {
@@ -55,8 +55,8 @@ module.exports = class {
 
   /**
    * Update the given user from the body
-   * @param {*} req 
-   * @param {*} res 
+   * @param {*} req
+   * @param {*} res
    */
   update(req, res) {
     if ((req.user.id !== req.params.id) && !req.user.isAdmin) {
@@ -66,7 +66,7 @@ module.exports = class {
         where: {
           id: req.params.id
         }
-      }).spread((count, users) => {
+      }).spread((count) => {
         res.sendStatus(count ? 200 : 404);
       }).catch((err) => {
         res.status(500).send(err.errors);
@@ -76,8 +76,8 @@ module.exports = class {
 
   /**
    * Delete the requested user
-   * @param {*} req 
-   * @param {*} res 
+   * @param {*} req
+   * @param {*} res
    */
   delete(req, res) {
     if (!req.user.isAdmin) {

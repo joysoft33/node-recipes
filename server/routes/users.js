@@ -2,11 +2,11 @@ const UserController = require('../controllers/users');
 
 module.exports = (express, auth) => {
 
-  const usersController = new UserController;
+  const usersController = new UserController();
   const router = express.Router();
 
-  router.get('/', auth, (req, res, next) => {
-    usersController.findAll(req, res, next);
+  router.get('/', auth, (req, res) => {
+    usersController.findAll(req, res);
   });
 
   router.get('/:id', auth, (req, res) => {

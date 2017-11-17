@@ -1,6 +1,7 @@
 {
-  "extends": ["google", "plugin:angular/johnpapa"],
+  "extends": ["google", "plugin:angular/johnpapa", "webpack"],
   "parserOptions": {
+    "sourceType": "module",
     "ecmaVersion": 6
   },
   "rules": {
@@ -16,6 +17,7 @@
       "code": 132,
       "tabWidth": 2
     }],
+    "import/order": ["off", "newlines-between"],
     "space-before-function-paren": ["warn", {
       "anonymous": "always",
       "named": "never",
@@ -24,6 +26,23 @@
     "no-multiple-empty-lines": ["error", {
       "max": 1
     }],
-    "angular/no-service-method": [0, "always"]    
+    "no-param-reassign": ["warn", {
+      "props": false
+    }],
+    "class-methods-use-this": "off",
+    "no-unused-vars": "warn",
+    "consistent-return": "off",
+    "prefer-destructuring": "off",
+    "newline-per-chained-call": "off",
+    "arrow-body-style": "off",
+    "object-shorthand": "off",
+    "no-prototype-builtins": "off",
+    "global-require": "off",
+    "angular/no-service-method": ["warn", "always"],
+    "angular/function-type": ["warn", "named"],
+    "angular/file-name": "off",
+    "angular/module-setter": "off",
+    "angular/module-getter": "off",
+    "no-undefined": "off"
   }
 }

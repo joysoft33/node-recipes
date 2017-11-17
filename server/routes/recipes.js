@@ -2,10 +2,10 @@ const RecipesController = require('../controllers/recipes');
 
 module.exports = (express, auth) => {
 
-  const recipesController = new RecipesController;
+  const recipesController = new RecipesController();
   const router = express.Router();
 
-  router.get('/', (req, res, next) => {
+  router.get('/', (req, res) => {
     recipesController.findAll(req, res);
   });
 

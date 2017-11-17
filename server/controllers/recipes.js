@@ -17,12 +17,12 @@ module.exports = class {
 
   /**
    * Return all recipes without their descriptions
-   * @param {*} req 
-   * @param {*} res 
+   * @param {*} req
+   * @param {*} res
    */
   findAll(req, res) {
 
-    let options = {
+    const options = {
       attributes: ['id', 'title', 'image', 'categoryId'],
       include: [{
         attributes: ['name'],
@@ -31,7 +31,7 @@ module.exports = class {
       }]
     };
 
-    let categoryId = parseInt(req.query.categoryId);
+    const categoryId = parseInt(req.query.categoryId, 10);
     if (categoryId) {
       options.where = {
         categoryId: categoryId
@@ -47,8 +47,8 @@ module.exports = class {
 
   /**
    * Return the requested recipe details
-   * @param {*} req 
-   * @param {*} res 
+   * @param {*} req
+   * @param {*} res
    */
   findOne(req, res) {
     models.recipe.findById(req.params.id, {
@@ -69,15 +69,17 @@ module.exports = class {
 
   /**
    * Create a new recipe from the body data
-   * @param {*} req 
-   * @param {*} res 
+   * @param {*} req
+   * @param {*} res
    */
   create(req, res) {
     let result;
     models.recipe.create(req.body).then((recipe) => {
       result = recipe;
-      return mails.sendRecipeValidation(recipe.get({plain: true}));
-    }).then((info) => {
+      return mails.sendRecipeValidation(recipe.get({
+        plain: true
+      }));
+    }).then(() => {
       res.json(result);
     }).catch((err) => {
       res.status(500).send(err);
@@ -86,8 +88,8 @@ module.exports = class {
 
   /**
    * Upload recipe image
-   * @param {*} req 
-   * @param {*} res 
+   * @param {*} req
+   * @param {*} res
    */
   uploadImage(req, res) {
     upload(req, res, (err) => {
@@ -108,10 +110,10 @@ module.exports = class {
    * @param {*} recipe
    * @return {Promise}
    */
-  _deleteImage(recipe) {
-    return new Promise((resolve, reject) => {
+  deleteImage(recipe) {
+    return new Promise((resolve) => {
       if (recipe.image) {
-        let imagePath = path.resolve(config.publicPath, recipe.image);
+        const imagePath = path.resolve(config.publicPath, recipe.image);
         fs.unlink(imagePath, (err) => {
           if (err) {
             console.log(`Error deleting image ${recipe.image}`, err);
@@ -127,8 +129,8 @@ module.exports = class {
   /**
    * Delete the specified recipe. First find the requested recipe, then delete the downloaded image if any
    * and terminate by deleting the recipe itself
-   * @param {*} req 
-   * @param {*} res 
+   * @param {*} req
+   * @param {*} res
    */
   delete(req, res) {
     models.recipe.findOne({
@@ -136,7 +138,7 @@ module.exports = class {
         id: req.params.id
       }
     }).then((recipe) => {
-      return this._deleteImage(recipe);
+      return this.deleteImage(recipe);
     }).then((recipe) => {
       return recipe.destroy();
     }).then(() => {

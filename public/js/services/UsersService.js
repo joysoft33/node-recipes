@@ -1,9 +1,14 @@
-'use strict';
+export default usersService;
 
-angular.module('recipesApp')
+/**
+ * The users service
+ * @param {*} $resource
+ * @return {*}
+ */
+function usersService($resource) {
+  'ngInject';
 
-  .factory('UsersService', function ($resource, Upload) {
-    return $resource('/users/:id', {
-      id: '@id'
-    });
+  return $resource('/users/:id', {
+    id: '@id'
   });
+}
