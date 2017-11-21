@@ -1,3 +1,5 @@
+import angular from 'angular';
+
 export default authService;
 
 /**
@@ -6,27 +8,26 @@ export default authService;
  * @param {*} $http
  * @param {*} $q
  * @param {*} $timeout
- * @param {*} localStorageService
- * @param {*} $rootScope
  * @param {*} $window
- * @return {*}
+ * @param {*} $rootScope
+ * @param {*} localStorageService
+ * @return {*} The service object itself
  */
-function authService(CONSTANTS, $http, $q, $timeout, localStorageService, $rootScope, $window) {
+function authService(CONSTANTS, $http, $q, $timeout, $window, $rootScope, localStorageService) {
   'ngInject';
 
-  let currentUser = null;
   const service = {};
 
   service.login = function login(credential) {
     return $q((resolve, reject) => {
       // Let server authenticate the given email/password
       $http.post(CONSTANTS.AUTH_URL, credential).then((res) => {
-        return saveToken(res.data.token);
-      }).then((user) => {
-        currentUser = user;
-        resolve(currentUser);
+        service.setToken(res.data.token);
+        const payload = decodeToken(res.data.token);
+        $rootScope.$broadcast(CONSTANTS.AUTH_EVENT, payload);
+        resolve(payload);
       }).catch((err) => {
-        removeToken();
+        service.removeToken();
         let message;
         if (err.data) {
           message = typeof err.data === 'string' ? err.data : err.data.message;
@@ -38,105 +39,60 @@ function authService(CONSTANTS, $http, $q, $timeout, localStorageService, $rootS
 
   service.logout = function logout() {
     return $timeout(() => {
-      // Just remove the authentication token
-      removeToken();
+      service.removeToken();
     }, 0);
   };
 
-  service.getCurrent = function getCurrent() {
-    return $q((resolve) => {
-      // Get the authentication token if any
-      const token = getToken();
-      if (!token) {
-        // No existing token, not connected
-        return resolve(null);
+  service.getUser = function getUser() {
+    const token = service.getToken();
+    if (token) {
+      const payload = decodeToken(token);
+      if (payload) {
+        return payload;
       }
-      if (currentUser) {
-        // Current user has already been set, return it
-        return resolve(currentUser);
-      }
-      // Get user from saved token
-      decodePayload(token).then((payload) => {
-        $rootScope.$broadcast(CONSTANTS.AUTH_EVENT, payload);
-        currentUser = payload;
-        resolve(payload);
-      }).catch(() => {
-        removeToken();
-        resolve(null);
-      });
-    });
+      service.removeToken();
+    }
+  };
+
+  service.setToken = function setToken(token) {
+    localStorageService.set(CONSTANTS.AUTH_TOKEN, token);
+  };
+
+  service.getToken = function getToken() {
+    return localStorageService.get(CONSTANTS.AUTH_TOKEN);
+  };
+
+  service.removeToken = function removeToken() {
+    if (localStorageService.get(CONSTANTS.AUTH_TOKEN)) {
+      localStorageService.remove(CONSTANTS.AUTH_TOKEN);
+      $rootScope.$broadcast(CONSTANTS.AUTH_EVENT);
+    }
   };
 
   return service;
 
   /**
-   * Decode and save the received authorization token
+   * Decode a JWT token payload
    * @param {*} token
-   * @return {*}
+   * @return {*} The decoded token payload
    */
-  function saveToken(token) {
-    return $q((resolve, reject) => {
-      // Decode token payload before saving it into the cookie
-      decodePayload(token).then((payload) => {
-        $rootScope.$broadcast(CONSTANTS.AUTH_EVENT, payload);
-        localStorageService.set(CONSTANTS.AUTH_TOKEN, token);
-        resolve(payload);
-      }).catch((err) => {
-        removeToken();
-        reject(err);
-      });
-    });
-  }
-
-  /**
-   * Remove the token stored in the localStorage
-   */
-  function removeToken() {
-    if (currentUser) {
-      // Remove jwt token from auth header of all requests made by the $http service
-      $http.defaults.headers.common.Authorization = '';
-      $rootScope.$broadcast(CONSTANTS.AUTH_EVENT, null);
-      currentUser = null;
+  function decodeToken(token) {
+    // Decode the encrypted payload
+    const parts = token.split('.');
+    if (parts.length !== 3) {
+      throw new Error('JWT must have 3 parts');
     }
-    localStorageService.remove(CONSTANTS.AUTH_TOKEN);
-  }
-
-  /**
-   * Return the token stored in the localStorage
-   * @return {*}
-   */
-  function getToken() {
-    return localStorageService.get(CONSTANTS.AUTH_TOKEN);
-  }
-
-  /**
-   * Decode a JWT token payload
-   * @param {*} token
-   * @return {Promise}
-   */
-  function decodePayload(token) {
-    return $q((resolve, reject) => {
-      // Decode the encrypted payload
-      const data = token.split('.')[1];
-      const payload = JSON.parse(decodeURI(base64ToUTF8(urlBase64Decode(data))));
-      // Control the expiration date
-      if (Math.round(new Date().getTime() / 1000) <= payload.exp) {
-        // Add jwt token to auth header for all requests made by the $http service
-        $http.defaults.headers.common.Authorization = `Bearer ${token}`;
-        resolve(payload);
-      } else {
-        reject('Expired');
-      }
-    });
-  }
-
-  /**
-   * Decode a JWT token payload
-   * @param {*} str
-   * @return {*}
-   */
-  function base64ToUTF8(str) {
-    return decodeURIComponent(escape($window.atob(str)));
+    const payload = urlBase64Decode(parts[1]);
+    if (!payload) {
+      throw new Error('Cannot decode the token');
+    }
+    if (isTokenExpired(payload)) {
+      $http.defaults.headers.common.Authorization = '';
+      return null;
+    }
+    // Add jwt token to auth header for all requests made by the $http service
+    $http.defaults.headers.common.Authorization = `Bearer ${token}`;
+    return payload;
   }
 
   /**
@@ -145,7 +101,7 @@ function authService(CONSTANTS, $http, $q, $timeout, localStorageService, $rootS
    * @return {*}
    */
   function urlBase64Decode(str) {
-    let output = str.replace('-', '+').replace('_', '/');
+    let output = str.replace(/-/g, '+').replace(/_/g, '/');
     switch (output.length % 4) {
       case 0:
         break;
@@ -156,8 +112,30 @@ function authService(CONSTANTS, $http, $q, $timeout, localStorageService, $rootS
         output += '=';
         break;
       default:
-        throw Error('Illegal base64url string!');
+        throw new Error('Illegal base64url string!');
     }
-    return output;
+    // polyfill https://github.com/davidchambers/Base64.js
+    const data = $window.decodeURIComponent(escape($window.atob(output)));
+    return data ? angular.fromJson(data) : null;
+  }
+
+  function getTokenExpirationDate(payload) {
+    if (typeof payload.exp === 'undefined') {
+      return null;
+    }
+    // The 0 here is the key, which sets the date to the epoch
+    const d = new Date(0);
+    d.setUTCSeconds(payload.exp);
+    return d;
+  }
+
+  function isTokenExpired(payload, offsetSeconds) {
+    const d = getTokenExpirationDate(payload);
+    const offset = offsetSeconds || 0;
+    if (d === null) {
+      return false;
+    }
+    // Token expired?
+    return !(d.valueOf() > (new Date().valueOf() + (offset * 1000)));
   }
 }

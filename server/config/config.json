@@ -6,6 +6,6 @@
     "use_env_variable": "RECIPES_TEST_DB_URI"
   },
   "production": {
-    "use_env_variable": "RECIPES_DB_URI"
+    "use_env_variable": "DATABASE_URL"
   }
 }

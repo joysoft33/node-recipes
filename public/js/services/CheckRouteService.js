@@ -23,25 +23,20 @@ function checkRouteService(AuthService, $log, $q, $transitions) {
     // Get the requested route
     const to = transition.to();
 
-    if (!to.publicRoute) {
-      // The destination route is marked as private
-      return $q((resolve) => {
-        // Get the currently connected user
-        AuthService.getCurrent().then((user) => {
-          if (user) {
-            // A user is connected
-            $log.debug(`${to.url} authenticated`);
-            resolve();
-          } else {
-            // User isn’t authenticated
-            $log.debug(`${to.url} need authentication`);
-            // Redirect to login page
-            resolve(transition.router.stateService.target('main.login', {
-              redirect: to.name
-            }));
-          }
+    if (to.data && to.data.requiresLogin) {
+      // Get the currently connected user
+      const user = AuthService.getUser();
+      if (user) {
+        // A user is connected
+        $log.debug(`${to.url} authenticated`);
+      } else {
+        // User isn’t authenticated
+        $log.debug(`${to.url} need authentication`);
+        // Redirect to login page
+        return transition.router.stateService.target('main.login', {
+          redirect: to.name
         });
-      });
+      }
     }
   };
 

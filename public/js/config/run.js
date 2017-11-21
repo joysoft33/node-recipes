@@ -1,10 +1,10 @@
-export default checkRouteRun;
+export default checkAuth;
 
 /**
- * The check route initilaization
+ * The check authentication upon page change
  * @param {*} CheckRouteService
  */
-function checkRouteRun(CheckRouteService) {
+function checkAuth(CheckRouteService) {
   'ngInject';
 
   CheckRouteService.initialize();

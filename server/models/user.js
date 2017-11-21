@@ -90,7 +90,7 @@ module.exports = (sequelize, DataTypes) => {
       isAdmin: this.isAdmin
     },
     config.jwtSecret, {
-      expiresIn: '1h'
+      expiresIn: 60 * 5
     });
   };
 

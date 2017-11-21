@@ -16,14 +16,13 @@ function routesConfig($stateProvider, $urlRouterProvider) {
       abstract: true,
       resolve: {
         loggedUser: (AuthService) => {
-          return AuthService.getCurrent();
+          return AuthService.getUser();
         }
       }
     })
 
     .state('main.recipes', {
       url: 'list?{categoryId:int}',
-      publicRoute: true,
       params: {
         categoryId: {
           value: 0
@@ -44,7 +43,6 @@ function routesConfig($stateProvider, $urlRouterProvider) {
 
     .state('main.details', {
       url: 'details/:id',
-      publicRoute: true,
       component: 'recipeDetails',
       resolve: {
         recipe: (RecipesService, $transition$) => {
@@ -62,13 +60,20 @@ function routesConfig($stateProvider, $urlRouterProvider) {
         categories: (CategoriesService) => {
           return CategoriesService.query().$promise;
         }
+      },
+      data: {
+        requiresLogin: true
       }
     })
 
     .state('main.login', {
-      url: 'login',
-      publicRoute: true,
-      component: 'login'
+      url: 'login?redirect',
+      component: 'login',
+      resolve: {
+        redirect: ($transition$) => {
+          return $transition$.params().redirect;
+        }
+      }
     })
 
     .state('main.users', {
@@ -78,6 +83,9 @@ function routesConfig($stateProvider, $urlRouterProvider) {
         users: (UsersService) => {
           return UsersService.query().$promise;
         }
+      },
+      data: {
+        requiresLogin: true
       }
     });
 

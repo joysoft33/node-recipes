@@ -16,14 +16,21 @@ export default {
       $log.info('main component init');
 
       $scope.$on(CONSTANTS.AUTH_EVENT, (msg, user) => {
-        $log.info(`main auth: ${user}`);
-        this.loggedUser = user;
+        this.loggedUser = user || undefined;
+        $log.info('main auth:', user);
+      });
+
+      $scope.$on('$stateChangeStart', (evt, toState, toParams, fromState, fromParams, options) => {
+        $log('Options:', options);
+        // if (false) {
+        //   evt.preventDefault();
+        // }
       });
     };
 
-    this.isLogged = () => this.loggedUser !== null;
-    this.isAdmin = () => this.loggedUser && this.loggedUser.isAdmin;
-    this.userName = () => (this.loggedUser ? this.loggedUser.name : '');
+    this.isLogged = () => typeof this.loggedUser !== 'undefined';
+    this.isAdmin = () => this.isLogged() && this.loggedUser.isAdmin;
+    this.userName = () => (this.isLogged() ? this.loggedUser.name : '');
 
     this.logout = () => {
       AuthService.logout().then(() => {

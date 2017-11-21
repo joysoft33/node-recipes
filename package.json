@@ -11,7 +11,8 @@
     "watch-and-serve": "concurrently --kill-others \"npm run watch\" \"npm run serve\"",
     "start": "NODE_ENV=production node dist/server.js",
     "seed": "sequelize db:seed:all",
-    "test": "NODE_ENV='test' node_modules/.bin/mocha test/**/*.js"
+    "test": "NODE_ENV='test' node_modules/.bin/mocha test/**/*.js",
+    "heroku-postbuild": "webpack -p --config ./webpack.config.js --progress"
   },
   "keywords": [],
   "author": "Eric LEON",
@@ -37,6 +38,7 @@
     "mysql2": "^1.5.0",
     "ng-file-upload": "^12.2.13",
     "nodemailer": "^4.4.0",
+    "pg": "^7.4.0",
     "sequelize": "^4.22.6"
   },
   "devDependencies": {

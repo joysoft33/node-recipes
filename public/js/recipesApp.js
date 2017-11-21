@@ -23,6 +23,7 @@ const app = angular.module('recipesApp', [
 app
   .constant('CONSTANTS', config.constants)
   .config(config.translate)
+  .config(config.storage)
   .config(config.routes)
   .run(config.run);
 
