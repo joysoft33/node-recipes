@@ -7,12 +7,12 @@ const settings = {
   publicPath: '',
   basePath: '',
   mail: {
-    host: 'mailtrap.io',
-    port: 2525,
-    secure: false,
-    user: process.env.MAILTRAP_USER || '',
-    passwd: process.env.MAILTRAP_PASSWORD || '',
-    adminEmail: 'admin@recipes.fr'
+    host: process.env.MAIL_HOST || 'mailtrap.io',
+    port: process.env.MAIL_PORT || 2525,
+    secure: process.env.MAIL_SSL || false,
+    user: process.env.MAIL_USER || '',
+    passwd: process.env.MAIL_PASSWORD || '',
+    adminEmail: process.env.MAIL_ADMIN || 'admin@recipes.fr'
   },
   jwtCookie: 'recipes',
   jwtSecret: '0123456789876543210'
