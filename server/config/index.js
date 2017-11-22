@@ -2,7 +2,7 @@ const path = require('path');
 const dbConfig = require('./config.json');
 
 const settings = {
-  serverPort: process.env.NODE_PORT || 3000,
+  serverPort: process.env.PORT || 3000,
   imagesPath: 'images',
   publicPath: '',
   basePath: '',

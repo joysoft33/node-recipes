@@ -9,7 +9,7 @@
     "watch": "webpack --watch",
     "serve": "nodemon --inspect=5858 -w dist/server.js dist/server.js",
     "watch-and-serve": "concurrently --kill-others \"npm run watch\" \"npm run serve\"",
-    "start": "NODE_ENV=production NODE_PORT=8080 node dist/server.js",
+    "start": "NODE_ENV=production node dist/server.js",
     "seed": "sequelize db:seed:all",
     "test": "NODE_ENV='test' node_modules/.bin/mocha test/**/*.js",
     "heroku-postbuild": "webpack -p --config ./webpack.config.js --progress"
