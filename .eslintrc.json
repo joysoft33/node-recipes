@@ -43,6 +43,7 @@
     "angular/file-name": "off",
     "angular/module-setter": "off",
     "angular/module-getter": "off",
-    "no-undefined": "off"
+    "no-undefined": "off",
+    "angular/service-name": "off"
   }
 }

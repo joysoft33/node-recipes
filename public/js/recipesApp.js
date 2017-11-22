@@ -27,4 +27,4 @@ app
   .config(config.routes)
   .run(config.run);
 
-export default app;
+export default app.name;
