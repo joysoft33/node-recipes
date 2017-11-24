@@ -8,15 +8,25 @@ module.exports = class {
    * @param {*} res
    */
   findAll(req, res) {
-    if (!req.user.isAdmin) {
-      res.sendStatus(403);
-    } else {
-      models.user.findAll().then((users) => {
-        res.json(users);
-      }).catch((err) => {
-        res.status(500).send(err.errors);
-      });
-    }
+    models.user.findAll({
+      attributes: ['id', 'name', 'email', 'isAdmin', 'createdAt'],
+      include: [{
+        attributes: [[models.sequelize.fn('COUNT', models.sequelize.col('recipes.id')), 'count']],
+        model: models.recipe,
+        duplicating: false,
+        required: false
+      }],
+      raw: true,
+      group: ['id']
+    }).then((users) => {
+      res.json(users.map((item) => {
+        item.recipesCount = item['recipes.count'];
+        item['recipes.count'] = undefined;
+        return item;
+      }));
+    }).catch((err) => {
+      res.status(500).send(err.errors);
+    });
   }
 
   /**
@@ -28,9 +38,14 @@ module.exports = class {
     if ((req.user.id !== req.params.id) && !req.user.isAdmin) {
       res.sendStatus(403);
     } else {
-      models.user.findById(req.params.id).then((users) => {
-        if (users) {
-          res.json(users);
+      models.user.findById(req.params.id, {
+        include: [{
+          model: models.recipe,
+          as: 'recipes'
+        }]
+      }).then((user) => {
+        if (user) {
+          res.json(user);
         } else {
           res.sendStatus(404);
         }
@@ -80,18 +95,14 @@ module.exports = class {
    * @param {*} res
    */
   delete(req, res) {
-    if (!req.user.isAdmin) {
-      res.sendStatus(403);
-    } else {
-      models.user.destroy({
-        where: {
-          id: req.params.id
-        }
-      }).then((count) => {
-        res.sendStatus(count === 1 ? 200 : 404);
-      }).catch((err) => {
-        res.status(500).send(err.errors);
-      });
-    }
+    models.user.destroy({
+      where: {
+        id: req.params.id
+      }
+    }).then((count) => {
+      res.sendStatus(count === 1 ? 200 : 404);
+    }).catch((err) => {
+      res.status(500).send(err.errors);
+    });
   }
 };

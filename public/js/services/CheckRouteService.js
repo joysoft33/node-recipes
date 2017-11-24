@@ -16,6 +16,7 @@ function checkRouteService(AuthService, $log, $q, $transitions) {
   service.initialize = function initialize() {
     // Check ui-router transitions
     $transitions.onBefore({}, service.check);
+    $transitions.onError({}, service.error);
   };
 
   service.check = function check(transition) {
@@ -28,15 +29,30 @@ function checkRouteService(AuthService, $log, $q, $transitions) {
       const user = AuthService.getUser();
       if (user) {
         // A user is connected
-        $log.debug(`${to.url} authenticated`);
+        $log.info(`${to.url} authenticated`);
       } else {
         // User isn’t authenticated
-        $log.debug(`${to.url} need authentication`);
+        $log.info(`${to.url} need authentication`);
         // Redirect to login page
         return transition.router.stateService.target('main.login', {
           redirect: to.name
         });
       }
+    }
+  };
+
+  service.error = function error(transition) {
+
+    // Get the rejection cause
+    const rejection = transition.error();
+
+    if (rejection.type === 6) {
+      $log.error('Transition rejected', rejection);
+      // Redirect to the error page
+      return transition.router.stateService.go('main.error', {
+        status: rejection.detail ? rejection.detail.status : '',
+        message: rejection.message
+      });
     }
   };
 

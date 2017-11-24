@@ -45,13 +45,20 @@ function translateConfig($translateProvider) {
         NAME: 'Name',
         EMAIL: 'Mail address',
         PASSWORD: 'Password',
-        CREATE: 'Create my account'
+        CREATE: 'Create my account',
+        ADMIN: 'Administrator'
       },
       USERS: {
         NAME: 'Name',
         EMAIL: 'Email',
         DATE: 'Date',
-        ADMIN: 'Admin'
+        ADMIN: 'Admin',
+        RECIPES: 'Recipes'
+      },
+      ERRORS: {
+        MESSAGE: 'Message',
+        STATUS: 'Status',
+        RETURN: 'Return to home page'
       },
       ALL: 'All'
     })
@@ -92,13 +99,20 @@ function translateConfig($translateProvider) {
         NAME: 'Nom',
         EMAIL: 'Adresse mail',
         PASSWORD: 'Mot de passe',
-        CREATE: 'Créer mon compte'
+        CREATE: 'Créer mon compte',
+        ADMIN: 'Administrateur'
       },
       USERS: {
         NAME: 'Nom',
         EMAIL: 'Mail',
         DATE: 'Date',
-        ADMIN: 'Admin'
+        ADMIN: 'Admin',
+        RECIPES: 'Recettes'
+      },
+      ERRORS: {
+        MESSAGE: 'Message',
+        STATUS: 'Statut',
+        RETURN: 'Retour à l\'accueil'
       },
       ALL: 'Toutes'
     })

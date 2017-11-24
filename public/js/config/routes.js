@@ -41,8 +41,8 @@ function routesConfig($stateProvider, $urlRouterProvider) {
       }
     })
 
-    .state('main.details', {
-      url: 'details/:id',
+    .state('main.recipe', {
+      url: 'recipe/:id',
       component: 'recipeDetails',
       resolve: {
         recipe: (RecipesService, $transition$) => {
@@ -86,6 +86,35 @@ function routesConfig($stateProvider, $urlRouterProvider) {
       },
       data: {
         requiresLogin: true
+      }
+    })
+
+    .state('main.user', {
+      url: 'user/:id',
+      component: 'userDetails',
+      resolve: {
+        user: (UsersService, $transition$) => {
+          return UsersService.get({
+            id: $transition$.params().id
+          }).$promise;
+        }
+      },
+      data: {
+        requiresLogin: true
+      }
+    })
+
+    .state('main.error', {
+      url: 'error?message&status',
+      component: 'error',
+      resolve: {
+        error: ($transition$) => {
+          const params = $transition$.params();
+          return {
+            message: params.message,
+            status: params.status
+          };
+        }
       }
     });
 

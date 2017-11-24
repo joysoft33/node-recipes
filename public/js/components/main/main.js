@@ -19,13 +19,6 @@ export default {
         this.loggedUser = user || undefined;
         $log.info('main auth:', user);
       });
-
-      $scope.$on('$stateChangeStart', (evt, toState, toParams, fromState, fromParams, options) => {
-        $log('Options:', options);
-        // if (false) {
-        //   evt.preventDefault();
-        // }
-      });
     };
 
     this.isLogged = () => typeof this.loggedUser !== 'undefined';

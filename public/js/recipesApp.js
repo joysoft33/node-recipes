@@ -25,6 +25,7 @@ app
   .config(config.translate)
   .config(config.storage)
   .config(config.routes)
-  .run(config.run);
+  .run(config.states)
+  .run(config.auth);
 
 export default app.name;

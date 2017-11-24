@@ -28,6 +28,10 @@ module.exports = class {
         attributes: ['name'],
         model: models.category,
         as: 'category'
+      }, {
+        attributes: ['name'],
+        model: models.user,
+        as: 'user'
       }]
     };
 
@@ -55,6 +59,10 @@ module.exports = class {
       include: [{
         model: models.category,
         as: 'category'
+      }, {
+        attributes: ['name'],
+        model: models.user,
+        as: 'user'
       }]
     }).then((recipe) => {
       if (recipe) {

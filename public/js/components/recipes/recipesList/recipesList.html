@@ -13,11 +13,12 @@
   <div class="error" ng-show="$ctrl.error.length">{{$ctrl.error}}</div>
   <table ng-hide="$ctrl.error.length" class="table">
     <tbody>
-      <tr ng-repeat="recipe in $ctrl.recipes track by recipe.id" ui-sref="main.details({id: recipe.id})">
+      <tr ng-repeat="recipe in $ctrl.recipes track by recipe.id" ui-sref="main.recipe({id: recipe.id})">
         <td class="image">
           <img ng-src="{{recipe.image}}" alt="image">
         </td>
         <td class="title">{{recipe.title}}</td>
+        <td class="name">{{recipe.user.name}}</td>
       </tr>
     </tbody>
   </table>

@@ -34,7 +34,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
 
-  User.associate = function associate(models) {};
+  User.associate = function associate(models) {
+    User.hasMany(models.recipe);
+  };
 
   /**
    * Callback used to suppress password of found objects
@@ -90,7 +92,7 @@ module.exports = (sequelize, DataTypes) => {
       isAdmin: this.isAdmin
     },
     config.jwtSecret, {
-      expiresIn: 60 * 5
+      expiresIn: '1h'
     });
   };
 

@@ -10,12 +10,14 @@
         <th>{{'USERS.EMAIL' | translate}}</th>
         <th>{{'USERS.DATE' | translate}}</th>
         <th>{{'USERS.ADMIN' | translate}}</th>
+        <th>{{'USERS.RECIPES' | translate}}</th>
       </thead>
       <tr ng-repeat="user in $ctrl.users track by user.id" ui-sref="main.user({id: user.id})">
         <td>{{user.name | uppercase}}</td>
         <td>{{user.email | lowercase}}</td>
         <td>{{user.createdAt | date:'dd/MM/yyyy'}}</td>
         <td>{{user.isAdmin}}</td>
+        <td>{{user.recipesCount}}</td>
       </tr>
     </tbody>
   </table>

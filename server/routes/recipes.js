@@ -13,15 +13,15 @@ module.exports = (express, auth) => {
     recipesController.findOne(req, res);
   });
 
-  router.post('/', auth, (req, res) => {
+  router.post('/', auth.user, (req, res) => {
     recipesController.create(req, res);
   });
 
-  router.post('/image', auth, (req, res) => {
+  router.post('/image', auth.user, (req, res) => {
     recipesController.uploadImage(req, res);
   });
 
-  router.delete('/:id', auth, (req, res) => {
+  router.delete('/:id', auth.admin, (req, res) => {
     recipesController.delete(req, res);
   });
 

@@ -1,26 +1,16 @@
-const jwtExpress = require('express-jwt');
+const auth = require('../middlewares/auth');
 
 const authRoutes = require('./auth');
 const usersRoutes = require('./users');
 const recipesRoutes = require('./recipes');
 const categoriesRoutes = require('./categories');
 
-const config = require('../config')();
-
-/**
- * Build the authentication middleware object.
- * JWT will be found in the request authorization header.
- */
-const authCheck = jwtExpress({
-  secret: config.jwtSecret
-});
-
 module.exports = (app, express) => {
 
   app.use('/auth', authRoutes(express));
-  app.use('/users', usersRoutes(express, authCheck));
-  app.use('/recipes', recipesRoutes(express, authCheck));
-  app.use('/categories', categoriesRoutes(express, authCheck));
+  app.use('/users', usersRoutes(express, auth));
+  app.use('/recipes', recipesRoutes(express, auth));
+  app.use('/categories', categoriesRoutes(express, auth));
 
   /**
    * The default error handler when all route matching has failed

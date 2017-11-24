@@ -1,18 +1,18 @@
-import htmlTemplate from './usersList.html';
+import htmlTemplate from './error.html';
 
 export default {
 
   template: htmlTemplate,
 
   bindings: {
-    users: '<'
+    error: '<'
   },
 
   controller: function controller($log) {
     'ngInject';
 
     this.$onInit = () => {
-      $log.info('usersList component init', this.users);
+      $log.info('error component init', this.error);
     };
   }
 };

@@ -9,15 +9,15 @@ module.exports = (express, auth) => {
     categoriesController.findAll(req, res);
   });
 
-  router.get('/:id', auth, (req, res) => {
+  router.get('/:id', auth.user, (req, res) => {
     categoriesController.findOne(req, res);
   });
 
-  router.post('/', auth, (req, res) => {
+  router.post('/', auth.admin, (req, res) => {
     categoriesController.create(req, res);
   });
 
-  router.delete('/', auth, (req, res) => {
+  router.delete('/', auth.admin, (req, res) => {
     categoriesController.delete(req, res);
   });
 

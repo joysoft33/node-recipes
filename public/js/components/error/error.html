@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="alert alert-danger">
+    <dl class="dl-horizontal">
+      <dt>{{'ERRORS.MESSAGE' | translate}}:</dt>
+      <dd>{{$ctrl.error.message}}</dd>
+      <dt>{{'ERRORS.STATUS' | translate}}:</dt>
+      <dd>{{$ctrl.error.status}}</dd>
+    </dl>
+  </div>
+  <a class="btn btn-default" ui-sref="main.recipes">{{'ERRORS.RETURN' | translate}}</a>
+</div>

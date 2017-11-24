@@ -37,3 +37,4 @@ Tags:
 - **v1.21**: enhanced evolutive mailer
 - **v1.22**: basic admin role
 - **v1.23**: webpack !
+- **v1.24**: recipe owner, node middleware for authentication
