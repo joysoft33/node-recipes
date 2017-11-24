@@ -37,5 +37,5 @@ Tags:
 - **v1.21**: enhanced evolutive mailer
 - **v1.22**: basic admin role
 - **v1.23**: webpack !
-- **v1.24**: recipe owner, node middleware for authentication
+- **v1.24**: Heroku deploy compatible, recipe owner, node flexible authentication middleware
 - **v1.25**: user profile edit
