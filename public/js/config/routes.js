@@ -91,7 +91,7 @@ function routesConfig($stateProvider, $urlRouterProvider) {
 
     .state('main.user', {
       url: 'user/:id',
-      component: 'userDetails',
+      component: 'userEdit',
       resolve: {
         user: (UsersService, $transition$) => {
           return UsersService.get({

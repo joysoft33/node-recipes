@@ -114,28 +114,24 @@ function authService(CONSTANTS, $http, $q, $timeout, $window, $rootScope, localS
       default:
         throw new Error('Illegal base64url string!');
     }
-    // polyfill https://github.com/davidchambers/Base64.js
     const data = $window.decodeURIComponent(escape($window.atob(output)));
     return data ? angular.fromJson(data) : null;
   }
 
-  function getTokenExpirationDate(payload) {
+  /**
+   * Determine if the authentication JWT token has expired
+   * @param {*} payload
+   * @return {boolean} true if expired else false
+   */
+  function isTokenExpired(payload) {
+    // No expiration date
     if (typeof payload.exp === 'undefined') {
-      return null;
+      return false;
     }
     // The 0 here is the key, which sets the date to the epoch
     const d = new Date(0);
     d.setUTCSeconds(payload.exp);
-    return d;
-  }
-
-  function isTokenExpired(payload, offsetSeconds) {
-    const d = getTokenExpirationDate(payload);
-    const offset = offsetSeconds || 0;
-    if (d === null) {
-      return false;
-    }
-    // Token expired?
-    return !(d.valueOf() > (new Date().valueOf() + (offset * 1000)));
+    // true if token expired
+    return d.valueOf() <= new Date().valueOf();
   }
 }

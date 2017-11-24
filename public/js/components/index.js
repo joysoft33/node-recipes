@@ -11,7 +11,7 @@ import recipesList from './recipes/recipesList/recipesList';
 import recipeAdd from './recipes/recipeAdd/recipeAdd';
 
 import usersList from './users/usersList/usersList';
-import userDetails from './users/userDetails/userDetails';
+import userEdit from './users/userEdit/userEdit';
 
 const components = angular.module('appComponents', [
   translate
@@ -26,6 +26,6 @@ components
   .component('recipesList', recipesList)
   .component('recipeAdd', recipeAdd)
   .component('usersList', usersList)
-  .component('userDetails', userDetails);
+  .component('userEdit', userEdit);
 
 export default components.name;

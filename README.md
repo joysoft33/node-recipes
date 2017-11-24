@@ -38,3 +38,4 @@ Tags:
 - **v1.22**: basic admin role
 - **v1.23**: webpack !
 - **v1.24**: recipe owner, node middleware for authentication
+- **v1.25**: user profile edit

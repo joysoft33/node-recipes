@@ -10,5 +10,9 @@ function usersService($resource) {
 
   return $resource('/users/:id', {
     id: '@id'
+  }, {
+    update: {
+      method: 'PUT'
+    }
   });
 }

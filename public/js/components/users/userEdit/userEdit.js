@@ -1,4 +1,4 @@
-import htmlTemplate from './userDetails.html';
+import htmlTemplate from './userEdit.html';
 
 export default {
 
@@ -12,11 +12,11 @@ export default {
     'ngInject';
 
     this.$onInit = () => {
-      $log.info('userDetails component init', this.user);
+      $log.info('userEdit component init', this.user);
     };
 
     this.validate = () => {
-      this.user.$save().then(() => {
+      this.user.$update().then(() => {
         $state.go('main.recipes');
       }).catch((err) => {
         $log.error('Error:', err);

@@ -1,7 +1,7 @@
 export default checkAuth;
 
 /**
- * The check authentication upon page change
+ * The authentication check upon page change
  * @param {*} CheckRouteService
  */
 function checkAuth(CheckRouteService) {
