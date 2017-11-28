@@ -1,3 +1,5 @@
+const logger = require('../utilities/logger');
+
 const auth = require('../middlewares/auth');
 
 const authRoutes = require('./auth');
@@ -16,6 +18,9 @@ module.exports = (app, express) => {
    * The default error handler when all route matching has failed
    */
   app.use((err, req, res, next) => {
+
+    logger.error('Error handler', err);
+
     if (err.name === 'UnauthorizedError') {
       res.status(403).send({
         message: 'No token provided.',

@@ -1,3 +1,4 @@
+const logger = require('../utilities/logger');
 const models = require('../models');
 
 module.exports = class {
@@ -6,8 +7,9 @@ module.exports = class {
    * Return all users
    * @param {*} req
    * @param {*} res
+   * @param {*} next
    */
-  findAll(req, res) {
+  findAll(req, res, next) {
     models.user.findAll({
       attributes: ['id', 'name', 'email', 'isAdmin', 'createdAt'],
       include: [{
@@ -25,7 +27,7 @@ module.exports = class {
         return item;
       }));
     }).catch((err) => {
-      res.status(500).send(err.errors);
+      next(err);
     });
   }
 
@@ -33,8 +35,9 @@ module.exports = class {
    * Return the requested user
    * @param {*} req
    * @param {*} res
+   * @param {*} next
    */
-  findOne(req, res) {
+  findOne(req, res, next) {
     if ((req.user.id !== req.params.id) && !req.user.isAdmin) {
       res.sendStatus(403);
     } else {
@@ -50,7 +53,7 @@ module.exports = class {
           res.sendStatus(404);
         }
       }).catch((err) => {
-        res.status(500).send(err.errors);
+        next(err);
       });
     }
   }
@@ -59,12 +62,13 @@ module.exports = class {
    * Create a new user from the body
    * @param {*} req
    * @param {*} res
+   * @param {*} next
    */
-  create(req, res) {
+  create(req, res, next) {
     models.user.create(req.body).then((user) => {
       res.json(user);
     }).catch((err) => {
-      res.status(500).send(err.errors);
+      next(err);
     });
   }
 
@@ -72,8 +76,9 @@ module.exports = class {
    * Update the given user from the body
    * @param {*} req
    * @param {*} res
+   * @param {*} next
    */
-  update(req, res) {
+  update(req, res, next) {
     if ((req.user.id !== req.params.id) && !req.user.isAdmin) {
       res.sendStatus(403);
     } else {
@@ -84,7 +89,7 @@ module.exports = class {
       }).spread((count) => {
         res.sendStatus(count ? 200 : 404);
       }).catch((err) => {
-        res.status(500).send(err.errors);
+        next(err);
       });
     }
   }
@@ -93,8 +98,9 @@ module.exports = class {
    * Delete the requested user
    * @param {*} req
    * @param {*} res
+   * @param {*} next
    */
-  delete(req, res) {
+  delete(req, res, next) {
     models.user.destroy({
       where: {
         id: req.params.id
@@ -102,7 +108,7 @@ module.exports = class {
     }).then((count) => {
       res.sendStatus(count === 1 ? 200 : 404);
     }).catch((err) => {
-      res.status(500).send(err.errors);
+      next(err);
     });
   }
 };

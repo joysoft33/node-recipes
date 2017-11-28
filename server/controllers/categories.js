@@ -6,12 +6,13 @@ module.exports = class {
    * Return all categories
    * @param {*} req
    * @param {*} res
+   * @param {*} next
    */
-  findAll(req, res) {
+  findAll(req, res, next) {
     models.category.findAll().then((categories) => {
       res.json(categories);
     }).catch((err) => {
-      res.status(500).send(err);
+      next(err);
     });
   }
 
@@ -20,7 +21,7 @@ module.exports = class {
    * @param {*} req
    * @param {*} res
    */
-  findOne(req, res) {
+  findOne(req, res, next) {
     models.category.findById(req.params.id).then((category) => {
       if (category) {
         res.json(category);
@@ -28,7 +29,7 @@ module.exports = class {
         res.sendStatus(404);
       }
     }).catch((err) => {
-      res.status(500).send(err);
+      next(err);
     });
   }
 
@@ -37,11 +38,11 @@ module.exports = class {
    * @param {*} req
    * @param {*} res
    */
-  create(req, res) {
+  create(req, res, next) {
     models.category.create(req.body).then((category) => {
       res.json(category);
     }).catch((err) => {
-      res.status(500).send(err);
+      next(err);
     });
   }
 
@@ -50,7 +51,7 @@ module.exports = class {
    * @param {*} req
    * @param {*} res
    */
-  delete(req, res) {
+  delete(req, res, next) {
     models.category.destroy({
       where: {
         id: req.params.id
@@ -58,7 +59,7 @@ module.exports = class {
     }).then((count) => {
       res.sendStatus(count === 1 ? 200 : 404);
     }).catch((err) => {
-      res.status(500).send(err);
+      next(err);
     });
   }
 };

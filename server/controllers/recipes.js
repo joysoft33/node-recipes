@@ -1,8 +1,8 @@
+const logger = require('../utilities/logger');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
-const logger = require('../utilities/logger');
 const mails = require('../utilities/mails');
 const models = require('../models');
 
@@ -20,8 +20,9 @@ module.exports = class {
    * Return all recipes without their descriptions
    * @param {*} req
    * @param {*} res
+   * @param {*} next
    */
-  findAll(req, res) {
+  findAll(req, res, next) {
 
     const options = {
       attributes: ['id', 'title', 'image', 'categoryId'],
@@ -46,7 +47,7 @@ module.exports = class {
     models.recipe.findAll(options).then((recipes) => {
       res.json(recipes);
     }).catch((err) => {
-      res.status(500).send(err);
+      next(err);
     });
   }
 
@@ -54,8 +55,9 @@ module.exports = class {
    * Return the requested recipe details
    * @param {*} req
    * @param {*} res
+   * @param {*} next
    */
-  findOne(req, res) {
+  findOne(req, res, next) {
     models.recipe.findById(req.params.id, {
       include: [{
         model: models.category,
@@ -72,16 +74,19 @@ module.exports = class {
         res.sendStatus(404);
       }
     }).catch((err) => {
-      res.status(500).send(err);
+      next(err);
     });
   }
 
   /**
    * Create a new recipe from the body data
+   * Becareful: an error during email send imply an error on the create recipe command...
+   * Is it really what should be done ?
    * @param {*} req
    * @param {*} res
+   * @param {*} next
    */
-  create(req, res) {
+  create(req, res, next) {
     let result;
     models.recipe.create(req.body).then((recipe) => {
       result = recipe;
@@ -91,7 +96,7 @@ module.exports = class {
     }).then(() => {
       res.json(result);
     }).catch((err) => {
-      res.status(500).send(err);
+      next(err);
     });
   }
 
@@ -99,11 +104,12 @@ module.exports = class {
    * Upload recipe image
    * @param {*} req
    * @param {*} res
+   * @param {*} next
    */
-  uploadImage(req, res) {
+  uploadImage(req, res, next) {
     upload(req, res, (err) => {
       if (err) {
-        res.json(err);
+        next(err);
       } else {
         res.json({
           originalFilename: req.file.originalname,
@@ -125,7 +131,7 @@ module.exports = class {
         const imagePath = path.resolve(config.publicPath, recipe.image);
         fs.unlink(imagePath, (err) => {
           if (err) {
-            logger.error(`Error deleting image ${recipe.image}`, err);
+            logger.error(`recipes.deleteImage ${recipe.image}`, err);
           }
           resolve(recipe);
         });
@@ -140,8 +146,9 @@ module.exports = class {
    * and terminate by deleting the recipe itself
    * @param {*} req
    * @param {*} res
+   * @param {*} next
    */
-  delete(req, res) {
+  delete(req, res, next) {
     models.recipe.findOne({
       where: {
         id: req.params.id
@@ -153,7 +160,7 @@ module.exports = class {
     }).then(() => {
       res.sendStatus(200);
     }).catch((err) => {
-      res.status(500).send(err);
+      next(err);
     });
   }
 };

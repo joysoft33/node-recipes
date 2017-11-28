@@ -1,3 +1,4 @@
+const logger = require('../utilities/logger');
 const models = require('../models');
 
 module.exports = class {
@@ -19,13 +20,14 @@ module.exports = class {
         // We are checking if password is the same as the one stored and encrypted in db
         return user.authenticate(req.body.password);
       }
-      return res.sendStatus(404);
+      throw new Error('Bad credentials');
     }).then((token) => {
       // The returned value upon success is a new JWT token
       res.json({
         token: token
       });
     }).catch((err) => {
+      logger.error('authenticate', err);
       res.status(401).send(err);
     });
   }
