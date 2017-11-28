@@ -21,7 +21,8 @@
       "type": "node",
       "request": "launch",
       "name": "Launch Program",
-      "program": "${workspaceRoot}/dist/server.js"
+      "program": "${workspaceRoot}/dist/server.js",
+      "console": "integratedTerminal"
     }
   ]
 }

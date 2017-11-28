@@ -155,7 +155,7 @@ const publicConfig = {
       PRODUCTION: JSON.stringify(PRODUCTION)
     }),
     new webpack.ProvidePlugin({
-      "window.jQuery": "jquery",
+      'window.jQuery': 'jquery',
       jQuery: 'jquery',
       jquery: 'jquery',
       $: 'jquery'

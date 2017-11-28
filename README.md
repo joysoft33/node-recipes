@@ -39,3 +39,4 @@ Tags:
 - **v1.23**: webpack !
 - **v1.24**: Heroku deploy compatible, recipe owner, node flexible authentication middleware
 - **v1.25**: user profile edit
+- **v1.26**: winston logger

@@ -2,6 +2,7 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
+const logger = require('../utilities/logger');
 const mails = require('../utilities/mails');
 const models = require('../models');
 
@@ -124,7 +125,7 @@ module.exports = class {
         const imagePath = path.resolve(config.publicPath, recipe.image);
         fs.unlink(imagePath, (err) => {
           if (err) {
-            console.log(`Error deleting image ${recipe.image}`, err);
+            logger.error(`Error deleting image ${recipe.image}`, err);
           }
           resolve(recipe);
         });
