@@ -1,4 +1,3 @@
-const logger = require('../utilities/logger');
 const models = require('../models');
 
 module.exports = class {
@@ -8,7 +7,7 @@ module.exports = class {
    * @param {*} req
    * @param {*} res
    */
-  authenticate(req, res) {
+  authenticate(req, res, next) {
     // First retrieve the user given its email address, do not hide password
     models.user.findOne({
       where: {
@@ -16,19 +15,22 @@ module.exports = class {
       },
       keepPassword: true
     }).then((user) => {
-      if (user) {
-        // We are checking if password is the same as the one stored and encrypted in db
-        return user.authenticate(req.body.password);
+      if (!user) {
+        const error = new Error();
+        error.message = 'Invalid credential supplied';
+        error.name = 'BadCredentials';
+        error.status = 404;
+        throw error;
       }
-      throw new Error('Bad credentials');
+      // Now check if password is the same as the one stored and encrypted in db
+      return user.authenticate(req.body.password);
     }).then((token) => {
       // The returned value upon success is a new JWT token
       res.json({
         token: token
       });
     }).catch((err) => {
-      logger.error('authenticate', err);
-      res.status(401).send(err);
+      next(err);
     });
   }
 

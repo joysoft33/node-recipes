@@ -5,24 +5,24 @@ module.exports = (express, auth) => {
   const recipesController = new RecipesController();
   const router = express.Router();
 
-  router.get('/', (req, res) => {
-    recipesController.findAll(req, res);
+  router.get('/', (req, res, next) => {
+    recipesController.findAll(req, res, next);
   });
 
-  router.get('/:id', (req, res) => {
-    recipesController.findOne(req, res);
+  router.get('/:id', (req, res, next) => {
+    recipesController.findOne(req, res, next);
   });
 
-  router.post('/', auth.user, (req, res) => {
-    recipesController.create(req, res);
+  router.post('/', auth.user, (req, res, next) => {
+    recipesController.create(req, res, next);
   });
 
-  router.post('/image', auth.user, (req, res) => {
-    recipesController.uploadImage(req, res);
+  router.post('/image', auth.user, (req, res, next) => {
+    recipesController.uploadImage(req, res, next);
   });
 
-  router.delete('/:id', auth.admin, (req, res) => {
-    recipesController.delete(req, res);
+  router.delete('/:id', auth.admin, (req, res, next) => {
+    recipesController.delete(req, res, next);
   });
 
   return router;

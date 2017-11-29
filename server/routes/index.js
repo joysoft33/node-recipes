@@ -21,13 +21,16 @@ module.exports = (app, express) => {
 
     logger.error('Error handler', err);
 
-    if (err.name === 'UnauthorizedError') {
-      res.status(403).send({
-        message: 'No token provided.',
+    if (res.headersSent) {
+      next(err);
+    } else if (err.name) {
+      res.status(err.status).send({
+        message: err.message,
+        status: err.status,
         success: false
       });
     } else {
-      next();
+      res.status(500).send(err);
     }
   });
 };

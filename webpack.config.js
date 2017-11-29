@@ -1,9 +1,10 @@
 const path = require('path');
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
-const BabiliPlugin = require('babili-webpack-plugin');
+const MinifyPlugin = require('babili-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const PRODUCTION = process.env.NODE_ENV === 'production';
 
@@ -60,20 +61,22 @@ const serverConfig = {
             ]
           }
         }]
-      }, {
-        test: /\.ejs$/,
-        use: [{
-          loader: 'raw-loader'
-        }]
       }
     ]
   },
   plugins: [
-    PRODUCTION && new BabiliPlugin(),
+    PRODUCTION && new MinifyPlugin(),
     new webpack.BannerPlugin({
       banner: 'require("source-map-support").install();',
       entryOnly: false,
       raw: true
+    }),
+    new CopyWebpackPlugin([{
+      context: path.resolve('server/emails'),
+      from: '**/*',
+      to: 'emails'
+    }], {
+      copyUnmodified: true
     })
   ].filter(e => e),
   devtool: PRODUCTION ? 'source-map' : 'inline-source-map'
@@ -150,7 +153,7 @@ const publicConfig = {
   },
   plugins: [
     new ExtractTextPlugin('[name].css'),
-    PRODUCTION && new BabiliPlugin(),
+    PRODUCTION && new MinifyPlugin(),
     new webpack.DefinePlugin({
       PRODUCTION: JSON.stringify(PRODUCTION)
     }),

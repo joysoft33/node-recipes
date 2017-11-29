@@ -5,20 +5,20 @@ module.exports = (express, auth) => {
   const categoriesController = new CategoryController();
   const router = express.Router();
 
-  router.get('/', (req, res) => {
-    categoriesController.findAll(req, res);
+  router.get('/', (req, res, next) => {
+    categoriesController.findAll(req, res, next);
   });
 
-  router.get('/:id', auth.user, (req, res) => {
-    categoriesController.findOne(req, res);
+  router.get('/:id', auth.user, (req, res, next) => {
+    categoriesController.findOne(req, res, next);
   });
 
-  router.post('/', auth.admin, (req, res) => {
-    categoriesController.create(req, res);
+  router.post('/', auth.admin, (req, res, next) => {
+    categoriesController.create(req, res, next);
   });
 
-  router.delete('/', auth.admin, (req, res) => {
-    categoriesController.delete(req, res);
+  router.delete('/', auth.admin, (req, res, next) => {
+    categoriesController.delete(req, res, next);
   });
 
   return router;

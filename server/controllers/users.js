@@ -1,4 +1,3 @@
-const logger = require('../utilities/logger');
 const models = require('../models');
 
 module.exports = class {
