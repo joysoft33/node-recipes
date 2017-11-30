@@ -40,3 +40,4 @@ Tags:
 - **v1.24**: Heroku deploy compatible, recipe owner, node flexible authentication middleware
 - **v1.25**: user profile edit
 - **v1.26**: winston logger
+- **v2.00**: new architecture for public and admin zones
