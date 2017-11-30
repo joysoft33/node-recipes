@@ -2,7 +2,7 @@
   "name": "recipes",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "server/server.js",
   "scripts": {
     "build": "webpack",
     "build:prod": "NODE_ENV=production webpack",
@@ -12,7 +12,7 @@
     "start": "NODE_ENV=production node dist/server.js",
     "seed": "sequelize db:seed:all",
     "test": "NODE_ENV='test' node_modules/.bin/mocha test/**/*.js",
-    "clean": "rm dist/*; rm dist/public/* || true",
+    "clean": "rm dist/*; find ./dist/* ! -name 'images' -type d -exec rm -rf {} + || true",
     "heroku-postbuild": "webpack -p --config ./webpack.config.js --progress"
   },
   "keywords": [],
@@ -47,10 +47,10 @@
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.2",
     "babel-loader": "^7.1.2",
+    "babel-minify-webpack-plugin": "^0.2.0",
     "babel-preset-angular": "^6.0.15",
     "babel-preset-env": "^1.6.1",
     "babel-preset-es2015": "^6.24.1",
-    "babili-webpack-plugin": "0.1.1",
     "copy-webpack-plugin": "^4.2.3",
     "css-loader": "^0.28.7",
     "eslint": "^4.12.0",
@@ -76,6 +76,7 @@
     "supertest": "^3.0.0",
     "url-loader": "^0.6.2",
     "webpack": "^3.8.1",
-    "webpack-node-externals": "^1.6.0"
+    "webpack-node-externals": "^1.6.0",
+    "webpack-sources": "1.0.1"
   }
 }

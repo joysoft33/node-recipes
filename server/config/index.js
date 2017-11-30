@@ -1,10 +1,8 @@
-const path = require('path');
 const dbConfig = require('./config.json');
 
 const settings = {
   serverPort: process.env.PORT || 3000,
   imagesPath: 'images',
-  publicPath: '',
   basePath: '',
   mail: {
     host: process.env.MAIL_HOST || 'mailtrap.io',
@@ -26,8 +24,7 @@ module.exports = (basePath) => {
     const dbSettings = dbConfig[settings.env];
 
     // Build the base front directory path
-    settings.publicPath = path.join(basePath, 'public');
-    settings.serverPath = path.join(basePath, 'server');
+    settings.serverPath = basePath;
 
     // Extend base config with database one
     for (const key in dbSettings) {

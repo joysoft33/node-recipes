@@ -24,7 +24,7 @@ module.exports = (app, express) => {
     if (res.headersSent) {
       next(err);
     } else if (err.name) {
-      res.status(err.status).send({
+      res.status(err.status || 403).send({
         message: err.message,
         status: err.status,
         success: false

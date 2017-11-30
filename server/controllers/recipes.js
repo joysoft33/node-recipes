@@ -8,7 +8,7 @@ const models = require('../models');
 
 const config = require('../config')();
 
-const uploadPath = path.resolve(config.publicPath, config.imagesPath);
+const uploadPath = path.resolve(config.serverPath, config.imagesPath);
 
 const upload = multer({
   dest: uploadPath
@@ -87,14 +87,15 @@ module.exports = class {
    * @param {*} next
    */
   create(req, res, next) {
-    let result;
+    // Set here the recipe creator id
+    req.body.userId = req.user.id;
     models.recipe.create(req.body).then((recipe) => {
-      result = recipe;
-      return mails.sendRecipeValidation(recipe.get({
+      // Send notification email to the admin
+      mails.sendRecipeValidation(recipe.get({
         plain: true
       }));
+      res.json(recipe);
     }).then(() => {
-      res.json(result);
     }).catch((err) => {
       next(err);
     });
@@ -128,7 +129,7 @@ module.exports = class {
   deleteImage(recipe) {
     return new Promise((resolve) => {
       if (recipe.image) {
-        const imagePath = path.resolve(config.publicPath, recipe.image);
+        const imagePath = path.resolve(config.serverPath, recipe.image);
         fs.unlink(imagePath, (err) => {
           if (err) {
             logger.error(`recipes.deleteImage ${recipe.image}`, err);
