@@ -1,6 +1,7 @@
 import angular from 'angular';
 import translate from 'angular-translate';
 
+import paginator from './public/paginator/paginator';
 import navbar from './public/navbar/navbar';
 import login from './common/login/login';
 import error from './common/error/error';
@@ -15,6 +16,7 @@ const components = angular.module('publicComponents', [
 ]);
 
 components
+  .component('paginator', paginator)
   .component('navbar', navbar)
   .component('login', login)
   .component('error', error)

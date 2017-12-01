@@ -38,15 +38,36 @@ module.exports = class {
       }]
     };
 
-    const categoryId = parseInt(req.query.categoryId, 10);
-    if (categoryId) {
-      options.where = {
-        categoryId: categoryId
-      };
+    // Get category optional parameter
+    if (req.query.category) {
+      const category = parseInt(req.query.category, 10);
+      if (category) {
+        options.where = options.where || {};
+        options.where.categoryId = category;
+      }
     }
 
-    models.recipe.findAll(options).then((recipes) => {
-      res.json(recipes);
+    let offset;
+    let limit;
+
+    // Get optional pagination info
+    if (req.query.category) {
+      limit = parseInt(req.query.limit, 10);
+      if (limit > 0) {
+        offset = parseInt(req.query.offset, 10);
+        if (offset >= 0) {
+          options.offset = offset;
+          options.limit = limit;
+        }
+      }
+    }
+
+    models.recipe.findAndCountAll(options).then((result) => {
+      if (limit > 0) {
+        result.offset = offset;
+        result.limit = limit;
+      }
+      res.json(result);
     }).catch((err) => {
       next(err);
     });
@@ -96,8 +117,7 @@ module.exports = class {
         plain: true
       }));
       res.json(recipe);
-    }).then(() => {
-    }).catch((err) => {
+    }).then(() => {}).catch((err) => {
       next(err);
     });
   }

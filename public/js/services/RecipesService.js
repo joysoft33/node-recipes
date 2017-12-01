@@ -10,8 +10,13 @@ export default recipesService;
 function recipesService($resource, $q, Upload) {
   'ngInject';
 
-  const Recipe = $resource('/recipes/:id', {
+  const Recipe = $resource('/api/recipes/:id', {
     id: '@id'
+  }, {
+    queryPaginated: {
+      method: 'GET',
+      array: true
+    }
   });
 
   Recipe.prototype.uploadImage = (file, progress) => {
@@ -19,7 +24,7 @@ function recipesService($resource, $q, Upload) {
     const defer = $q.defer();
 
     Upload.upload({
-      url: '/recipes/image',
+      url: '/api/recipes/image',
       data: {
         file: file
       }

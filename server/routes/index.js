@@ -9,10 +9,10 @@ const categoriesRoutes = require('./categories');
 
 module.exports = (app, express) => {
 
-  app.use('/auth', authRoutes(express));
-  app.use('/users', usersRoutes(express, auth));
-  app.use('/recipes', recipesRoutes(express, auth));
-  app.use('/categories', categoriesRoutes(express, auth));
+  app.use('/api/auth', authRoutes(express));
+  app.use('/api/users', usersRoutes(express, auth));
+  app.use('/api/recipes', recipesRoutes(express, auth));
+  app.use('/api/categories', categoriesRoutes(express, auth));
 
   /**
    * The default error handler when all route matching has failed
