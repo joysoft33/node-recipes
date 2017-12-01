@@ -41,3 +41,5 @@ Tags:
 - **v1.25**: user profile edit
 - **v1.26**: winston logger
 - **v2.00**: new architecture for public and admin zones
+- **v2.01**: translations tables splited
+- **v2.02**: recipes list pagination
