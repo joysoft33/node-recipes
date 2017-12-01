@@ -1,3 +1,4 @@
+import imgLogo from '../../../../images/logo.png';
 import htmlTemplate from './navbar.html';
 
 export default {
@@ -12,19 +13,25 @@ export default {
     'ngInject';
 
     this.$onInit = () => {
-      const lang = $cookies.get(CONSTANTS.COOKIE);
-      if (lang) {
-        $translate.use(lang);
-        this.lang = lang;
-      } else {
-        this.lang = $translate.use();
+
+      this.options = {};
+
+      const options = $cookies.getObject(CONSTANTS.COOKIE);
+      if (options && typeof options === 'object') {
+        $translate.use(options.lang);
+        this.options = options;
       }
+      this.options.lang = $translate.use();
+
+      this.images = {
+        imgLogo
+      };
     };
 
     this.setLanguage = (code) => {
       $translate.use(code);
-      this.lang = $translate.use();
-      $cookies.put(CONSTANTS.COOKIE, this.lang);
+      this.options.lang = $translate.use();
+      $cookies.putObject(CONSTANTS.COOKIE, this.options);
     };
   }
 };

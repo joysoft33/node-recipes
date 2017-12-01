@@ -31,10 +31,10 @@
           </a>
           <ul class="dropdown-menu">
             <li>
-              <a href ng-class="{selected: $ctrl.lang == 'en'}" ng-click="$ctrl.setLanguage('en');">{{'NAVBAR.ENGLISH' | translate}}</a>
+              <a href ng-class="{selected: $ctrl.options.lang == 'en'}" ng-click="$ctrl.setLanguage('en');">{{'NAVBAR.ENGLISH' | translate}}</a>
             </li>
             <li>
-              <a href ng-class="{selected: $ctrl.lang == 'fr'}" ng-click="$ctrl.setLanguage('fr');">{{'NAVBAR.FRENCH' | translate}}</a>
+              <a href ng-class="{selected: $ctrl.options.lang == 'fr'}" ng-click="$ctrl.setLanguage('fr');">{{'NAVBAR.FRENCH' | translate}}</a>
             </li>
           </ul>
         </li>
