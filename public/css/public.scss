@@ -1,5 +1,9 @@
 @import './common.scss';
 
+.navbar-brand img {
+  width: 44px;
+}
+
 .nav ul.dropdown-menu li a.selected {
   background-color: #eee;
   font-weight: bold;

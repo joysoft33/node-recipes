@@ -3,13 +3,17 @@
  */
 export default [{
   name: 'main.recipes',
-  url: 'list?{categoryId:int}',
+  abstract: true,
+  url: '/recipes'
+}, {
+  name: 'main.recipes.list',
+  url: '?{categoryId:int}',
+  component: 'recipesList',
   params: {
     categoryId: {
       value: 0
     }
   },
-  component: 'recipesList',
   resolve: {
     categories: (CategoriesService) => {
       return CategoriesService.query().$promise;
@@ -19,10 +23,13 @@ export default [{
         categoryId: $transition$.params().categoryId
       }).$promise;
     }
+  },
+  data: {
+    defaultRoute: true
   }
 }, {
-  name: 'main.recipe',
-  url: 'recipe/:id',
+  name: 'main.recipes.details',
+  url: '/{id: int}',
   component: 'recipeDetails',
   resolve: {
     recipe: (RecipesService, $transition$) => {
@@ -32,8 +39,8 @@ export default [{
     }
   }
 }, {
-  name: 'main.add',
-  url: 'add',
+  name: 'main.recipes.add',
+  url: '/add',
   component: 'recipeAdd',
   resolve: {
     categories: (CategoriesService) => {

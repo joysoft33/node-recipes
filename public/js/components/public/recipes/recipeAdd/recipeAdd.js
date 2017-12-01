@@ -24,7 +24,7 @@ export default {
         this.recipe.image = result.url;
         return this.recipe.$save();
       }).then(() => {
-        $state.go('main.recipes');
+        $state.go('main.recipes.list');
       }).catch((error) => {
         this.error = error.statusText;
       });

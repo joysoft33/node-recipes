@@ -46,7 +46,18 @@ function checkRouteService(AuthService, $log, $q, $transitions) {
     // Get the rejection cause
     const rejection = transition.error();
 
-    if (rejection.type === 6) {
+    if (typeof rejection === 'string') {
+      const states = transition.router.stateRegistry.states;
+      // Try to redirect to the default page if any
+      for (const name in states) {
+        if (states.hasOwnProperty(name)) {
+          if (states[name].data && states[name].data.defaultRoute) {
+            $log.info(`Redirect to ${name}`);
+            return transition.router.stateService.go(name);
+          }
+        }
+      }
+    } else if (rejection.type === 6) {
       $log.error('Transition rejected', rejection);
       // Redirect to the error page
       return transition.router.stateService.go('main.error', {

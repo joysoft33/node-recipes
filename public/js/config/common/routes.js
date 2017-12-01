@@ -3,7 +3,6 @@
  */
 export default [{
   name: 'main',
-  url: '/',
   component: 'main',
   abstract: true,
   resolve: {
@@ -13,7 +12,7 @@ export default [{
   }
 }, {
   name: 'main.login',
-  url: 'login?redirect',
+  url: '/login?redirect',
   component: 'login',
   resolve: {
     redirect: ($transition$) => {
@@ -22,7 +21,7 @@ export default [{
   }
 }, {
   name: 'main.error',
-  url: 'error?message&status',
+  url: '/error?message&status',
   component: 'error',
   resolve: {
     error: ($transition$) => {

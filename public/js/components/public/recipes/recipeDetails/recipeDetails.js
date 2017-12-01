@@ -21,7 +21,7 @@ export default {
 
     this.delete = () => {
       this.recipe.$delete(() => {
-        $state.go('main.recipes');
+        $state.go('main.recipes.list');
       }, (error) => {
         this.error = error.statusText;
       });

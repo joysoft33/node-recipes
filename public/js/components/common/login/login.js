@@ -23,13 +23,13 @@ export default {
         UsersService.save(this.user).$promise.then(() => {
           return AuthService.login(this.user);
         }).then(() => {
-          $state.go(this.redirect || 'main.recipes');
+          $state.go(this.redirect || 'main');
         }).catch((err) => {
           this.errorMessage = err;
         });
       } else {
         AuthService.login(this.user).then(() => {
-          $state.go(this.redirect || 'main.recipes');
+          $state.go(this.redirect || 'main');
         }).catch((err) => {
           this.errorMessage = err;
         });

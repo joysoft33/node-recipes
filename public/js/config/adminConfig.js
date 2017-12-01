@@ -1,6 +1,7 @@
 import checkAuth from './common/checkAuth';
 import constants from './common/constants';
 import storage from './common/storage';
+import states from './common/states';
 
 import translate from './admin/translate';
 import routes from './admin/routes';
@@ -11,5 +12,6 @@ export default {
   constants: constants,
   translate: translate,
   storage: storage,
+  states: states,
   auth: checkAuth
 };

@@ -38,7 +38,7 @@
     "object-shorthand": "off",
     "no-prototype-builtins": "off",
     "global-require": "off",
-    "angular/no-service-method": ["warn", "always"],
+    "angular/no-service-method": ["warn"],
     "angular/function-type": ["warn", "named"],
     "angular/file-name": "off",
     "angular/module-setter": "off",

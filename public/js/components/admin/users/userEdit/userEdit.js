@@ -17,7 +17,7 @@ export default {
 
     this.validate = () => {
       this.user.$update().then(() => {
-        $state.go('main.recipes');
+        $state.go('main.users');
       }).catch((err) => {
         $log.error('Error:', err);
       });

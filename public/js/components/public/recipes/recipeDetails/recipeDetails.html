@@ -3,7 +3,7 @@
   <div ng-show="$ctrl.recipe">
     <div class="commands">
       <button ng-if="$ctrl.parent.isAdmin()" type="button" class="btn btn-danger" ng-click="$ctrl.delete()">{{'BUTTON.DELETE' | translate}}</button>
-      <button type="button" class="btn btn-default" ui-sref="main.recipes">{{'BUTTON.RETURN' | translate}}</button>
+      <button type="button" class="btn btn-default" ui-sref="main.recipes.list">{{'BUTTON.RETURN' | translate}}</button>
     </div>
     <img ng-src="{{$ctrl.recipe.image}}">
     <div>{{$ctrl.recipe.title}}</div>

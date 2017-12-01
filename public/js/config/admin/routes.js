@@ -3,7 +3,7 @@
  */
 export default [{
   name: 'main.users',
-  url: 'users',
+  url: '/users',
   component: 'usersList',
   resolve: {
     users: (UsersService) => {
@@ -11,11 +11,12 @@ export default [{
     }
   },
   data: {
-    requiresLogin: true
+    requiresLogin: true,
+    defaultRoute: true
   }
 }, {
   name: 'main.user',
-  url: 'user/:id',
+  url: '/users/:id',
   component: 'userEdit',
   resolve: {
     user: (UsersService, $transition$) => {

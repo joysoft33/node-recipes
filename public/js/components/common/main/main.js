@@ -1,5 +1,3 @@
-import imgBackground from '../../../../images/background.jpeg';
-
 import htmlTemplate from './main.html';
 
 export default {
@@ -21,8 +19,6 @@ export default {
         this.loggedUser = user || undefined;
         $log.info('main auth:', user);
       });
-
-      this.imgBackground = imgBackground;
     };
 
     this.isLogged = () => typeof this.loggedUser !== 'undefined';
@@ -31,7 +27,7 @@ export default {
 
     this.logout = () => {
       AuthService.logout().then(() => {
-        $state.go('main.recipes');
+        $state.go('main');
       }).catch(() => {
         $log.debug('Not logged');
       });
