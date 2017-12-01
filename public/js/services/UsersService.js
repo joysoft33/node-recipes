@@ -8,7 +8,7 @@ export default usersService;
 function usersService($resource) {
   'ngInject';
 
-  return $resource('/users/:id', {
+  return $resource('/api/users/:id', {
     id: '@id'
   }, {
     update: {
