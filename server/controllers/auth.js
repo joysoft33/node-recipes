@@ -1,3 +1,4 @@
+const ServerError = require('../utilities/errors');
 const models = require('../models');
 
 module.exports = class {
@@ -16,11 +17,7 @@ module.exports = class {
       keepPassword: true
     }).then((user) => {
       if (!user) {
-        const error = new Error();
-        error.message = 'Invalid credential supplied';
-        error.name = 'BadCredentials';
-        error.status = 404;
-        throw error;
+        throw new ServerError(404, 'Invalid credential supplied');
       }
       // Now check if password is the same as the one stored and encrypted in db
       return user.authenticate(req.body.password);

@@ -1,3 +1,4 @@
+const ServerError = require('../utilities/errors');
 const logger = require('../utilities/logger');
 const multer = require('multer');
 const path = require('path');
@@ -108,16 +109,20 @@ module.exports = class {
    * @param {*} next
    */
   uploadImage(req, res, next) {
-    upload(req, res, (err) => {
-      if (err) {
-        next(err);
-      } else {
-        res.json({
-          originalFilename: req.file.originalname,
-          url: path.join(config.imagesPath, req.file.filename)
-        });
-      }
-    });
+    if (req.file) {
+      upload(req, res, (err) => {
+        if (err) {
+          next(err);
+        } else {
+          res.json({
+            originalFilename: req.file.originalname,
+            url: path.join(config.imagesPath, req.file.filename)
+          });
+        }
+      });
+    } else {
+      next(new ServerError(404, 'No file supplied'));
+    }
   }
 
   /**
