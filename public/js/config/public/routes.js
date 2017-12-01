@@ -7,10 +7,13 @@ export default [{
   url: '/recipes'
 }, {
   name: 'main.recipes.list',
-  url: '?{categoryId:int}',
+  url: '?{category:int}&{page:int}',
   component: 'recipesList',
   params: {
-    categoryId: {
+    category: {
+      value: 0
+    },
+    page: {
       value: 0
     }
   },
@@ -18,10 +21,16 @@ export default [{
     categories: (CategoriesService) => {
       return CategoriesService.query().$promise;
     },
-    recipes: (RecipesService, $transition$) => {
-      return RecipesService.query({
-        categoryId: $transition$.params().categoryId
+    recipes: (CONSTANTS, RecipesService, $transition$) => {
+      const offset = parseInt($transition$.params().page || 0, 10);
+      return RecipesService.queryPaginated({
+        category: $transition$.params().category,
+        offset: offset * CONSTANTS.MAX_PER_PAGES,
+        limit: CONSTANTS.MAX_PER_PAGES
       }).$promise;
+    },
+    page: ($transition$) => {
+      return parseInt($transition$.params().page || 0, 10);
     }
   },
   data: {

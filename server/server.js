@@ -26,10 +26,6 @@ app.use('/admin', express.static(path.join(config.serverPath, 'admin')));
 app.use('/images', express.static(path.join(config.serverPath, 'images')));
 app.use(express.static(path.join(config.serverPath, 'public')));
 
-// app.use('/admin', (req, res) => {
-//   res.sendFile(path.join(config.serverPath, 'admin/index.html'));
-// });
-
 // Set API routes
 routes(app, express);
 

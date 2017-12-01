@@ -21,7 +21,7 @@ function authService(CONSTANTS, $http, $q, $timeout, $window, $rootScope, localS
   service.login = function login(credential) {
     return $q((resolve, reject) => {
       // Let server authenticate the given email/password
-      $http.post(CONSTANTS.AUTH_URL, credential).then((res) => {
+      $http.post('/api/auth', credential).then((res) => {
         service.setToken(res.data.token);
         const payload = decodeToken(res.data.token);
         $rootScope.$broadcast(CONSTANTS.AUTH_EVENT, payload);

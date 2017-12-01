@@ -9,7 +9,7 @@ export default categoriesService;
 function categoriesService($resource) {
   'ngInject';
 
-  return $resource('/categories/:id', {
+  return $resource('/api/categories/:id', {
     id: '@id'
   });
 }
