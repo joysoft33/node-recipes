@@ -43,3 +43,4 @@ Tags:
 - **v2.00**: new architecture for public and admin zones
 - **v2.01**: translations tables splited
 - **v2.02**: recipes list pagination
+- **v2.03**: bulma css framework
