@@ -56,6 +56,9 @@ module.exports = (sequelize, DataTypes) => {
   /**
    * Delete password field from the newlly created user before
    * sending it back to the caller */
+  User.afterUpdate((user) => {
+    user.password = undefined;
+  });
   User.afterCreate((user) => {
     user.password = undefined;
   });

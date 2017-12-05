@@ -81,12 +81,10 @@ module.exports = class {
     if ((req.user.id !== req.params.id) && !req.user.isAdmin) {
       res.sendStatus(403);
     } else {
-      models.user.update(req.body, {
-        where: {
-          id: req.params.id
-        }
-      }).spread((count) => {
-        res.sendStatus(count ? 200 : 404);
+      models.user.findById(req.params.id).then((user) => {
+        return user.updateAttributes(req.body);
+      }).then((user) => {
+        res.sendStatus(200);
       }).catch((err) => {
         next(err);
       });
