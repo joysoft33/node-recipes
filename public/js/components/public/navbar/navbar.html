@@ -1,46 +1,43 @@
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a href="#" class="navbar-brand">
+<nav class="navbar has-shadow" role="navigation" aria-label="dropdown navigation">
+  <div class="container">
+    <div class="navbar-brand">
+      <a href="#" class="navbar-item">
         <img ng-src="{{$ctrl.images.imgLogo}}" alt="{{'NAVBAR.TITLE' | translate}}" />
       </a>
     </div>
-    <div class="collapse navbar-collapse">
-      <ul class="nav navbar-nav navbar-right">
-        <ul class="nav navbar-nav">
-          <li ng-if="!$ctrl.parent.isLogged()">
-            <a ui-sref="main.login">{{'NAVBAR.LOGIN' | translate}}</a>
-          </li>
-        </ul>
-        <li ng-if="$ctrl.parent.isLogged()" class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+    <div class="navbar-menu">
+      <div class="navbar-start">
+        <div class="navbar-item">
+          <div class="field" ng-if="$ctrl.parent.isLogged()">
+            <p class="control">
+              <a ui-sref="main.recipes.add" class="button is-link">{{'BUTTON.ADD' | translate}}</a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="navbar-end">
+        <a ng-if="!$ctrl.parent.isLogged()" class="navbar-item" ui-sref="main.login">{{'NAVBAR.LOGIN' | translate}}</a>
+        <div ng-if="$ctrl.parent.isLogged()" class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
             {{'NAVBAR.HELLO' | translate}} {{$ctrl.parent.userName()}}
             <span class="caret"></span>
           </a>
-          <ul class="dropdown-menu">
-            <li ng-if="$ctrl.parent.isAdmin()">
-              <a href="/admin">{{'NAVBAR.ADMIN' | translate}}</a>
-            </li>
-            <li>
-              <a href ng-click="$ctrl.parent.logout()">{{'NAVBAR.LOGOUT' | translate}}</a>
-            </li>
-          </ul>
-        </li>
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+          <div class="navbar-dropdown">
+            <a class="navbar-item" ng-if="$ctrl.parent.isAdmin()" href="/admin">{{'NAVBAR.ADMIN' | translate}}</a>
+            <a class="navbar-item" href ng-click="$ctrl.parent.logout()">{{'NAVBAR.LOGOUT' | translate}}</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
             {{'NAVBAR.LANGUAGE' | translate}}
             <span class="caret"></span>
           </a>
-          <ul class="dropdown-menu">
-            <li>
-              <a href ng-class="{selected: $ctrl.options.lang == 'en'}" ng-click="$ctrl.setLanguage('en');">{{'NAVBAR.ENGLISH' | translate}}</a>
-            </li>
-            <li>
-              <a href ng-class="{selected: $ctrl.options.lang == 'fr'}" ng-click="$ctrl.setLanguage('fr');">{{'NAVBAR.FRENCH' | translate}}</a>
-            </li>
-          </ul>
-        </li>
-      </ul>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href ng-class="{'is-active': $ctrl.options.lang == 'en'}" ng-click="$ctrl.setLanguage('en');">{{'NAVBAR.ENGLISH' | translate}}</a>
+            <a class="navbar-item" href ng-class="{'is-active': $ctrl.options.lang == 'fr'}" ng-click="$ctrl.setLanguage('fr');">{{'NAVBAR.FRENCH' | translate}}</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </nav>

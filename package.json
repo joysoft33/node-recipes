@@ -27,7 +27,7 @@
     "angular-translate": "^2.16.0",
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
-    "bootstrap": "^3.3.7",
+    "bulma": "^0.6.0",
     "cookie-parser": "^1.4.3",
     "deepmerge": "^2.0.1",
     "ejs": "^2.5.7",

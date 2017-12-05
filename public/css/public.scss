@@ -1,16 +1,8 @@
 @import './common.scss';
 
-.navbar-brand img {
-  width: 44px;
-}
-
-.nav ul.dropdown-menu li a.selected {
-  background-color: #eee;
-  font-weight: bold;
-}
-
 main ul.categories {
   -webkit-padding-start: 0;
+  margin-bottom: 15px;
   display: inline-flex;
   list-style: none;
   li {
@@ -25,43 +17,25 @@ main ul.categories {
   }
 }
 
-recipes-list table {
-  border-collapse: separate;
-  border-spacing: 0 4px;
-  tr {
-    background-color: #eee;
-    &:hover {
-      background-color: #ccc;
-      cursor: pointer;
-    }
-    >td {
-      padding: 10px;
-      >img {
-        max-width: 100px;
-      }
-    }
-  }
+recipes-list .card-content .title {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 recipe-details {
-  >div {
-    display: block;
-    padding: 0 30px;
-    margin-bottom: 30px;
-    .commands button {
+  .commands {
+    height: 50px;
+    button {
       margin-bottom: 10px;
       margin-left: 10px;
       float: right;
     }
-    img {
-      width: 100%;
-      margin-bottom: 20px;
-    }
-    .title {
-      font-weight: bold;
-      font-size: 110%;
-      margin-bottom: 10px;
-    }
+  }
+  .title {
+    font-weight: bold;
+    font-size: 110%;
+    margin-bottom: 10px;
   }
 }
 

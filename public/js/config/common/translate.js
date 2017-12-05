@@ -15,7 +15,7 @@ export default {
       TITLE: 'Recipes',
     },
     LOGIN: {
-      TITLE: 'You must identify yourself',
+      TITLE: 'User identification',
       NAME: 'Name',
       EMAIL: 'Mail address',
       PASSWORD: 'Password',
@@ -40,7 +40,7 @@ export default {
       TITLE: 'Recettes',
     },
     LOGIN: {
-      TITLE: 'Vous devez vous identifier',
+      TITLE: 'Identification utilisateur',
       NAME: 'Nom',
       EMAIL: 'Adresse mail',
       PASSWORD: 'Mot de passe',

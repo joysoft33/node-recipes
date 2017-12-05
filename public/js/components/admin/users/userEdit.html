@@ -1,28 +1,38 @@
-<div class="container">
-  <form ng-submit="$ctrl.validate()">
-    <div class="form-group">
-      <label for="name">{{'USER_DETAILS.NAME' | translate}}</label>
-      <input ng-model="$ctrl.user.name" id="name" type="text" class="form-control" />
+<div class="container view">
+  <div class="columns is-mobile">
+    <div class="column is-half is-offset-one-quarter">
+      <form class="box" ng-submit="$ctrl.validate()">
+        <div class="field">
+          <label class="label">{{'USER_DETAILS.NAME' | translate}}</label>
+          <div class="control">
+            <input ng-model="$ctrl.user.name" id="name" type="text" class="input" />
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">{{'USER_DETAILS.EMAIL' | translate}}</label>
+          <div class="control">
+            <input ng-model="$ctrl.user.email" id="email" type="text" class="input" />
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">{{'USER_DETAILS.PASSWORD' | translate}}</label>
+          <div class="control">
+            <input ng-model="$ctrl.user.password" id="password" type="password" class="input" />
+          </div>
+        </div>
+        <div class="field">
+          <div class="control">
+            <label class="checkbox">
+              <input ng-model="$ctrl.user.isAdmin" type="checkbox"> {{'USER_DETAILS.ADMIN' | translate}}
+            </label>
+          </div>
+        </div>
+        <hr/>
+        <div class="commands">
+          <a class="button" ui-sref="main.users">{{'BUTTON.CANCEL' | translate}}</a>
+          <button class="button is-primary" type="submit">{{'BUTTON.VALIDATE' | translate}}</button>
+        </div>
+      </form>
     </div>
-    <div class="form-group">
-      <label for="email">{{'USER_DETAILS.EMAIL' | translate}}</label>
-      <input ng-model="$ctrl.user.email" id="email" type="text" class="form-control" />
-    </div>
-    <div class="form-group">
-      <label for="password">{{'USER_DETAILS.PASSWORD' | translate}}</label>
-      <input ng-model="$ctrl.user.password" id="password" type="password" class="form-control" />
-    </div>
-    <div class="form-group">
-      <div class="checkbox">
-        <label>
-          <input ng-model="$ctrl.user.isAdmin" type="checkbox"> {{'USER_DETAILS.ADMIN' | translate}}
-        </label>
-      </div>
-    </div>
-    <hr/>
-    <div class="commands">
-      <a class="btn btn-default" ui-sref="main.users">{{'BUTTON.CANCEL' | translate}}</a>
-      <button class="btn btn-primary" type="submit">{{'BUTTON.VALIDATE' | translate}}</button>
-    </div>
-  </form>
+  </div>
 </div>

@@ -1,26 +1,36 @@
-<div class="container">
+<div class="container view">
   <header>
-    <ul class="categories">
-      <li ui-sref="main.recipes.list({category: 0})" ui-sref-active="selected">
-        {{'ALL' | translate}}
-      </li>
-      <li ng-repeat="category in $ctrl.categories track by category.id" ui-sref="main.recipes.list({category: category.id})" ui-sref-active="selected">
-        {{category.name}}
-      </li>
-    </ul>
-    <a ng-if="$ctrl.parent.isLogged()" ui-sref="main.recipes.add" class="btn btn-success">{{'BUTTON.ADD' | translate}}</a>
+    <div class="notification is-danger" ng-show="$ctrl.error.length">
+      <button class="delete"></button>
+      {{$ctrl.error}}
+    </div>
+    <div class="tabs">
+      <ul>
+        <li ui-sref-active="is-active">
+          <a ui-sref="main.recipes.list({category: 0, page: 0})">{{'ALL' | translate}}</a>
+        </li>
+        <li ng-repeat="category in $ctrl.categories track by category.id" ui-sref-active="is-active">
+          <a ui-sref="main.recipes.list({category: category.id, page: 0})">{{category.name}}</a>
+        </li>
+      </ul>
+    </div>
   </header>
-  <div class="error" ng-show="$ctrl.error.length">{{$ctrl.error}}</div>
-  <table ng-hide="$ctrl.error.length" class="table">
-    <tbody>
-      <tr ng-repeat="recipe in $ctrl.recipes.rows track by recipe.id" ui-sref="main.recipes.details({id: recipe.id})">
-        <td class="image">
-          <img ng-src="{{recipe.image}}" alt="image">
-        </td>
-        <td class="title">{{recipe.title}}</td>
-        <td class="name">{{recipe.user.name}}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="columns is-multiline" ng-hide="$ctrl.error.length">
+    <div class="column is-4" ng-repeat="recipe in $ctrl.recipes.rows track by recipe.id">
+      <div class="card recipe-{{recipe.category.name}}" ui-sref="main.recipes.details({id: recipe.id})">
+        <div class="card-image">
+          <figure class="image is-4by3">
+            <img ng-src="{{recipe.image}}" alt="image">
+          </figure>
+        </div>
+        <div class="card-content">
+          <div class="content">
+            <div class="title">{{recipe.title}}</div>
+            <div class="name">{{recipe.user.name}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <paginator ng-if="$ctrl.paginator" count="$ctrl.paginator.count" page="$ctrl.paginator.page"></paginator>
 </div>

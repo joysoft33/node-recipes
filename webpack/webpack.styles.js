@@ -5,7 +5,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = (PRODUCTION) => {
 
   const config = {
-    test: /\.s?css$/,
+    test: /\.(s?css|sass)$/,
     use: ExtractTextPlugin.extract({
       fallback: 'style-loader',
       use: [{

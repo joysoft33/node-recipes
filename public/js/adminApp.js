@@ -2,8 +2,7 @@ import angular from 'angular';
 import uiRouter from '@uirouter/angularjs';
 import cookies from 'angular-cookies';
 
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap/dist/js/bootstrap';
+import 'bulma/bulma.sass';
 
 import components from './components/adminComponents';
 import services from './services/adminServices';

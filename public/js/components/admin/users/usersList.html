@@ -1,14 +1,17 @@
-<div class="container">
-  <div class="error" ng-show="$ctrl.error.length">{{$ctrl.error}}</div>
-  <table ng-hide="$ctrl.error.length" class="table">
+<div class="container view">
+  <div class="notification is-danger" ng-show="$ctrl.error.length">
+    <button class="delete"></button>
+    {{$ctrl.error}}
+  </div>
+  <table ng-hide="$ctrl.error.length" class="table is-hoverable is-fullwidth">
+    <thead>
+      <th>{{'USERS.NAME' | translate}}</th>
+      <th>{{'USERS.EMAIL' | translate}}</th>
+      <th>{{'USERS.DATE' | translate}}</th>
+      <th>{{'USERS.ADMIN' | translate}}</th>
+      <th>{{'USERS.RECIPES' | translate}}</th>
+    </thead>
     <tbody>
-      <thead>
-        <th>{{'USERS.NAME' | translate}}</th>
-        <th>{{'USERS.EMAIL' | translate}}</th>
-        <th>{{'USERS.DATE' | translate}}</th>
-        <th>{{'USERS.ADMIN' | translate}}</th>
-        <th>{{'USERS.RECIPES' | translate}}</th>
-      </thead>
       <tr ng-repeat="user in $ctrl.users track by user.id" ui-sref="main.user({id: user.id})">
         <td>{{user.name | uppercase}}</td>
         <td>{{user.email | lowercase}}</td>

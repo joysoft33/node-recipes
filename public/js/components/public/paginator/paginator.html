@@ -1,5 +1,7 @@
-<ul class="pagination">
-  <li ng-repeat="item in $ctrl.pages track by $index" ng-class="{active: $index === $ctrl.page}">
-    <a ui-sref="main.recipes.list({page: $index})">{{$index + 1}}</a>
-  </li>
-</ul>
+<nav class="pagination" role="navigation" aria-label="pagination">
+  <ul class="pagination-list">
+    <li ng-repeat="item in $ctrl.pages track by $index">
+      <a class="pagination-link" ng-class="{'is-current': $index === $ctrl.page}" ui-sref="main.recipes.list({page: $index})">{{$index + 1}}</a>
+    </li>
+  </ul>
+</nav>

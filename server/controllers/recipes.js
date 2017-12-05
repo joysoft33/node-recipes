@@ -51,7 +51,7 @@ module.exports = class {
     let limit;
 
     // Get optional pagination info
-    if (req.query.category) {
+    if (req.query.limit) {
       limit = parseInt(req.query.limit, 10);
       if (limit > 0) {
         offset = parseInt(req.query.offset, 10);

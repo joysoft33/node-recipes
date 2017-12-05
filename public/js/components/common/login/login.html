@@ -1,35 +1,42 @@
-<div class="container">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      {{'LOGIN.TITLE' | translate}}
-    </div>
-    <div class="panel-body">
-      <div class="alert alert-danger" ng-show="$ctrl.errorMessage">
-        {{$ctrl.errorMessage}}
-      </div>
-      <form ng-submit="$ctrl.validate()">
-        <div class="form-group">
-          <div class="checkbox">
-            <label>
+<div class="container view">
+  <div class="columns is-mobile">
+    <div class="column is-half is-offset-one-quarter">
+      <header>
+        <h1>{{'LOGIN.TITLE' | translate}}</h1>
+        <div class="notification is-danger" ng-show="$ctrl.errorMessage">
+          <button class="delete"></button>
+          {{$ctrl.errorMessage}}
+        </div>
+      </header>
+      <form class="box" ng-submit="$ctrl.validate()">
+        <div class="field">
+          <div class="control">
+            <label class="checkbox">
               <input ng-model="$ctrl.createAccount" type="checkbox"> {{'LOGIN.CREATE' | translate}}
             </label>
           </div>
         </div>
-        <div ng-show="$ctrl.createAccount" class="form-group">
-          <label for="name">{{'LOGIN.NAME' | translate}}</label>
-          <input ng-model="$ctrl.user.name" id="name" type="text" class="form-control" />
+        <div class="field" ng-show="$ctrl.createAccount">
+          <label class="label">{{'LOGIN.NAME' | translate}}</label>
+          <div class="control">
+            <input class="input" ng-model="$ctrl.user.name" type="text" />
+          </div>
         </div>
         <div class="form-group">
-          <label for="email">{{'LOGIN.EMAIL' | translate}}</label>
-          <input ng-model="$ctrl.user.email" id="email" type="text" class="form-control" />
+          <label class="label">{{'LOGIN.EMAIL' | translate}}</label>
+          <div class="control">
+            <input class="input" ng-model="$ctrl.user.email" type="text" />
+          </div>
         </div>
         <div class="form-group">
-          <label for="password">{{'LOGIN.PASSWORD' | translate}}</label>
-          <input ng-model="$ctrl.user.password" id="password" type="password" class="form-control" />
+          <label class="label">{{'LOGIN.PASSWORD' | translate}}</label>
+          <div class="control">
+            <input class="input" ng-model="$ctrl.user.password" type="password" />
+          </div>
         </div>
         <div class="commands">
-          <a class="btn btn-default" ui-sref="main">{{'BUTTON.CANCEL' | translate}}</a>
-          <button class="btn btn-primary" type="submit">{{'BUTTON.VALIDATE' | translate}}</button>
+          <a class="button is-default" ui-sref="main">{{'BUTTON.CANCEL' | translate}}</a>
+          <button class="button is-primary" type="submit">{{'BUTTON.VALIDATE' | translate}}</button>
         </div>
       </form>
     </div>

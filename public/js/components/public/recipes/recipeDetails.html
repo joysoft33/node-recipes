@@ -1,16 +1,29 @@
-<div class="container">
-  <div class="error" ng-show="$ctrl.error">{{$ctrl.error}}</div>
+<div class="container view">
+  <div class="notification is-danger" ng-show="$ctrl.error">
+    <button class="delete"></button>
+    {{$ctrl.error}}
+  </div>
   <div ng-show="$ctrl.recipe">
     <div class="commands">
-      <button ng-if="$ctrl.parent.isAdmin()" type="button" class="btn btn-danger" ng-click="$ctrl.delete()">{{'BUTTON.DELETE' | translate}}</button>
-      <button type="button" class="btn btn-default" ui-sref="main.recipes.list">{{'BUTTON.RETURN' | translate}}</button>
+      <button type="button" class="button is-danger" ng-if="$ctrl.parent.isAdmin()" ng-click="$ctrl.delete()">{{'BUTTON.DELETE' | translate}}</button>
+      <button type="button" class="button" ui-sref="main.recipes.list">{{'BUTTON.RETURN' | translate}}</button>
     </div>
-    <img ng-src="{{$ctrl.recipe.image}}">
-    <div>{{$ctrl.recipe.title}}</div>
-    <div>{{$ctrl.recipe.description}}</div>
-    <div>{{$ctrl.recipe.count}}</div>
-    <div>{{$ctrl.recipe.createdAt | date:"dd/MM/yyyy"}}</div>
-    <div>{{$ctrl.recipe.category.name}}</div>
-    <div>{{$ctrl.recipe.user.name}}</div>
+    <div class="card">
+      <div class="card-image">
+        <figure class="image is-4by3">
+          <img ng-src="{{$ctrl.recipe.image}}">
+        </figure>
+      </div>
+      <div class="card-content">
+        <div class="content">
+          <div>{{$ctrl.recipe.title}}</div>
+          <div>{{$ctrl.recipe.description}}</div>
+          <div>{{$ctrl.recipe.count}}</div>
+          <div>{{$ctrl.recipe.createdAt | date:"dd/MM/yyyy"}}</div>
+          <div>{{$ctrl.recipe.category.name}}</div>
+          <div>{{$ctrl.recipe.user.name}}</div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
