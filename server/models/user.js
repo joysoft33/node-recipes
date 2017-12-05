@@ -54,14 +54,10 @@ module.exports = (sequelize, DataTypes) => {
   User.beforeCreate(sanitize);
 
   /**
-   * Delete password field from the newlly created user before
-   * sending it back to the caller */
-  User.afterUpdate((user) => {
-    user.password = undefined;
-  });
-  User.afterCreate((user) => {
-    user.password = undefined;
-  });
+   * Delete password field from the user object before sending it back to the caller
+   */
+  User.afterUpdate(emptyPassword);
+  User.afterCreate(emptyPassword);
 
   /**
    * User authentication method: verify that the given string password
@@ -89,12 +85,12 @@ module.exports = (sequelize, DataTypes) => {
    * @return {*} A JWT containing some usefull but not sensitive user info
    */
   User.prototype.generateJWT = function generateJWT() {
-    return jwt.sign({
+    const payload = {
       id: this.id,
       name: this.name,
       isAdmin: this.isAdmin
-    },
-    config.jwtSecret, {
+    };
+    return jwt.sign(payload, config.jwtSecret, {
       expiresIn: '1h'
     });
   };
@@ -120,6 +116,14 @@ module.exports = (sequelize, DataTypes) => {
   function sanitize(user) {
     user.email = user.email.toLowerCase();
     return user.password ? changePassword(user) : null;
+  }
+
+  /**
+   * Delete the password field before sending user back
+   * @param {*} user
+   */
+  function emptyPassword(user) {
+    user.password = undefined;
   }
 
   /**

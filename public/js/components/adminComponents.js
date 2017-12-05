@@ -7,8 +7,8 @@ import login from './common/login/login';
 import error from './common/error/error';
 import main from './common/main/main';
 
-import usersList from './admin/users/usersList/usersList';
-import userEdit from './admin/users/userEdit/userEdit';
+import usersList from './admin/users/usersList';
+import userEdit from './admin/users/userEdit';
 
 const components = angular.module('adminComponents', [
   translate

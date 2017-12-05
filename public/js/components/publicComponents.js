@@ -7,9 +7,9 @@ import login from './common/login/login';
 import error from './common/error/error';
 import main from './common/main/main';
 
-import recipeDetails from './public/recipes/recipeDetails/recipeDetails';
-import recipesList from './public/recipes/recipesList/recipesList';
-import recipeAdd from './public/recipes/recipeAdd/recipeAdd';
+import recipeDetails from './public/recipes/recipeDetails';
+import recipesList from './public/recipes/recipesList';
+import recipeAdd from './public/recipes/recipeAdd';
 
 const components = angular.module('publicComponents', [
   translate
