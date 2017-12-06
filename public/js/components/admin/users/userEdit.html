@@ -1,21 +1,28 @@
 <div class="container view">
   <div class="columns is-mobile">
     <div class="column is-half is-offset-one-quarter">
-      <form class="box" ng-submit="$ctrl.validate()">
+        <header>
+            <h1>{{'USER_EDIT.TITLE' | translate}}</h1>
+            <div class="notification is-danger" ng-show="$ctrl.error">
+              <button class="delete"></button>
+              {{$ctrl.error}}
+            </div>
+          </header>
+          <form ng-submit="$ctrl.validate()">
         <div class="field">
-          <label class="label">{{'USER_DETAILS.NAME' | translate}}</label>
+          <label class="label">{{'USER_EDIT.NAME' | translate}}</label>
           <div class="control">
             <input ng-model="$ctrl.user.name" id="name" type="text" class="input" />
           </div>
         </div>
         <div class="field">
-          <label class="label">{{'USER_DETAILS.EMAIL' | translate}}</label>
+          <label class="label">{{'USER_EDIT.EMAIL' | translate}}</label>
           <div class="control">
             <input ng-model="$ctrl.user.email" id="email" type="text" class="input" />
           </div>
         </div>
         <div class="field">
-          <label class="label">{{'USER_DETAILS.PASSWORD' | translate}}</label>
+          <label class="label">{{'USER_EDIT.PASSWORD' | translate}}</label>
           <div class="control">
             <input ng-model="$ctrl.user.password" id="password" type="password" class="input" />
           </div>
@@ -23,7 +30,7 @@
         <div class="field">
           <div class="control">
             <label class="checkbox">
-              <input ng-model="$ctrl.user.isAdmin" type="checkbox"> {{'USER_DETAILS.ADMIN' | translate}}
+              <input ng-model="$ctrl.user.isAdmin" type="checkbox"> {{'USER_EDIT.ADMIN' | translate}}
             </label>
           </div>
         </div>

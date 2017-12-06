@@ -13,7 +13,8 @@ export default {
       ADMIN: 'Admin',
       RECIPES: 'Recipes'
     },
-    USER_DETAILS: {
+    USER_EDIT: {
+      TITLE: 'User edit',
       NAME: 'Name',
       EMAIL: 'Mail address',
       PASSWORD: 'Password',
@@ -31,7 +32,8 @@ export default {
       ADMIN: 'Admin',
       RECIPES: 'Recettes'
     },
-    USER_DETAILS: {
+    USER_EDIT: {
+      TITLE: 'Edition utilisateur',
       NAME: 'Nom',
       EMAIL: 'Adresse mail',
       PASSWORD: 'Mot de passe',

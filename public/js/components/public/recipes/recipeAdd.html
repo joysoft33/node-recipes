@@ -1,67 +1,74 @@
 <div class="container view">
-  <form name="$ctrl.form" ng-submit="$ctrl.validate(file)">
-    <div class="notification is-danger" ng-show="$ctrl.error">
-      <button class="delete"></button>
-      {{$ctrl.error}}
-    </div>
-    <div class="field">
-      <label class="label">{{'RECIPE_ADD.TITLE' | translate}}</label>
-      <div class="control">
-        <input class="input" type="text" ng-model="$ctrl.recipe.title">
-      </div>
-    </div>
-    <div class="field">
-      <label class="label">{{'RECIPE_ADD.DESCRIPTION' | translate}}</label>
-      <div class="control">
-        <textarea class="textarea" ng-model="$ctrl.recipe.description"></textarea>
-      </div>
-    </div>
-    <div class="columns">
-      <div class="column is-6">
+  <div class="columns is-mobile">
+    <div class="column is-half is-offset-one-quarter">
+      <header>
+        <h1>{{'RECIPE_ADD.TITLE' | translate}}</h1>
+        <div class="notification is-danger" ng-show="$ctrl.error">
+          <button class="delete"></button>
+          {{$ctrl.error}}
+        </div>
+      </header>
+      <form name="$ctrl.form" ng-submit="$ctrl.validate(file)">
         <div class="field">
-          <label class="label">{{'RECIPE_ADD.COUNT' | translate}}</label>
+          <label class="label">{{'RECIPE_ADD.NAME' | translate}}</label>
           <div class="control">
-            <input class="input" type="number" min="1" max="12" ng-model="$ctrl.recipe.count">
+            <input class="input" type="text" ng-model="$ctrl.recipe.title">
           </div>
         </div>
-      </div>
-      <div class="column is-6">
         <div class="field">
-          <label class="label">{{'RECIPE_ADD.CATEGORY' | translate}}</label>
+          <label class="label">{{'RECIPE_ADD.DESCRIPTION' | translate}}</label>
           <div class="control">
-            <span class="select">
-              <select ng-model="$ctrl.recipe.categoryId" ng-options="category.id as category.name for category in $ctrl.categories">
-              </select>
-            </span>
+            <textarea class="textarea" ng-model="$ctrl.recipe.description"></textarea>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="columns">
-      <div class="column is-6">
-        <div class="field">
-          <label class="label">{{'RECIPE_ADD.IMAGE' | translate}}</label>
-          <div class="control">
-            <div class="button is-info" name="file" accept="image/*" ngf-pattern="'image/*'" ng-model="file" ngf-max-size="{{$ctrl.maxFileSize}}MB"
-              ngf-resize="{width: 1024, height: 1024}" ngf-select>
-              {{'RECIPE_ADD.SELECT' | translate}}
+        <div class="columns">
+          <div class="column is-6">
+            <div class="field">
+              <label class="label">{{'RECIPE_ADD.COUNT' | translate}}</label>
+              <div class="control">
+                <input class="input" type="number" min="1" max="12" ng-model="$ctrl.recipe.count">
+              </div>
             </div>
           </div>
-          <div ngf-drop ng-model="file" class="drop-box">{{'RECIPE_ADD.DROP' | translate}}</div>
-          <i ng-show="$ctrl.form.file.$error.required">*required</i>
-          <br>
-          <i ng-show="$ctrl.form.file.$error.maxSize">{{'RECIPE_ADD.FILESIZE' | translate}} {{ file.size / 1000000 | number:1 }}MB: max {{$ctrl.maxFileSize}}MB</i>
+          <div class="column is-6">
+            <div class="field">
+              <label class="label">{{'RECIPE_ADD.CATEGORY' | translate}}</label>
+              <div class="control">
+                <span class="select">
+                  <select ng-model="$ctrl.recipe.categoryId" ng-options="category.id as category.name for category in $ctrl.categories">
+                  </select>
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="column is-6">
-        <label class="label">{{'RECIPE_ADD.PREVIEW' | translate}}</label>
-        <div class="control">
-          <img id="preview" ngf-thumbnail="file" />
+        <div class="columns">
+          <div class="column is-6">
+            <div class="field">
+              <label class="label">{{'RECIPE_ADD.IMAGE' | translate}}</label>
+              <div class="control">
+                <div class="button is-info" name="file" accept="image/*" ngf-pattern="'image/*'" ng-model="file" ngf-max-size="{{$ctrl.maxFileSize}}MB"
+                  ngf-resize="{width: 1024, height: 1024}" ngf-select>
+                  {{'RECIPE_ADD.SELECT' | translate}}
+                </div>
+              </div>
+              <div ngf-drop ng-model="file" class="drop-box">{{'RECIPE_ADD.DROP' | translate}}</div>
+              <i ng-show="$ctrl.form.file.$error.required">*required</i>
+              <br>
+              <i ng-show="$ctrl.form.file.$error.maxSize">{{'RECIPE_ADD.FILESIZE' | translate}} {{ file.size / 1000000 | number:1 }}MB: max {{$ctrl.maxFileSize}}MB</i>
+            </div>
+          </div>
+          <div class="column is-6">
+            <label class="label">{{'RECIPE_ADD.PREVIEW' | translate}}</label>
+            <div class="control">
+              <img id="preview" ngf-thumbnail="file" />
+            </div>
+            <p>{{$ctrl.progress}}</p>
+          </div>
         </div>
-        <p>{{$ctrl.progress}}</p>
-      </div>
+        <button type="submit" class="button is-primary">{{'BUTTON.SAVE' | translate}}</button>
+        <button type="button" class="button" ui-sref="main.recipes.list">{{'BUTTON.CANCEL' | translate}}</button>
+      </form>
     </div>
-    <button type="submit" class="button is-primary">{{'BUTTON.SAVE' | translate}}</button>
-    <button type="button" class="button" ui-sref="main.recipes.list">{{'BUTTON.CANCEL' | translate}}</button>
-  </form>
+  </div>
 </div>
