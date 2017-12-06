@@ -10,6 +10,9 @@ const configTranspile = require('./webpack.babel');
 const configLinter = require('./webpack.eslint');
 const configStyles = require('./webpack.styles');
 
+// Set to true if jquery is used
+const INCLUDE_JQUERY = false;
+
 module.exports = (PRODUCTION, base) => {
 
   const config = {
@@ -50,12 +53,6 @@ module.exports = (PRODUCTION, base) => {
       new webpack.DefinePlugin({
         PRODUCTION: JSON.stringify(PRODUCTION)
       }),
-      new webpack.ProvidePlugin({
-        'window.jQuery': 'jquery',
-        jQuery: 'jquery',
-        jquery: 'jquery',
-        $: 'jquery'
-      }),
       new HtmlWebpackPlugin({
         template: path.resolve(`public/${base}.html`),
         favicon: path.resolve('public/favicon.ico')
@@ -72,6 +69,15 @@ module.exports = (PRODUCTION, base) => {
 
   if (PRODUCTION) {
     config.plugins.push(new MinifyPlugin());
+  }
+
+  if (INCLUDE_JQUERY) {
+    config.plugins.push(new webpack.ProvidePlugin({
+      'window.jQuery': 'jquery',
+      jQuery: 'jquery',
+      jquery: 'jquery',
+      $: 'jquery'
+    }));
   }
 
   return config;
