@@ -1,10 +1,10 @@
-import htmlTemplate from './error.html';
+import htmlTemplate from './errorMessages.html';
 
 export default {
 
   template: htmlTemplate,
 
   bindings: {
-    error: '<'
+    errors: '<'
   }
 };

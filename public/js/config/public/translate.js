@@ -21,10 +21,16 @@ export default {
       IMAGE: 'Image',
       COUNT: 'Person count',
       CATEGORY: 'Category',
-      FILESIZE: 'File too large',
       SELECT: 'Select image file',
       DROP: 'or drop it here',
       PREVIEW: 'Preview'
+    },
+    ERRORS: {
+      REQUIRED: 'This field is required',
+      MINLENGTH: 'This field is too short',
+      MAXLENGTH: 'This field is too long',
+      PATTERN: 'This field format is invalid',
+      FILESIZE: 'File too large'
     },
     ALL: 'All'
   },
@@ -47,10 +53,16 @@ export default {
       IMAGE: 'Image',
       COUNT: 'Nombre de personnes',
       CATEGORY: 'Categorie',
-      FILESIZE: 'Fichier trop lourd',
       SELECT: 'Choisir un fichier',
       DROP: 'ou le déposer ici',
       PREVIEW: 'Aperçu'
+    },
+    ERRORS: {
+      REQUIRED: 'Champ requis',
+      MINLENGTH: 'Longueur trop courte',
+      MAXLENGTH: 'Longueur trop longue',
+      PATTERN: 'Format invalide',
+      FILESIZE: 'Fichier trop lourd'
     },
     ALL: 'Toutes'
   }

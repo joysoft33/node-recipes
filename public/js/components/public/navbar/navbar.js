@@ -9,7 +9,7 @@ export default {
     parent: '^main'
   },
 
-  controller: function controller(CONSTANTS, $log, $cookies, $translate) {
+  controller: function controller(CONSTANTS, $log, $cookies, $translate, $window) {
     'ngInject';
 
     this.$onInit = () => {
@@ -32,6 +32,10 @@ export default {
       $translate.use(code);
       this.options.lang = $translate.use();
       $cookies.putObject(CONSTANTS.COOKIE, this.options);
+    };
+
+    this.admin = () => {
+      $window.location = '/admin';
     };
   }
 };

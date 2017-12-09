@@ -1,33 +1,36 @@
 <div class="container view">
   <div class="columns is-mobile">
     <div class="column is-half is-offset-one-quarter">
-      <header>
+      <section class="header">
         <h1>{{'RECIPE_ADD.TITLE' | translate}}</h1>
         <div class="notification is-danger" ng-show="$ctrl.error">
           <button class="delete"></button>
           {{$ctrl.error}}
         </div>
-      </header>
-      <form name="$ctrl.form" ng-submit="$ctrl.validate(file)">
+      </section>
+      <form name="$ctrl.form" ng-submit="$ctrl.validate(file)" novalidate>
         <div class="field">
           <label class="label">{{'RECIPE_ADD.NAME' | translate}}</label>
           <div class="control">
-            <input class="input" type="text" ng-model="$ctrl.recipe.title">
+            <input name="name" class="input" type="text" ng-model="$ctrl.recipe.title" required>
           </div>
+          <error-messages errors="$ctrl.form.name.$error" />
         </div>
         <div class="field">
           <label class="label">{{'RECIPE_ADD.DESCRIPTION' | translate}}</label>
           <div class="control">
-            <textarea class="textarea" ng-model="$ctrl.recipe.description"></textarea>
+            <textarea name="desc" class="textarea" ng-model="$ctrl.recipe.description" ng-minlength="10" required></textarea>
           </div>
+          <error-messages errors="$ctrl.form.desc.$error" />
         </div>
         <div class="columns">
           <div class="column is-6">
             <div class="field">
               <label class="label">{{'RECIPE_ADD.COUNT' | translate}}</label>
               <div class="control">
-                <input class="input" type="number" min="1" max="12" ng-model="$ctrl.recipe.count">
+                <input name="count" class="input" type="number" min="1" max="12" ng-model="$ctrl.recipe.count" required>
               </div>
+              <error-messages errors="$ctrl.form.count.$error" />
             </div>
           </div>
           <div class="column is-6">
@@ -35,10 +38,12 @@
               <label class="label">{{'RECIPE_ADD.CATEGORY' | translate}}</label>
               <div class="control">
                 <span class="select">
-                  <select ng-model="$ctrl.recipe.categoryId" ng-options="category.id as category.name for category in $ctrl.categories">
+                  <select name="category" ng-model="$ctrl.recipe.categoryId" ng-options="category.id as category.name for category in $ctrl.categories"
+                    required>
                   </select>
                 </span>
               </div>
+              <error-messages errors="$ctrl.form.category.$error" />
             </div>
           </div>
         </div>
@@ -48,14 +53,12 @@
               <label class="label">{{'RECIPE_ADD.IMAGE' | translate}}</label>
               <div class="control">
                 <div class="button is-info" name="file" accept="image/*" ngf-pattern="'image/*'" ng-model="file" ngf-max-size="{{$ctrl.maxFileSize}}MB"
-                  ngf-resize="{width: 1024, height: 1024}" ngf-select>
+                  ngf-resize="{width: 1024, height: 1024}" ngf-select required>
                   {{'RECIPE_ADD.SELECT' | translate}}
                 </div>
               </div>
               <div ngf-drop ng-model="file" class="drop-box">{{'RECIPE_ADD.DROP' | translate}}</div>
-              <i ng-show="$ctrl.form.file.$error.required">*required</i>
-              <br>
-              <i ng-show="$ctrl.form.file.$error.maxSize">{{'RECIPE_ADD.FILESIZE' | translate}} {{ file.size / 1000000 | number:1 }}MB: max {{$ctrl.maxFileSize}}MB</i>
+              <error-messages errors="$ctrl.form.file.$error" />
             </div>
           </div>
           <div class="column is-6">
@@ -66,8 +69,11 @@
             <p>{{$ctrl.progress}}</p>
           </div>
         </div>
-        <button type="submit" class="button is-primary">{{'BUTTON.SAVE' | translate}}</button>
-        <button type="button" class="button" ui-sref="main.recipes.list">{{'BUTTON.CANCEL' | translate}}</button>
+        <hr/>
+        <div class="commands">
+          <button type="submit" class="button is-primary" ng-disabled="$ctrl.form.$invalid">{{'BUTTON.SAVE' | translate}}</button>
+          <button type="button" class="button" ui-sref="main.recipes.list">{{'BUTTON.CANCEL' | translate}}</button>
+        </div>
       </form>
     </div>
   </div>

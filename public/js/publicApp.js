@@ -3,8 +3,6 @@ import uiRouter from '@uirouter/angularjs';
 import cookies from 'angular-cookies';
 import fileUpload from 'ng-file-upload';
 
-import 'bulma/bulma.sass';
-
 import components from './components/publicComponents';
 import services from './services/publicServices';
 import config from './config/publicConfig';

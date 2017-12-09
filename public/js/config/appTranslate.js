@@ -4,6 +4,7 @@ import translations from './common/translate';
 
 export default (specific) => {
 
+  // Merge common and app specific routes tables
   const translate = deepMerge(translations, specific);
 
   /**

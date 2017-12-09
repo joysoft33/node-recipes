@@ -1,5 +1,6 @@
 const path = require('path');
 const express = require('express');
+const compression = require('compression');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
@@ -11,23 +12,32 @@ const routes = require('./routes');
 
 const app = express();
 
-// DEclare the cookie parser middleware
+// Hide server name for safer operations
+app.disable('x-powered-by');
+
+// Use the compression middleware
+app.use(compression());
+
+// Declare the cookie parser middleware
 app.use(cookieParser());
 
-// Declare parsers for urlencoded and json bodies
+// Use parsers for urlencoded and json bodies
 app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(bodyParser.json());
 
 // Set static files directory
-
 app.use('/admin', express.static(path.join(config.serverPath, 'admin')));
 app.use('/images', express.static(path.join(config.serverPath, 'images')));
 app.use(express.static(path.join(config.serverPath, 'public')));
 
 // Set API routes
 routes(app, express);
+
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(config.serverPath, 'public/index.html'));
+});
 
 // Synchronize database with the previously declared models
 models.sequelize.sync({

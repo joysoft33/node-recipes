@@ -1,8 +1,11 @@
 import angular from 'angular';
+import messages from 'angular-messages';
 import translate from 'angular-translate';
 
-import paginator from './public/paginator/paginator';
-import navbar from './public/navbar/navbar';
+import 'bulma/bulma.sass';
+
+import errorMessages from './common/errorMessages/errorMessages';
+import paginator from './common/paginator/paginator';
 import login from './common/login/login';
 import error from './common/error/error';
 import main from './common/main/main';
@@ -10,12 +13,15 @@ import main from './common/main/main';
 import recipeDetails from './public/recipes/recipeDetails';
 import recipesList from './public/recipes/recipesList';
 import recipeAdd from './public/recipes/recipeAdd';
+import navbar from './public/navbar/navbar';
 
 const components = angular.module('publicComponents', [
+  messages,
   translate
 ]);
 
 components
+  .component('errorMessages', errorMessages)
   .component('paginator', paginator)
   .component('navbar', navbar)
   .component('login', login)

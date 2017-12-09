@@ -10,7 +10,7 @@ import translate from './public/translate';
 import routes from './public/routes';
 
 export default {
-  routes: appRoutes(routes, '/recipes'),
+  routes: appRoutes(routes, '/recipes', true),
   translate: appTranslate(translate),
   constants: constants,
   storage: storage,

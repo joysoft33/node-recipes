@@ -1,16 +1,20 @@
 import angular from 'angular';
+import messages from 'angular-messages';
 import translate from 'angular-translate';
 
-import paginator from './public/paginator/paginator';
-import navbar from './admin/navbar/navbar';
+import 'bulma/bulma.sass';
+
+import paginator from './common/paginator/paginator';
 import login from './common/login/login';
 import error from './common/error/error';
 import main from './common/main/main';
 
 import usersList from './admin/users/usersList';
 import userEdit from './admin/users/userEdit';
+import navbar from './admin/navbar/navbar';
 
 const components = angular.module('adminComponents', [
+  messages,
   translate
 ]);
 

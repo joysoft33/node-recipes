@@ -1,14 +1,17 @@
 .container.view {
   margin-bottom: 30px;
   margin-top: 30px;
-  header {
+  section.header {
     margin-bottom: 15px;
     h1 {
+      font-weight: bold;
       font-size: 1.5em;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #dbdbdb;
     }
   }
   .tabs {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
   }
 }
 
@@ -21,4 +24,8 @@
 
 login .commands {
   margin-top: 20px;
+}
+
+.notification.ng-inactive {
+  display: none;
 }

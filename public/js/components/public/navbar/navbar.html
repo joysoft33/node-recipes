@@ -1,11 +1,16 @@
-<nav class="navbar has-shadow" role="navigation" aria-label="dropdown navigation">
+<nav class="navbar has-shadow is-info" role="navigation" aria-label="dropdown navigation">
   <div class="container">
     <div class="navbar-brand">
-      <a href="#" class="navbar-item">
+      <a href="/" class="navbar-item">
         <img ng-src="{{$ctrl.images.imgLogo}}" alt="{{'NAVBAR.TITLE' | translate}}" />
       </a>
+      <button class="button navbar-burger" ng-class="{'is-active': burger}" ng-click="burger=!burger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
-    <div class="navbar-menu">
+    <div class="navbar-menu" ng-class="{'is-active': burger}">
       <div class="navbar-start">
         <div class="navbar-item">
           <div class="field" ng-if="$ctrl.parent.isLogged()">
@@ -23,7 +28,7 @@
             <span class="caret"></span>
           </a>
           <div class="navbar-dropdown">
-            <a class="navbar-item" ng-if="$ctrl.parent.isAdmin()" href="/admin">{{'NAVBAR.ADMIN' | translate}}</a>
+            <a class="navbar-item" href ng-click="$ctrl.admin()" ng-if="$ctrl.parent.isAdmin()">{{'NAVBAR.ADMIN' | translate}}</a>
             <a class="navbar-item" href ng-click="$ctrl.parent.logout()">{{'NAVBAR.LOGOUT' | translate}}</a>
           </div>
         </div>

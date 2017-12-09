@@ -1,14 +1,14 @@
 <div class="container view">
   <div class="columns is-mobile">
     <div class="column is-half is-offset-one-quarter">
-        <header>
-            <h1>{{'USER_EDIT.TITLE' | translate}}</h1>
-            <div class="notification is-danger" ng-show="$ctrl.error">
-              <button class="delete"></button>
-              {{$ctrl.error}}
-            </div>
-          </header>
-          <form ng-submit="$ctrl.validate()">
+      <section class="header">
+        <h1>{{'USER_EDIT.TITLE' | translate}}</h1>
+        <div class="notification is-danger" ng-show="$ctrl.error">
+          <button class="delete"></button>
+          {{$ctrl.error}}
+        </div>
+      </section>
+      <form ng-submit="$ctrl.validate()">
         <div class="field">
           <label class="label">{{'USER_EDIT.NAME' | translate}}</label>
           <div class="control">

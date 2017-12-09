@@ -2,9 +2,9 @@ import angular from 'angular';
 import resources from 'angular-resource';
 import localStorage from 'angular-local-storage';
 
-import routes from './RoutesService';
-import users from './UsersService';
-import auth from './AuthService';
+import routes from './common/RoutesService';
+import users from './common/UsersService';
+import auth from './common/AuthService';
 
 const services = angular.module('adminServices', [
   localStorage,

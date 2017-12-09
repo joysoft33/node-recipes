@@ -90,11 +90,7 @@ module.exports = class {
         as: 'user'
       }]
     }).then((recipe) => {
-      if (recipe) {
-        res.json(recipe);
-      } else {
-        res.sendStatus(404);
-      }
+      res.json(recipe);
     }).catch((err) => {
       next(err);
     });
@@ -123,26 +119,45 @@ module.exports = class {
   }
 
   /**
+   * Update the requested recipe
+   * Only the creator can modify its recipe
+   * @param {*} req
+   * @param {*} res
+   * @param {*} next
+   */
+  update(req, res, next) {
+    models.recipe.findById(req.params.id).then((recipe) => {
+      if (!req.user.isAdmin && (req.user.id !== recipe.userId)) {
+        throw new ServerError(401, 'Not owner, cannot modify recipe');
+      }
+      return recipe.updateAttributes(req.body);
+    }).then((recipe) => {
+      res.json(recipe);
+    }).catch((err) => {
+      next(err);
+    });
+  }
+
+  /**
    * Upload recipe image
    * @param {*} req
    * @param {*} res
    * @param {*} next
    */
   uploadImage(req, res, next) {
-    if (req.file) {
-      upload(req, res, (err) => {
-        if (err) {
-          next(err);
-        } else {
-          res.json({
-            originalFilename: req.file.originalname,
-            url: path.join(config.imagesPath, req.file.filename)
-          });
-        }
-      });
-    } else {
-      next(new ServerError(404, 'No file supplied'));
-    }
+    // Use the Multer module to save the received file
+    upload(req, res, (err) => {
+      if (err) {
+        next(err);
+      } else if (req.file) {
+        res.json({
+          originalFilename: req.file.originalname,
+          url: path.join(config.imagesPath, req.file.filename)
+        });
+      } else {
+        next(new ServerError(404, 'No file supplied'));
+      }
+    });
   }
 
   /**

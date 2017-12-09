@@ -17,6 +17,10 @@ module.exports = (express, auth) => {
     recipesController.create(req, res, next);
   });
 
+  router.put('/', auth.user, (req, res, next) => {
+    recipesController.update(req, res, next);
+  });
+
   router.post('/image', auth.user, (req, res, next) => {
     recipesController.uploadImage(req, res, next);
   });

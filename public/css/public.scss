@@ -1,26 +1,22 @@
 @import './common.scss';
 
-main ul.categories {
-  -webkit-padding-start: 0;
-  margin-bottom: 15px;
-  display: inline-flex;
-  list-style: none;
-  li {
-    padding: 5px 10px;
-    &:hover {
-      background-color: #eee;
-      cursor: pointer;
+/* Components styles */
+
+recipes-list {
+  .card-header-title {
+    margin-bottom: 5px;
+    display: block;
+    .name {
+      text-transform: capitalize;
+      font-weight: normal;
     }
-    &.selected {
-      font-weight: bold;
+    p {
+      text-transform: capitalize;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
     }
   }
-}
-
-recipes-list .card-content .title {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
 }
 
 recipe-details {
@@ -54,6 +50,12 @@ recipe-add {
   }
   img {
     width: 100%;
+  }
+  span.select {
+    width: 100%;
+    select {
+      width: 100%;
+    }
   }
 }
 

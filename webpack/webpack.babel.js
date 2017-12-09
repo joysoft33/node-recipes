@@ -24,6 +24,8 @@ module.exports = (PRODUCTION, base) => {
             modules: false,
             debug: false
           }]
+        ],
+        plugins: [
         ]
       }
     }]
@@ -33,10 +35,8 @@ module.exports = (PRODUCTION, base) => {
     config.exclude = /node_modules/;
   } else {
     config.include = path.resolve(base);
-    config.use.splice(0, 0, {
-      loader: 'ng-annotate-loader'
-    });
-    config.use[1].options.presets.push(['angular']);
+    config.use[0].options.presets.push(['angular']);
+    config.use[0].options.plugins.push(['angularjs-annotate']);
   }
 
   return config;

@@ -11,27 +11,24 @@ export default [{
   component: 'recipesList',
   params: {
     category: {
+      dynamic: true,
       value: 0
     },
     page: {
+      dynamic: true,
       value: 0
     }
   },
   resolve: {
-    categories: (CategoriesService) => {
+    categories: ['CategoriesService', (CategoriesService) => {
       return CategoriesService.query().$promise;
-    },
-    recipes: (CONSTANTS, RecipesService, $transition$) => {
-      const offset = parseInt($transition$.params().page || 0, 10);
-      return RecipesService.queryPaginated({
-        category: $transition$.params().category,
-        offset: offset * CONSTANTS.MAX_PER_PAGES,
-        limit: CONSTANTS.MAX_PER_PAGES
-      }).$promise;
-    },
-    page: ($transition$) => {
+    }],
+    category: ['$transition$', ($transition$) => {
+      return parseInt($transition$.params().category || 0, 10);
+    }],
+    page: ['$transition$', ($transition$) => {
       return parseInt($transition$.params().page || 0, 10);
-    }
+    }]
   },
   data: {
     defaultRoute: true
@@ -41,20 +38,20 @@ export default [{
   url: '/{id: int}',
   component: 'recipeDetails',
   resolve: {
-    recipe: (RecipesService, $transition$) => {
+    recipe: ['RecipesService', '$transition$', (RecipesService, $transition$) => {
       return RecipesService.get({
         id: $transition$.params().id
       }).$promise;
-    }
+    }]
   }
 }, {
   name: 'main.recipes.add',
   url: '/add',
   component: 'recipeAdd',
   resolve: {
-    categories: (CategoriesService) => {
+    categories: ['CategoriesService', (CategoriesService) => {
       return CategoriesService.query().$promise;
-    }
+    }]
   },
   data: {
     requiresLogin: true

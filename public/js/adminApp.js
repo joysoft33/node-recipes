@@ -1,8 +1,7 @@
 import angular from 'angular';
 import uiRouter from '@uirouter/angularjs';
 import cookies from 'angular-cookies';
-
-import 'bulma/bulma.sass';
+import fileUpload from 'ng-file-upload';
 
 import components from './components/adminComponents';
 import services from './services/adminServices';
@@ -13,6 +12,7 @@ import '../css/admin.scss';
 const app = angular.module('adminApp', [
   uiRouter,
   cookies,
+  fileUpload,
   components,
   services
 ]);
