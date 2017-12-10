@@ -6,10 +6,10 @@
     </div>
     <div class="tabs">
       <ul>
-        <li ui-sref-active="is-active">
+        <li ng-class="{'is-active': $ctrl.category == 0}">
           <a ui-sref="main.recipes.list({category: 0, page: 0})">{{'ALL' | translate}}</a>
         </li>
-        <li ng-repeat="category in $ctrl.categories track by category.id" ui-sref-active="is-active">
+        <li ng-repeat="category in $ctrl.categories track by category.id" ng-class="{'is-active': $ctrl.category == category.id}">
           <a ui-sref="main.recipes.list({category: category.id, page: 0})">{{category.name}}</a>
         </li>
       </ul>

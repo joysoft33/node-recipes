@@ -16,7 +16,7 @@ export default [{
     },
     page: {
       dynamic: true,
-      value: 0
+      value: 1
     }
   },
   resolve: {
@@ -24,10 +24,10 @@ export default [{
       return CategoriesService.query().$promise;
     }],
     category: ['$transition$', ($transition$) => {
-      return parseInt($transition$.params().category || 0, 10);
+      return $transition$.params().category;
     }],
     page: ['$transition$', ($transition$) => {
-      return parseInt($transition$.params().page || 0, 10);
+      return $transition$.params().page;
     }]
   },
   data: {

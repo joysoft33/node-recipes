@@ -10,8 +10,8 @@ export default {
 
   bindings: {
     categories: '<',
-    category: '<',
-    page: '<'
+    category: '@',
+    page: '@'
   },
 
   controller: function controller(CONSTANTS, RecipesService, $log) {
@@ -24,20 +24,21 @@ export default {
 
     this.uiOnParamsChanged = function uiOnParamsChanged(newParams) {
       if (typeof newParams.category !== 'undefined') {
-        this.category = parseInt(newParams.category || 0, 10);
+        this.category = newParams.category;
       }
       if (typeof newParams.page !== 'undefined') {
-        this.page = parseInt(newParams.page || 0, 10);
+        this.page = newParams.page;
       }
       this.getRecipes();
     };
 
     // Request one page of recipes
+    // The page number is 1 based
     this.getRecipes = () => {
       RecipesService.queryPaginated({
-        offset: this.page * CONSTANTS.MAX_PER_PAGES,
-        limit: CONSTANTS.MAX_PER_PAGES,
-        category: this.category
+        offset: ((parseInt(this.page, 10) || 1) - 1) * CONSTANTS.MAX_PER_PAGES,
+        category: parseInt(this.category, 10) || 0,
+        limit: CONSTANTS.MAX_PER_PAGES
       }).$promise.then((results) => {
         this.recipes = results.rows;
         this.setPaginator(results);
@@ -48,8 +49,8 @@ export default {
     this.setPaginator = (results) => {
       if (results.count > results.limit) {
         this.paginator = {
-          count: Math.ceil(results.count / results.limit),
-          page: Math.ceil(results.offset / results.limit)
+          page: Math.ceil(results.offset / results.limit) + 1,
+          count: Math.ceil(results.count / results.limit)
         };
       } else {
         delete this.paginator;
