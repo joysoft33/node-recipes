@@ -64,7 +64,7 @@ module.exports = (PRODUCTION, base) => {
         }) => /node_modules/.test(resource)
       })
     ],
-    devtool: PRODUCTION ? 'source-map' : 'inline-source-map'
+    devtool: PRODUCTION ? 'cheap-source-map' : 'inline-source-map'
   };
 
   if (PRODUCTION) {
