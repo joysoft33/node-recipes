@@ -15,6 +15,10 @@
     "clean": "rm dist/*; find ./dist/* ! -name 'images' -type d -exec rm -rf {} + || true",
     "heroku-postbuild": "webpack -p --config ./webpack.config.js --progress"
   },
+  "engines": {
+    "node": ">=50.9",
+    "npm": ">=50.9"
+  },
   "keywords": [],
   "author": "Eric LEON",
   "license": "ISC",
