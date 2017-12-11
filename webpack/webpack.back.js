@@ -44,7 +44,7 @@ module.exports = (PRODUCTION, base) => {
         copyUnmodified: true
       })
     ],
-    devtool: PRODUCTION ? 'cheap-source-map' : 'inline-source-map'
+    devtool: PRODUCTION ? false : 'inline-source-map'
   };
 
   if (PRODUCTION) {
