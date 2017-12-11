@@ -2,7 +2,7 @@
   <div class="columns is-mobile">
     <div class="column is-half is-offset-one-quarter">
       <section class="header">
-        <h1>{{'RECIPE_ADD.TITLE' | translate}}</h1>
+        <h1>{{$ctrl.recipe.id ? 'RECIPE_ADD.EDIT' : 'RECIPE_ADD.CREATE' | translate}}</h1>
         <div class="notification is-danger" ng-show="$ctrl.error">
           <button class="delete"></button>
           {{$ctrl.error}}
@@ -53,7 +53,7 @@
               <label class="label">{{'RECIPE_ADD.IMAGE' | translate}}</label>
               <div class="control">
                 <div class="button is-info" name="file" accept="image/*" ngf-pattern="'image/*'" ng-model="file" ngf-max-size="{{$ctrl.maxFileSize}}MB"
-                  ngf-resize="{width: 1024, height: 1024}" ngf-select required>
+                  ngf-resize="{width: 1024, height: 1024}" ngf-select>
                   {{'RECIPE_ADD.SELECT' | translate}}
                 </div>
               </div>
@@ -64,7 +64,7 @@
           <div class="column is-6">
             <label class="label">{{'RECIPE_ADD.PREVIEW' | translate}}</label>
             <div class="control">
-              <img id="preview" ngf-thumbnail="file" />
+              <img id="preview" ngf-thumbnail="file || $ctrl.recipe.image" required />
             </div>
             <p>{{$ctrl.progress}}</p>
           </div>

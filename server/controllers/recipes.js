@@ -195,6 +195,9 @@ module.exports = class {
         id: req.params.id
       }
     }).then((recipe) => {
+      if (!req.user.isAdmin && (req.user.id !== recipe.userId)) {
+        throw new ServerError(401, 'Not owner, cannot delete recipe');
+      }
       return this.deleteImage(recipe);
     }).then((recipe) => {
       return recipe.destroy();

@@ -45,12 +45,21 @@ export default [{
     }]
   }
 }, {
-  name: 'main.recipes.add',
-  url: '/add',
-  component: 'recipeAdd',
+  name: 'main.recipes.edit',
+  url: '/edit?:{id: int}',
+  component: 'recipeEdit',
   resolve: {
     categories: ['CategoriesService', (CategoriesService) => {
       return CategoriesService.query().$promise;
+    }],
+    recipe: ['RecipesService', '$transition$', (RecipesService, $transition$) => {
+      const id = $transition$.params().id;
+      if (typeof id === 'undefined') {
+        return new RecipesService();
+      }
+      return RecipesService.get({
+        id: id
+      }).$promise;
     }]
   },
   data: {

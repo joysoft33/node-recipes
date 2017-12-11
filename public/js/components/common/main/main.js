@@ -24,6 +24,7 @@ export default {
     this.isLogged = () => typeof this.loggedUser !== 'undefined';
     this.isAdmin = () => this.isLogged() && this.loggedUser.isAdmin;
     this.userName = () => (this.isLogged() ? this.loggedUser.name : '');
+    this.isOwnerOrAdmin = userId => this.loggedUser && (this.loggedUser.isAdmin || this.loggedUser.id === userId);
 
     this.logout = () => {
       AuthService.logout().then(() => {

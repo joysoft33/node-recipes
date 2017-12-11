@@ -15,7 +15,8 @@ export default {
       ADMIN: 'Administration'
     },
     RECIPE_ADD: {
-      TITLE: 'New recipe',
+      CREATE: 'Create recipe',
+      EDIT: 'Edit recipe',
       NAME: 'Title',
       DESCRIPTION: 'Description',
       IMAGE: 'Image',
@@ -47,7 +48,8 @@ export default {
       ADMIN: 'Administration'
     },
     RECIPE_ADD: {
-      TITLE: 'Nouvelle recette',
+      CREATE: 'Nouvelle recette',
+      EDIT: 'Modification recette',
       NAME: 'Titre',
       DESCRIPTION: 'Description',
       IMAGE: 'Image',

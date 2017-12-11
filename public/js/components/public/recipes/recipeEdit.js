@@ -1,19 +1,19 @@
-import htmlTemplate from './recipeAdd.html';
+import htmlTemplate from './recipeEdit.html';
 
 export default {
 
   template: htmlTemplate,
 
   bindings: {
-    categories: '<'
+    categories: '<',
+    recipe: '<'
   },
 
-  controller: function controller($log, $state, RecipesService) {
+  controller: function controller($log, $state) {
     'ngInject';
 
     this.$onInit = () => {
       $log.info('recipeAdd component init');
-      this.recipe = new RecipesService();
       this.maxFileSize = 2;
     };
 
@@ -22,8 +22,8 @@ export default {
         this.recipe.uploadImage(file, (progress) => {
           this.progress = progress;
         }).then((result) => {
-          this.recipe.image = result.url;
-          return this.recipe.$save();
+          this.recipe.image = result.url || this.recipe.image;
+          return this.recipe.id ? this.recipe.$update() : this.recipe.$save();
         }).then(() => {
           $state.go('main.recipes.list');
         }).catch((error) => {

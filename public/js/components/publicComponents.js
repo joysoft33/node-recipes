@@ -12,7 +12,7 @@ import main from './common/main/main';
 
 import recipeDetails from './public/recipes/recipeDetails';
 import recipesList from './public/recipes/recipesList';
-import recipeAdd from './public/recipes/recipeAdd';
+import recipeEdit from './public/recipes/recipeEdit';
 import navbar from './public/navbar/navbar';
 
 const components = angular.module('publicComponents', [
@@ -29,6 +29,6 @@ components
   .component('main', main)
   .component('recipeDetails', recipeDetails)
   .component('recipesList', recipesList)
-  .component('recipeAdd', recipeAdd);
+  .component('recipeEdit', recipeEdit);
 
 export default components.name;

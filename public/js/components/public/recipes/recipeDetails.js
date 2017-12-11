@@ -17,6 +17,7 @@ export default {
 
     this.$onInit = () => {
       $log.info('recipeDetails component init');
+      this.isModifAllowed = this.parent.isOwnerOrAdmin(this.recipe.userId);
     };
 
     this.delete = () => {

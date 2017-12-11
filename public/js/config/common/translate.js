@@ -5,6 +5,7 @@ export default {
   en: {
     BUTTON: {
       ADD: 'Add',
+      EDIT: 'Edit',
       DELETE: 'Delete',
       SAVE: 'Save',
       CANCEL: 'Cancel',
@@ -30,6 +31,7 @@ export default {
   fr: {
     BUTTON: {
       ADD: 'Ajouter',
+      EDIT: 'Editer',
       DELETE: 'Effacer',
       SAVE: 'Sauver',
       CANCEL: 'Annuler',

@@ -5,7 +5,8 @@
   </div>
   <div ng-show="$ctrl.recipe">
     <div class="commands">
-      <button type="button" class="button is-danger" ng-if="$ctrl.parent.isAdmin()" ng-click="$ctrl.delete()">{{'BUTTON.DELETE' | translate}}</button>
+      <button type="button" class="button is-warning" ng-if="$ctrl.isModifAllowed" ui-sref="main.recipes.edit({id: $ctrl.recipe.id})">{{'BUTTON.EDIT' | translate}}</button>
+      <button type="button" class="button is-danger" ng-if="$ctrl.isModifAllowed" ng-click="$ctrl.delete()">{{'BUTTON.DELETE' | translate}}</button>
       <button type="button" class="button" ui-sref="main.recipes.list">{{'BUTTON.RETURN' | translate}}</button>
     </div>
     <div class="card">

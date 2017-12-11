@@ -17,7 +17,7 @@ module.exports = (express, auth) => {
     recipesController.create(req, res, next);
   });
 
-  router.put('/', auth.user, (req, res, next) => {
+  router.put('/:id', auth.user, (req, res, next) => {
     recipesController.update(req, res, next);
   });
 
@@ -25,7 +25,7 @@ module.exports = (express, auth) => {
     recipesController.uploadImage(req, res, next);
   });
 
-  router.delete('/:id', auth.admin, (req, res, next) => {
+  router.delete('/:id', auth.user, (req, res, next) => {
     recipesController.delete(req, res, next);
   });
 
