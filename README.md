@@ -45,3 +45,4 @@ Tags:
 - **v2.02**: recipes list pagination
 - **v2.03**: bulma css framework
 - **v2.04**: recipe edition
+- **v2.05**: Cloudinary support for files upload
