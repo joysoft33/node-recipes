@@ -1,5 +1,10 @@
+const uuidv4 = require('uuid/v4');
+const sha1 = require('sha1');
+
 const ServerError = require('../utilities/errors');
 const models = require('../models');
+
+const config = require('../config')();
 
 module.exports = class {
 
@@ -29,6 +34,24 @@ module.exports = class {
     }).catch((err) => {
       next(err);
     });
+  }
+
+  /**
+   * Presign for a Cloudinary upload
+   * @param {*} req
+   * @param {*} res
+   */
+  presign(req, res) {
+    const result = {
+      publicId: uuidv4(),
+      timestamp: Date.now(),
+      apiKey: config.cloudinary.apiKey,
+      cloudName: config.cloudinary.cloudName,
+      callback: `${req.headers.origin}/cloudinary_cors.html`,
+    };
+    const options = `timestamp=${result.timestamp}${config.cloudinary.apiSecret}`;
+    result.signature = sha1(options);
+    res.json(result);
   }
 
 };

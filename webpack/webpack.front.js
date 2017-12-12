@@ -2,8 +2,9 @@
 
 const path = require('path');
 const webpack = require('webpack');
-const MinifyPlugin = require('babel-minify-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const MinifyPlugin = require('babel-minify-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const configTranspile = require('./webpack.babel');
@@ -62,7 +63,10 @@ module.exports = (PRODUCTION, base) => {
         minChunks: ({
           resource
         }) => /node_modules/.test(resource)
-      })
+      }),
+      new CopyWebpackPlugin([{
+        from: path.resolve('public/cloudinary_cors.html')
+      }])
     ],
     devtool: PRODUCTION ? false : 'inline-source-map'
   };

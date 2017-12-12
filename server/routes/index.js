@@ -9,7 +9,7 @@ const categoriesRoutes = require('./categories');
 
 module.exports = (app, express) => {
 
-  app.use('/api/auth', authRoutes(express));
+  app.use('/api/auth', authRoutes(express, auth));
   app.use('/api/users', usersRoutes(express, auth));
   app.use('/api/recipes', recipesRoutes(express, auth));
   app.use('/api/categories', categoriesRoutes(express, auth));

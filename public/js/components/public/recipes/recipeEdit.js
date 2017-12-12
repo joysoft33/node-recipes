@@ -9,7 +9,7 @@ export default {
     recipe: '<'
   },
 
-  controller: function controller($log, $state) {
+  controller: function controller(CloudinaryService, $log, $state) {
     'ngInject';
 
     this.$onInit = () => {
@@ -19,8 +19,10 @@ export default {
 
     this.validate = (file) => {
       if (this.form.$valid) {
-        this.recipe.uploadImage(file, (progress) => {
-          this.progress = progress;
+        CloudinaryService.presign(file.name, file.type).then((result) => {
+          return CloudinaryService.uploadFile(file, result, (progress) => {
+            this.progress = progress;
+          });
         }).then((result) => {
           this.recipe.image = result.url || this.recipe.image;
           return this.recipe.id ? this.recipe.$update() : this.recipe.$save();

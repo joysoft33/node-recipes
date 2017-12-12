@@ -13,7 +13,12 @@ const settings = {
     adminEmail: process.env.MAIL_ADMIN || 'admin@recipes.fr'
   },
   jwtCookie: 'recipes',
-  jwtSecret: '0123456789876543210'
+  jwtSecret: process.env.JWTSECRET,
+  cloudinary: {
+    cloudName: process.env.CLOUDINARY_CLOUDNAME,
+    apiKey: process.env.CLOUDINARY_APIKEY,
+    apiSecret: process.env.CLOUDINARY_APISECRET
+  }
 };
 
 module.exports = (basePath) => {
