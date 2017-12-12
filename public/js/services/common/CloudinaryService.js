@@ -11,6 +11,11 @@ function cloudinaryService(Upload, $http, $q) {
 
   const service = {};
 
+  /**
+   * Prepare Cloudinary upload for the given file
+   * @param {*} filename
+   * @param {*} type
+   */
   service.presign = function presign(filename, type) {
     return $q((resolve, reject) => {
       $http.post('/api/auth/presign', {
@@ -24,6 +29,12 @@ function cloudinaryService(Upload, $http, $q) {
     });
   };
 
+  /**
+   * Upload a new file to Cloudinary
+   * @param {*} file
+   * @param {*} presigned
+   * @param {*} progress
+   */
   service.uploadFile = function uploadFile(file, presigned, progress) {
 
     const defer = $q.defer();
@@ -60,7 +71,7 @@ function cloudinaryService(Upload, $http, $q) {
         }
       });
     } else {
-      // No valid file supplied
+      // No valid @ file supplied
       defer.resolve({});
     }
 

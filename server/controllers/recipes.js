@@ -1,19 +1,7 @@
 const ServerError = require('../utilities/errors');
-const logger = require('../utilities/logger');
-const multer = require('multer');
-const path = require('path');
-const fs = require('fs');
 
 const mails = require('../utilities/mails');
 const models = require('../models');
-
-const config = require('../config')();
-
-const uploadPath = path.resolve(config.serverPath, config.imagesPath);
-
-const upload = multer({
-  dest: uploadPath
-}).single('file');
 
 module.exports = class {
 
@@ -139,50 +127,6 @@ module.exports = class {
   }
 
   /**
-   * Upload recipe image
-   * @param {*} req
-   * @param {*} res
-   * @param {*} next
-   */
-  uploadImage(req, res, next) {
-    // Use the Multer module to save the received file
-    upload(req, res, (err) => {
-      if (err) {
-        next(err);
-      } else if (req.file) {
-        res.json({
-          originalFilename: req.file.originalname,
-          url: path.join(config.imagesPath, req.file.filename)
-        });
-      } else {
-        next(new ServerError(404, 'No file supplied'));
-      }
-    });
-  }
-
-  /**
-   * Delete the recipe image if any. Always resolve the promise,
-   * even upon image deletion error
-   * @param {*} recipe
-   * @return {Promise}
-   */
-  deleteImage(recipe) {
-    return new Promise((resolve) => {
-      if (recipe.image) {
-        const imagePath = path.resolve(config.serverPath, recipe.image);
-        fs.unlink(imagePath, (err) => {
-          if (err) {
-            logger.error(`recipes.deleteImage ${recipe.image}`, err);
-          }
-          resolve(recipe);
-        });
-      } else {
-        resolve(recipe);
-      }
-    });
-  }
-
-  /**
    * Delete the specified recipe. First find the requested recipe, then delete the downloaded image if any
    * and terminate by deleting the recipe itself
    * @param {*} req
@@ -190,16 +134,10 @@ module.exports = class {
    * @param {*} next
    */
   delete(req, res, next) {
-    models.recipe.findOne({
-      where: {
-        id: req.params.id
-      }
-    }).then((recipe) => {
+    models.recipe.findById(req.params.id).then((recipe) => {
       if (!req.user.isAdmin && (req.user.id !== recipe.userId)) {
         throw new ServerError(401, 'Not owner, cannot delete recipe');
       }
-      return this.deleteImage(recipe);
-    }).then((recipe) => {
       return recipe.destroy();
     }).then(() => {
       res.sendStatus(200);
