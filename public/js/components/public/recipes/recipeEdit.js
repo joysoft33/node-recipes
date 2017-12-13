@@ -24,7 +24,7 @@ export default {
             this.progress = progress;
           });
         }).then((result) => {
-          this.recipe.image = result.url || this.recipe.image;
+          this.recipe.image = result.secure_url || this.recipe.image;
           return this.recipe.id ? this.recipe.$update() : this.recipe.$save();
         }).then(() => {
           $state.go('main.recipes.list');
