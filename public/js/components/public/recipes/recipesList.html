@@ -17,21 +17,7 @@
   </section>
   <div class="columns is-multiline" ng-hide="$ctrl.error.length">
     <div class="column is-4" ng-repeat="recipe in $ctrl.recipes track by recipe.id">
-      <div class="card recipe-{{recipe.category.name}}" ui-sref="main.recipes.details({id: recipe.id})">
-        <header class="card-header">
-          <div class="card-header-title">
-            <p>{{recipe.title}}</p>
-            <div class="name">
-              <p>{{recipe.user.name}}</p>
-            </div>
-          </div>
-        </header>
-        <div class="card-image">
-          <figure class="image">
-            <img ng-src="{{recipe.image}}" alt="image">
-          </figure>
-        </div>
-      </div>
+      <recipe-card recipe="recipe"></recipe-card>
     </div>
   </div>
   <paginator ng-if="$ctrl.paginator" route="main.recipes.list" count="$ctrl.paginator.count" page="$ctrl.paginator.page"></paginator>

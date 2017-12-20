@@ -3,19 +3,25 @@
 /* Components styles */
 
 recipes-list {
-  .card-header-title {
-    margin-bottom: 5px;
-    display: block;
-    width: 100%;
-    .name {
-      text-transform: capitalize;
-      font-weight: normal;
+  .card {
+    &:hover {
+      transition: box-shadow 0.3s;
+      box-shadow: 0 0 20px #ccc;
     }
-    p {
-      text-transform: capitalize;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
+    .card-header-title {
+      margin-bottom: 5px;
+      display: block;
+      width: 100%;
+      .name {
+        text-transform: capitalize;
+        font-weight: normal;
+      }
+      p {
+        text-transform: capitalize;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
     }
   }
 }
@@ -36,7 +42,7 @@ recipe-details {
   }
 }
 
-recipe-add {
+recipe-edit {
   div.button {
     display: block;
   }

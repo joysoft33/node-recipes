@@ -12,7 +12,7 @@ export default {
     recipe: '<'
   },
 
-  controller: function controller($log, $state) {
+  controller: function controller(RecipesService, CloudinaryService, $log, $state) {
     'ngInject';
 
     this.$onInit = () => {
@@ -21,9 +21,13 @@ export default {
     };
 
     this.delete = () => {
-      this.recipe.$delete(() => {
+      RecipesService.delete({
+        id: this.recipe.id
+      }).$promise.then(() => {
+        return CloudinaryService.deleteFile(this.recipe);
+      }).then(() => {
         $state.go('main.recipes.list');
-      }, (error) => {
+      }).catch((error) => {
         this.error = error.statusText;
       });
     };

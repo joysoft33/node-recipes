@@ -13,6 +13,7 @@ import main from './common/main/main';
 import recipeDetails from './public/recipes/recipeDetails';
 import recipesList from './public/recipes/recipesList';
 import recipeEdit from './public/recipes/recipeEdit';
+import recipeCard from './public/recipes/recipeCard';
 import navbar from './public/navbar/navbar';
 
 const components = angular.module('publicComponents', [
@@ -29,6 +30,7 @@ components
   .component('main', main)
   .component('recipeDetails', recipeDetails)
   .component('recipesList', recipesList)
-  .component('recipeEdit', recipeEdit);
+  .component('recipeEdit', recipeEdit)
+  .component('recipeCard', recipeCard);
 
 export default components.name;

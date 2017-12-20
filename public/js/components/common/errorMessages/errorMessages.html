@@ -1,7 +1,7 @@
-<div ng-messages="$ctrl.errors" role="alert" class="is-danger" ng-if="Object.keys($ctrl.errors).length">
+<div ng-messages="$ctrl.form[$ctrl.field].errors" role="alert" class="is-danger" ng-if="$ctrl.form.$invalid">
   <p ng-message="required">{{'ERRORS.REQUIRED' | translate}}</p>
   <p ng-message="minlength">{{'ERRORS.MINLENGTH' | translate}}</p>
   <p ng-message="maxlength">{{'ERRORS.MAXLENGTH' | translate}}</p>
   <p ng-message="pattern">{{'ERRORS.PATTERN' | translate}}</p>
-  <p ng-message="maxSize">{{'ERRORS.FILESIZE' | translate}} {{ file.size / 1000000 | number:1 }}MB: max {{$ctrl.maxFileSize}}MB</p>
+  <p ng-message="maxSize">{{'ERRORS.FILESIZE' | translate}}</p>
 </div>

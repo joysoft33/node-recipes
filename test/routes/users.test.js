@@ -3,7 +3,7 @@ const should = require('should');
 
 // Load and start the server (force test mode just in case env variable not correctly set)
 process.env.NODE_ENV = 'test';
-const app = require('../../server');
+const app = require('../../server/server');
 
 // Retrieve config and models
 const config = require('../../server/config')();
@@ -12,7 +12,7 @@ const models = require('../../server/models');
 // This agent refers to PORT where program is running.
 const server = supertest.agent(`http://localhost:${config.serverPort}`);
 
-describe('Testing /users route', () => {
+describe('Testing /api/users route', function test() {
 
   // The authentication token
   let token;
@@ -49,26 +49,24 @@ describe('Testing /users route', () => {
     done();
   });
 
-  it('GET /users should fail 403', (done) => {
+  it('GET /api/users should fail 403', (done) => {
     server
-      .get('/users')
-      .expect('Content-type', /json/)
-      .expect(403)
+      .get('/api/users')
+      .expect(401)
       .end((err, res) => {
         err ? done(err) : done();
       });
   });
 
-  it('POST /users should create user Lucien', (done) => {
+  it('POST /api/users should create user Lucien', (done) => {
     server
-      .post('/users')
+      .post('/api/users')
       .send({
         email: 'lucien@free.fr',
         name: 'Lucien',
         isAdmin: true,
         password: 'toto'
       })
-      .expect('Content-type', /json/)
       .expect(200)
       .end((err, res) => {
         if (err) {
@@ -85,17 +83,16 @@ describe('Testing /users route', () => {
 
   it('GET /users/1 should fail 403', (done) => {
     server
-      .get('/users/1')
-      .expect('Content-type', /json/)
-      .expect(403)
+      .get('/api/users/1')
+      .expect(401)
       .end((err, res) => {
         err ? done(err) : done();
       });
   });
 
-  it('POST /auth should fail 401', (done) => {
+  it('POST /api/auth should fail 401', (done) => {
     server
-      .post('/auth')
+      .post('/api/auth')
       .send({
         email: 'lucien@free.fr',
         password: 'toto'
@@ -111,11 +108,10 @@ describe('Testing /users route', () => {
       });
   });
 
-  it('GET /users/1 should return Lucien', (done) => {
+  it('GET /api/users/1 should return Lucien', (done) => {
     server
-      .get('/users/1')
+      .get('/api/users/1')
       .set('Authorization', `Bearer ${token}`)
-      .expect('Content-type', /json/)
       .expect(200)
       .end((err, res) => {
         if (err) {
@@ -128,9 +124,9 @@ describe('Testing /users route', () => {
       });
   });
 
-  it('PUT /users/1 should rename Lucien to Jean', (done) => {
+  it('PUT /api/users/1 should rename Lucien to Jean', (done) => {
     server
-      .put('/users/1')
+      .put('/api/users/1')
       .set('Authorization', `Bearer ${token}`)
       .send({
         name: 'Jean'
@@ -141,11 +137,10 @@ describe('Testing /users route', () => {
       });
   });
 
-  it('GET /users/1 should return Jean', (done) => {
+  it('GET /api/users/1 should return Jean', (done) => {
     server
-      .get('/users/1')
+      .get('/api/users/1')
       .set('Authorization', `Bearer ${token}`)
-      .expect('Content-type', /json/)
       .expect(200)
       .end((err, res) => {
         if (err) {
@@ -156,9 +151,9 @@ describe('Testing /users route', () => {
       });
   });
 
-  it('DELETE /users/1 should delete Jean', (done) => {
+  it('DELETE /api/users/1 should delete Jean', (done) => {
     server
-      .delete('/users/1')
+      .delete('/api/users/1')
       .set('Authorization', `Bearer ${token}`)
       .expect(200)
       .end((err, res) => {
@@ -166,9 +161,9 @@ describe('Testing /users route', () => {
       });
   });
 
-  it('DELETE /users/1 should fail 404', (done) => {
+  it('DELETE /api/users/1 should fail 404', (done) => {
     server
-      .delete('/users/1')
+      .delete('/api/users/1')
       .set('Authorization', `Bearer ${token}`)
       .expect(404)
       .end((err, res) => {
@@ -176,10 +171,10 @@ describe('Testing /users route', () => {
       });
   });
 
-  it('DELETE /users/1 should fail 403', (done) => {
+  it('DELETE /api/users/1 should fail 403', (done) => {
     server
-      .delete('/users/1')
-      .expect(403)
+      .delete('/api/users/1')
+      .expect(401)
       .end((err, res) => {
         err ? done(err) : done();
       });

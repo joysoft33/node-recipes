@@ -1,0 +1,15 @@
+<div class="card recipe-{{$ctrl.recipe.category.name}}" ui-sref="main.recipes.details({id: $ctrl.recipe.id})">
+  <header class="card-header">
+    <div class="card-header-title">
+      <p>{{$ctrl.recipe.title}}</p>
+      <div class="name">
+        <p>{{$ctrl.recipe.user.name}}</p>
+      </div>
+    </div>
+  </header>
+  <div class="card-image">
+    <figure class="image">
+      <img ng-src="{{$ctrl.recipe.image}}" alt="image">
+    </figure>
+  </div>
+</div>

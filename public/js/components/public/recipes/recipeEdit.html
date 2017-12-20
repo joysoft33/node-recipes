@@ -14,14 +14,14 @@
           <div class="control">
             <input name="name" class="input" type="text" ng-model="$ctrl.recipe.title" required>
           </div>
-          <error-messages errors="$ctrl.form.name.$error" />
+          <error-messages form="$ctrl.form" field="name" />
         </div>
         <div class="field">
           <label class="label">{{'RECIPE_ADD.DESCRIPTION' | translate}}</label>
           <div class="control">
             <textarea name="desc" class="textarea" ng-model="$ctrl.recipe.description" ng-minlength="10" required></textarea>
           </div>
-          <error-messages errors="$ctrl.form.desc.$error" />
+          <error-messages form="$ctrl.form" field="desc" />
         </div>
         <div class="columns">
           <div class="column is-6">
@@ -30,7 +30,7 @@
               <div class="control">
                 <input name="count" class="input" type="number" min="1" max="12" ng-model="$ctrl.recipe.count" required>
               </div>
-              <error-messages errors="$ctrl.form.count.$error" />
+              <error-messages ng-if="$ctrl.form.$dirty" errors="$ctrl.form.count.$error" />
             </div>
           </div>
           <div class="column is-6">
@@ -43,14 +43,14 @@
                   </select>
                 </span>
               </div>
-              <error-messages errors="$ctrl.form.category.$error" />
+              <error-messages ng-if="$ctrl.form.$dirty" errors="$ctrl.form.category.$error" />
             </div>
           </div>
         </div>
         <div class="columns">
           <div class="column is-6">
             <div class="field">
-              <label class="label">{{'RECIPE_ADD.IMAGE' | translate}}</label>
+              <label class="label">{{'RECIPE_ADD.IMAGE' | translate}} (max {{$ctrl.maxFileSize}}MB)</label>
               <div class="control">
                 <div class="button is-info" name="file" accept="image/*" ngf-pattern="'image/*'" ng-model="file" ngf-max-size="{{$ctrl.maxFileSize}}MB"
                   ngf-resize="{width: 1024, height: 1024}" ngf-select>
@@ -58,7 +58,7 @@
                 </div>
               </div>
               <div ngf-drop ng-model="file" class="drop-box">{{'RECIPE_ADD.DROP' | translate}}</div>
-              <error-messages errors="$ctrl.form.file.$error" />
+              <error-messages ng-if="$ctrl.form.$dirty" errors="$ctrl.form.file.$error" />
             </div>
           </div>
           <div class="column is-6">
@@ -66,12 +66,12 @@
             <div class="control">
               <img id="preview" ngf-thumbnail="file || $ctrl.recipe.image" required />
             </div>
-            <p>{{$ctrl.progress}}</p>
+            <progress ng-if="$ctrl.progress" class="progress is-small is-primary" value="{{$ctrl.progress}}" max="100">{{$ctrl.progress}}%</progress>
           </div>
         </div>
         <hr/>
         <div class="commands">
-          <button type="submit" class="button is-primary" ng-disabled="$ctrl.form.$invalid">{{'BUTTON.SAVE' | translate}}</button>
+          <button type="submit" class="button is-primary" ng-class="{'is-loading': $ctrl.isLoading}" ng-disabled="$ctrl.form.$invalid">{{'BUTTON.SAVE' | translate}}</button>
           <button type="button" class="button" ui-sref="main.recipes.list">{{'BUTTON.CANCEL' | translate}}</button>
         </div>
       </form>

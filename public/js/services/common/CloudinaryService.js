@@ -16,11 +16,10 @@ function cloudinaryService(Upload, $http, $q) {
    * @param {*} filename
    * @param {*} type
    */
-  service.presign = function presign(filename, type) {
+  service.presign = function presign(url) {
     return $q((resolve, reject) => {
-      $http.post('/api/auth/presign', {
-        filename,
-        type
+      $http.post('/api/storage/presign', {
+        url
       }).then((res) => {
         resolve(res.data);
       }).catch((err) => {
@@ -35,47 +34,64 @@ function cloudinaryService(Upload, $http, $q) {
    * @param {*} presigned
    * @param {*} progress
    */
-  service.uploadFile = function uploadFile(file, presigned, progress) {
+  service.uploadFile = function uploadFile(url, file, progress) {
+    return $q((resolve, reject) => {
+      if (file) {
+        service.presign(url).then((result) => {
+          return Upload.upload({
+            url: result.uploadUrl,
+            file: file,
+            headers: {
+              Authorization: undefined
+            },
+            fields: {
+              folder: result.folder,
+              public_id: result.publicId,
+              api_key: result.apiKey,
+              timestamp: result.timestamp,
+              signature: result.signature
+            }
+          });
+        }).then((response) => {
+          // Image uploaded
+          if (response.status === 200) {
+            // No error, return the image url
+            resolve(response.data);
+          } else {
+            // Error detected, return the error text
+            reject(response.statusText);
+          }
+        }, (error) => {
+          // Error detected
+          reject(error);
+        }, (evt) => {
+          // Upload progression, update UI if a callback has been supplied
+          if (typeof progress === 'function') {
+            progress(Math.round((evt.loaded * 100.0) / evt.total));
+          }
+        });
+      } else {
+        // No valid file supplied
+        resolve({});
+      }
+    });
+  };
 
-    const defer = $q.defer();
-
-    if (file) {
-      Upload.upload({
-        url: `https://api.cloudinary.com/v1_1/${presigned.cloudName}/auto/upload`,
-        file: file,
+  service.deleteFile = (recipe) => {
+    return $q((resolve, reject) => {
+      $http.delete(`/api/storage/image/${recipe.id}`, {
         headers: {
-          Authorization: undefined
+          'Content-Type': 'application/json;charset=utf-8'
         },
-        fields: {
-          api_key: presigned.apiKey,
-          timestamp: presigned.timestamp,
-          signature: presigned.signature
+        data: {
+          url: recipe.image
         }
       }).then((response) => {
-        // Image uploaded
-        if (response.status === 200) {
-          // No error, return the image url
-          defer.resolve(response.data);
-        } else {
-          // Error detected, return the error text
-          defer.reject(response.statusText);
-        }
-      }, (error) => {
-        // Error detected
-        defer.reject(error);
-      }, (evt) => {
-        // Upload progression, update UI if a callback has been supplied
-        if (typeof progress === 'function') {
-          const progressPercentage = parseInt((100.0 * evt.loaded) / evt.total, 10);
-          progress(progressPercentage);
-        }
+        resolve(response.data.deleted);
+      }).catch((err) => {
+        reject(err);
       });
-    } else {
-      // No valid @ file supplied
-      defer.resolve({});
-    }
-
-    return defer.promise;
+    });
   };
 
   return service;

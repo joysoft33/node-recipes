@@ -5,6 +5,16 @@ export default {
   template: htmlTemplate,
 
   bindings: {
-    errors: '<'
+    form: '<',
+    field: '@'
+  },
+
+  controller: function controller($log) {
+    this.$onInit = () => {
+      $log.info(this.field);
+    };
+    this.$onChanges = (changes) => {
+      $log.info(changes);
+    };
   }
 };

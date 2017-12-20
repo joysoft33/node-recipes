@@ -12,19 +12,25 @@
         <div class="field">
           <label class="label">{{'USER_EDIT.NAME' | translate}}</label>
           <div class="control">
-            <input ng-model="$ctrl.user.name" id="name" type="text" class="input" />
+            <input ng-model="$ctrl.user.name" id="name" type="text" class="input" required />
           </div>
         </div>
         <div class="field">
           <label class="label">{{'USER_EDIT.EMAIL' | translate}}</label>
           <div class="control">
-            <input ng-model="$ctrl.user.email" id="email" type="text" class="input" />
+            <input ng-model="$ctrl.user.email" id="email" type="text" class="input" required />
           </div>
         </div>
         <div class="field">
           <label class="label">{{'USER_EDIT.PASSWORD' | translate}}</label>
           <div class="control">
-            <input ng-model="$ctrl.user.password" id="password" type="password" class="input" />
+            <input ng-model="$ctrl.user.password" id="password" type="password" class="input" required />
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">{{'USER_EDIT.ADDRESS' | translate}}</label>
+          <div class="control">
+            <input ng-model="$ctrl.user.address" id="address" type="text" class="input" required />
           </div>
         </div>
         <div class="field">
