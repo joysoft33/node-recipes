@@ -42,6 +42,7 @@ module.exports = class {
     } else {
       models.user.findById(req.params.id, {
         include: [{
+          attributes: ['id', 'title'],
           model: models.recipe,
           as: 'recipes'
         }]
@@ -82,6 +83,7 @@ module.exports = class {
       res.sendStatus(403);
     } else {
       models.user.findById(req.params.id).then((user) => {
+        req.body.location = models.sequelize.fn('GeomFromText', `POINT(${parseFloat(req.body.lat)} ${parseFloat(req.body.lng)})`);
         return user.updateAttributes(req.body);
       }).then((user) => {
         res.sendStatus(200);

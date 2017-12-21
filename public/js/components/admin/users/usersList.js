@@ -12,7 +12,7 @@ export default {
     'ngInject';
 
     this.$onInit = () => {
-      $log.info('usersList component init', this.users);
+      $log.info('usersList component init');
     };
   }
 };

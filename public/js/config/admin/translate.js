@@ -18,7 +18,8 @@ export default {
       NAME: 'Name',
       EMAIL: 'Mail address',
       PASSWORD: 'Password',
-      ADMIN: 'Administrator'
+      ADMIN: 'Administrator',
+      ADDRESS: 'Postal address'
     }
   },
   fr: {
@@ -37,7 +38,8 @@ export default {
       NAME: 'Nom',
       EMAIL: 'Adresse mail',
       PASSWORD: 'Mot de passe',
-      ADMIN: 'Administrateur'
+      ADMIN: 'Administrateur',
+      ADDRESS: 'Adresse postale'
     }
   }
 };

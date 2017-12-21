@@ -24,14 +24,20 @@
         <div class="field">
           <label class="label">{{'USER_EDIT.PASSWORD' | translate}}</label>
           <div class="control">
-            <input ng-model="$ctrl.user.password" id="password" type="password" class="input" required />
+            <input ng-model="$ctrl.user.password" id="password" type="password" class="input" />
           </div>
         </div>
         <div class="field">
           <label class="label">{{'USER_EDIT.ADDRESS' | translate}}</label>
           <div class="control">
-            <input ng-model="$ctrl.user.address" id="address" type="text" class="input" required />
+            <input places-auto-complete id="address" type="text" class="input" required ng-model="$ctrl.user.address" component-restrictions="{country:'fr'}"
+              on-place-changed="$ctrl.onPlaceChanged()" types="['geocode']" />
           </div>
+        </div>
+        <div class="field">
+          <ng-map center="{{$ctrl.user.lat}}, {{$ctrl.user.lng}}">
+            <marker position="{{$ctrl.user.lat}}, {{$ctrl.user.lng}}"></marker>
+          </ng-map>
         </div>
         <div class="field">
           <div class="control">
