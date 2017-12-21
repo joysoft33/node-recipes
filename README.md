@@ -47,3 +47,4 @@ Tags:
 - **v2.04**: recipe edition
 - **v2.05**: Cloudinary support for files upload
 - **v2.06**: User address autocompletion added (admin zone)
+- **v2.07**: Geolocation and distance computing (admin zone)

@@ -11,7 +11,8 @@ export default {
       EMAIL: 'Email',
       DATE: 'Date',
       ADMIN: 'Admin',
-      RECIPES: 'Recipes'
+      RECIPES: 'Recipes',
+      DISTANCE: 'Distance'
     },
     USER_EDIT: {
       TITLE: 'User edit',
@@ -31,7 +32,8 @@ export default {
       EMAIL: 'Mail',
       DATE: 'Date',
       ADMIN: 'Admin',
-      RECIPES: 'Recettes'
+      RECIPES: 'Recettes',
+      DISTANCE: 'Distance'
     },
     USER_EDIT: {
       TITLE: 'Edition utilisateur',

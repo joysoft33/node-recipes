@@ -10,6 +10,7 @@
       <th>{{'USERS.DATE' | translate}}</th>
       <th>{{'USERS.ADMIN' | translate}}</th>
       <th>{{'USERS.RECIPES' | translate}}</th>
+      <th>{{'USERS.DISTANCE' | translate}}</th>
     </thead>
     <tbody>
       <tr ng-repeat="user in $ctrl.users track by user.id" ui-sref="main.user({id: user.id})">
@@ -18,6 +19,7 @@
         <td>{{user.createdAt | date:'dd/MM/yyyy'}}</td>
         <td>{{user.isAdmin}}</td>
         <td>{{user.recipesCount}}</td>
+        <td>{{user.distance}}</td>
       </tr>
     </tbody>
   </table>
