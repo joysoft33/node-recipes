@@ -22,10 +22,15 @@
   "keywords": [],
   "author": "Eric LEON",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/joysoft33/node-recipes"
+  },
   "dependencies": {
     "@uirouter/angularjs": "^1.0.11",
     "angular": "^1.6.7",
     "angular-cookies": "^1.6.7",
+    "angular-fontawesome": "^1.0.0",
     "angular-local-storage": "^0.7.1",
     "angular-messages": "^1.6.7",
     "angular-resource": "^1.6.7",
@@ -40,6 +45,7 @@
     "email-templates": "^3.1.8",
     "express": "^4.16.2",
     "express-jwt": "^5.3.0",
+    "font-awesome": "^4.7.0",
     "got": "^8.0.1",
     "jsonwebtoken": "^8.1.0",
     "mysql2": "^1.5.1",

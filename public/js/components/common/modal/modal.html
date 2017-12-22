@@ -1,0 +1,14 @@
+<div class="modal" ng-class="{'is-active': $ctrl.toggle}">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title" ng-transclude="title"></p>
+      <button class="delete" aria-label="close" ng-click="$ctrl.toggle = false"></button>
+    </header>
+    <section class="modal-card-body" ng-transclude="content"></section>
+    <footer class="modal-card-foot">
+      <button class="button" ng-click="$ctrl.toggle = false" ng-transclude="cancel"></button>
+      <button class="button is-success" ng-click="$ctrl.validate()" ng-transclude="ok"></button>
+    </footer>
+  </div>
+</div>

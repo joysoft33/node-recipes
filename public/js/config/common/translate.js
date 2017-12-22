@@ -10,7 +10,9 @@ export default {
       SAVE: 'Save',
       CANCEL: 'Cancel',
       RETURN: 'Return',
-      VALIDATE: 'Validate'
+      VALIDATE: 'Validate',
+      YES: 'Yes',
+      NO: 'No'
     },
     NAVBAR: {
       TITLE: 'Recipes',
@@ -36,7 +38,9 @@ export default {
       SAVE: 'Sauver',
       CANCEL: 'Annuler',
       RETURN: 'Retour',
-      VALIDATE: 'Valider'
+      VALIDATE: 'Valider',
+      YES: 'Oui',
+      NO: 'Non'
     },
     NAVBAR: {
       TITLE: 'Recettes',

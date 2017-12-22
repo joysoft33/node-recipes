@@ -26,6 +26,10 @@ export default {
       DROP: 'or drop it here',
       PREVIEW: 'Preview'
     },
+    RECIPE_DETAILS: {
+      MODAL_TITLE: 'Delete a recipe',
+      MODAL_CONTENT: 'Do you really want to delete this recipe ?'
+    },
     ERRORS: {
       REQUIRED: 'This field is required',
       MINLENGTH: 'This field is too short',
@@ -58,6 +62,10 @@ export default {
       SELECT: 'Choisir un fichier',
       DROP: 'ou le déposer ici',
       PREVIEW: 'Aperçu'
+    },
+    RECIPE_DETAILS: {
+      MODAL_TITLE: 'Effacer une recette',
+      MODAL_CONTENT: 'Voulez-vous vraiment effacer cette recette ?'
     },
     ERRORS: {
       REQUIRED: 'Champ requis',

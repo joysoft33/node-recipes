@@ -6,7 +6,7 @@
   <div ng-show="$ctrl.recipe">
     <div class="commands">
       <button type="button" class="button is-warning" ng-if="$ctrl.isModifAllowed" ui-sref="main.recipes.edit({id: $ctrl.recipe.id})">{{'BUTTON.EDIT' | translate}}</button>
-      <button type="button" class="button is-danger" ng-if="$ctrl.isModifAllowed" ng-click="$ctrl.delete()">{{'BUTTON.DELETE' | translate}}</button>
+      <button type="button" class="button is-danger" ng-if="$ctrl.isModifAllowed" ng-click="$ctrl.toggle = !$ctrl.toggle">{{'BUTTON.DELETE' | translate}}</button>
       <button type="button" class="button" ui-sref="main.recipes.list">{{'BUTTON.RETURN' | translate}}</button>
     </div>
     <div class="card">
@@ -22,9 +22,17 @@
           <div>{{$ctrl.recipe.count}}</div>
           <div>{{$ctrl.recipe.createdAt | date:"dd/MM/yyyy"}}</div>
           <div>{{$ctrl.recipe.user.name}}</div>
-          <div><span class="tag is-light">{{$ctrl.recipe.category.name}}</span></div>
+          <div>
+            <span class="tag is-light">{{$ctrl.recipe.category.name}}</span>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+<modal toggle="$ctrl.toggle" validate="$ctrl.delete()">
+  <modal-title>{{'RECIPE_DETAILS.MODAL_TITLE' | translate}}</modal-title>
+  <modal-content>{{'RECIPE_DETAILS.MODAL_CONTENT' | translate}}</modal-content>
+  <modal-cancel><fa name="close"></fa> {{'BUTTON.NO' | translate}}</modal-cancel>
+  <modal-ok><fa name="check"></fa> {{'BUTTON.YES' | translate}}</modal-ok>
+</modal>
