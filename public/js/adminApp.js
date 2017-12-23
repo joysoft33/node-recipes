@@ -23,6 +23,7 @@ app
   .config(config.storage)
   .config(config.routes)
   .run(config.states)
-  .run(config.auth);
+  .run(config.auth)
+  .run(config.maps);
 
 export default app.name;

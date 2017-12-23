@@ -10,7 +10,7 @@ module.exports = class {
    */
   findAll(req, res, next) {
     models.user.findAll({
-      attributes: ['id', 'name', 'email', 'isAdmin', 'createdAt', 'location'],
+      attributes: ['id', 'name', 'email', 'isAdmin', 'createdAt', 'address', 'location'],
       include: [{
         attributes: [[models.sequelize.fn('COUNT', models.sequelize.col('recipes.id')), 'count']],
         model: models.recipe,

@@ -1,6 +1,6 @@
-import checkAuth from './common/checkAuth';
 import constants from './common/constants';
 import storage from './common/storage';
+import auth from './common/checkAuth';
 import states from './common/states';
 
 import appTranslate from './appTranslate';
@@ -12,8 +12,8 @@ import routes from './admin/routes';
 export default {
   routes: appRoutes(routes, '/users'),
   translate: appTranslate(translate),
-  constants: constants,
-  storage: storage,
-  states: states,
-  auth: checkAuth
+  constants,
+  storage,
+  states,
+  auth
 };

@@ -49,3 +49,4 @@ Tags:
 - **v2.06**: User address autocompletion added (admin zone)
 - **v2.07**: Geolocation and distance computing (admin zone)
 - **v2.08**: Recipe delete confirmation modal dialog
+- **v2.09**: Admin users list with map and markers
