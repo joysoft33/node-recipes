@@ -3,24 +3,32 @@
     <button class="delete"></button>
     {{$ctrl.error}}
   </div>
-  <div map-lazy-load="https://maps.google.com/maps/api/js" map-lazy-load-params="{{$ctrl.googleMapsUrl}}">
-    <ng-map map-initialized="$ctrl.onMapLoaded(map)">
-      <marker
-        ng-if="$ctrl.current"
-        no-watcher="true"
-        position="{{$ctrl.current.lat}}, {{$ctrl.current.lng}}"
-        icon="{{$ctrl.markerIcon}}",
-      >
-      </marker>
-      <marker
-        no-watcher="true"
-        ng-repeat="user in $ctrl.users track by user.id"
-        position="{{user.location.coordinates[0]}}, {{user.location.coordinates[1]}}"
-        title="{{user.address}}"
-      >
-      </marker>
-    </ng-map>
-  </div>
+  <ng-map ng-if="$ctrl.loaded" default-style="true" zoom-to-include-markers="auto">
+    <marker
+      ng-if="$ctrl.current"
+      no-watcher="true"
+      position="{{$ctrl.current.lat}}, {{$ctrl.current.lng}}"
+      icon="{{$ctrl.markerIcon}}"
+    >
+    </marker>
+    <marker
+      no-watcher="true"
+      ng-repeat="user in $ctrl.users track by user.id"
+      position="{{user.location.coordinates}}"
+      on-click="$ctrl.showDetails(user)"
+      data="{{user.id}}"
+      title="{{user.address}}"
+      id="{{user.id}}"
+    >
+    </marker>
+    <info-window id="iw">
+      <div ng-non-bindable="">
+        <p><b>{{$ctrl.user.name | uppercase}}</b></p>
+        <p>{{$ctrl.user.address}}</p>
+        <a ui-sref="main.user({id: $ctrl.user.id})">{{'USERS.DETAILS' | translate}}...</a>
+      </div>
+    </info-window>
+  </ng-map>
   <table ng-hide="$ctrl.error.length" class="table is-hoverable is-fullwidth">
     <thead>
       <th>{{'USERS.NAME' | translate}}</th>
@@ -31,7 +39,11 @@
       <th>{{'USERS.DISTANCE' | translate}}</th>
     </thead>
     <tbody>
-      <tr ng-repeat="user in $ctrl.users track by user.id" ui-sref="main.user({id: user.id})">
+      <tr ng-repeat="user in $ctrl.users track by user.id"
+        ui-sref="main.user({id: user.id})"
+        ng-mouseenter="$ctrl.userMouseIn(user)"
+        ng-mouseleave="$ctrl.userMouseOut(user)"
+      >
         <td>{{user.name | uppercase}}</td>
         <td>{{user.email | lowercase}}</td>
         <td>{{user.createdAt | date:'dd/MM/yyyy'}}</td>

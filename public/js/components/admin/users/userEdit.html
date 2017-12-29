@@ -30,12 +30,12 @@
         <div class="field">
           <label class="label">{{'USER_EDIT.ADDRESS' | translate}}</label>
           <div class="control">
-            <input places-auto-complete id="address" type="text" class="input" required ng-model="$ctrl.user.address" component-restrictions="{country:'fr'}"
+            <input ng-if="$ctrl.loaded" places-auto-complete id="address" type="text" class="input" required ng-model="$ctrl.user.address" component-restrictions="{country:'fr'}"
               on-place-changed="$ctrl.onPlaceChanged()" types="['geocode']" />
           </div>
         </div>
-        <div class="field">
-          <ng-map center="{{$ctrl.user.lat}}, {{$ctrl.user.lng}}">
+        <div class="field" ng-if="$ctrl.loaded">
+          <ng-map center="{{$ctrl.user.lat}}, {{$ctrl.user.lng}}" zoom-to-include-markers="false">
             <marker position="{{$ctrl.user.lat}}, {{$ctrl.user.lng}}"></marker>
           </ng-map>
         </div>

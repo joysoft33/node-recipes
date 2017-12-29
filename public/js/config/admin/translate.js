@@ -12,7 +12,8 @@ export default {
       DATE: 'Date',
       ADMIN: 'Admin',
       RECIPES: 'Recipes',
-      DISTANCE: 'Distance'
+      DISTANCE: 'Distance',
+      DETAILS: 'Details'
     },
     USER_EDIT: {
       TITLE: 'User edit',
@@ -33,7 +34,8 @@ export default {
       DATE: 'Date',
       ADMIN: 'Admin',
       RECIPES: 'Recettes',
-      DISTANCE: 'Distance'
+      DISTANCE: 'Distance',
+      DETAILS: 'Détails'
     },
     USER_EDIT: {
       TITLE: 'Edition utilisateur',
