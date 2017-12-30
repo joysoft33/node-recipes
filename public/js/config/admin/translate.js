@@ -13,7 +13,8 @@ export default {
       ADMIN: 'Admin',
       RECIPES: 'Recipes',
       DISTANCE: 'Distance',
-      DETAILS: 'Details'
+      DETAILS: 'Details',
+      LOCATE: 'Locate'
     },
     USER_EDIT: {
       TITLE: 'User edit',
@@ -35,7 +36,8 @@ export default {
       ADMIN: 'Admin',
       RECIPES: 'Recettes',
       DISTANCE: 'Distance',
-      DETAILS: 'Détails'
+      DETAILS: 'Détails',
+      LOCATE: 'Localiser'
     },
     USER_EDIT: {
       TITLE: 'Edition utilisateur',

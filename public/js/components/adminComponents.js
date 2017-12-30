@@ -2,7 +2,10 @@ import angular from 'angular';
 import messages from 'angular-messages';
 import translate from 'angular-translate';
 
+import 'font-awesome/css/font-awesome.css';
 import 'bulma/bulma.sass';
+
+import 'angular-fontawesome';
 
 import paginator from './common/paginator/paginator';
 import login from './common/login/login';
@@ -15,7 +18,8 @@ import navbar from './admin/navbar/navbar';
 
 const components = angular.module('adminComponents', [
   messages,
-  translate
+  translate,
+  'picardy.fontawesome'
 ]);
 
 components

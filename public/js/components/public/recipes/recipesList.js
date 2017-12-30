@@ -32,8 +32,7 @@ export default {
       this.getRecipes();
     };
 
-    // Request one page of recipes
-    // The page number is 1 based
+    // Request one page of recipe (page number is 1 based)
     this.getRecipes = () => {
       RecipesService.queryPaginated({
         offset: ((parseInt(this.page, 10) || 1) - 1) * CONSTANTS.MAX_PER_PAGES,

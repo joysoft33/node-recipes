@@ -1,7 +1,12 @@
 /* eslint no-undef: "off" */
+/* eslint no-underscore-dangle: "off" */
+
+import 'js-marker-clusterer';
 
 import markerImage from '../../../../images/blu-stars.png';
 import htmlTemplate from './usersList.html';
+
+MarkerClusterer.prototype.MARKER_CLUSTER_IMAGE_PATH_ = 'images/m';
 
 export default {
 
@@ -19,6 +24,7 @@ export default {
 
     this.$onInit = () => {
       $log.info('usersList component init');
+      this.markers = [];
       // Set current position marker image url
       this.markerIcon = {
         url: `${markerImage}`
@@ -31,20 +37,20 @@ export default {
           // Save the map object
           this.map = map;
           // Save each marker in its user object to facilitate hover
-          this.saveMarkers();
+          this.createMarkers();
           // Set geolocation notification hook
           this.setGeolocationHook();
         });
       });
     };
 
-    // Component destroyed
     this.$onDestroy = () => {
       // Release watch hook if needed
       if (this.watchId) {
         GeolocationService.watchCancel(this.watchId);
         this.watchId = undefined;
       }
+      this.destroyMarkers();
     };
 
     this.setGeolocationHook = () => {
@@ -52,6 +58,7 @@ export default {
       this.watchId = GeolocationService.watchLocation((coords) => {
         // Current location has been updated
         this.current = coords;
+        // Update distance of every users
         this.users.forEach((user) => {
           user.distance = GeolocationService.getDistance(coords, {
             lat: user.location.coordinates[0],
@@ -65,40 +72,51 @@ export default {
       }
     };
 
-    // Show user infowindow when marker clicked
-    this.showDetails = function showDetails(e, user) {
-      self.user = user;
-      this.map.showInfoWindow('iw', this);
+    this.createMarkers = () => {
+      // Create a marker for every users
+      this.users.forEach((user) => {
+        const latLng = new google.maps.LatLng(user.location.coordinates[0], user.location.coordinates[1]);
+        user.marker = new google.maps.Marker({
+          title: user.address,
+          position: latLng,
+          id: user.id
+        });
+        // Bind click event on infoWindow
+        user.marker.addListener('click', ((item) => {
+          return () => {
+            self.user = item;
+            this.map.showInfoWindow('iw', item.marker);
+          };
+        })(user));
+        // Add marker to the markers list
+        this.markers.push(user.marker);
+      });
+      // Build clusterer from markers list
+      this.markerClusterer = new MarkerClusterer(this.map, this.markers, {});
+      // Center/zoom map to fit all markers
+      this.markerClusterer.fitMapToMarkers();
     };
 
-    // Save marker in each user object for moiuse in/out
-    this.saveMarkers = () => {
+    this.destroyMarkers = () => {
+      // Destroy all users markers
       this.users.forEach((user) => {
-        for (const i in this.map.markers) {
-          if (this.map.markers.hasOwnProperty(i)) {
-            const marker = this.map.markers[i];
-            if (marker.data === user.id) {
-              user.marker = marker;
-              break;
-            }
-          }
+        if (user.marker) {
+          user.marker.setMap(null);
+          user.marker = null;
         }
       });
+      // Remove all markers from the clusterer
+      this.markerClusterer.clearMarkers();
+      // Empty markers list
+      this.markers = [];
     };
 
-    // Mouse enter a table user row
-    this.userMouseIn = (user) => {
+    this.userLocate = (event, user) => {
       if (user.marker) {
-        // Bounce the corresponding marker
-        user.marker.setAnimation(google.maps.Animation.BOUNCE);
-      }
-    };
-
-    // Mouse leave a table user row
-    this.userMouseOut = (user) => {
-      if (user.marker) {
-        // Stop marker animation
-        user.marker.setAnimation(null);
+        event.stopPropagation();
+        // Center map on the user marker and zoom
+        this.map.setCenter(user.marker.getPosition());
+        this.map.setZoom(15);
       }
     };
   }

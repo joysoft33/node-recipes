@@ -50,3 +50,4 @@ Tags:
 - **v2.07**: Geolocation and distance computing (admin zone)
 - **v2.08**: Recipe delete confirmation modal dialog
 - **v2.09**: Admin users list with map and markers
+- **v2.10**: Markers clusterer

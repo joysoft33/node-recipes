@@ -3,22 +3,12 @@
     <button class="delete"></button>
     {{$ctrl.error}}
   </div>
-  <ng-map ng-if="$ctrl.loaded" default-style="true" zoom-to-include-markers="auto">
+  <ng-map ng-if="$ctrl.loaded" default-style="true">
     <marker
       ng-if="$ctrl.current"
       no-watcher="true"
       position="{{$ctrl.current.lat}}, {{$ctrl.current.lng}}"
       icon="{{$ctrl.markerIcon}}"
-    >
-    </marker>
-    <marker
-      no-watcher="true"
-      ng-repeat="user in $ctrl.users track by user.id"
-      position="{{user.location.coordinates}}"
-      on-click="$ctrl.showDetails(user)"
-      data="{{user.id}}"
-      title="{{user.address}}"
-      id="{{user.id}}"
     >
     </marker>
     <info-window id="iw">
@@ -37,19 +27,17 @@
       <th>{{'USERS.ADMIN' | translate}}</th>
       <th>{{'USERS.RECIPES' | translate}}</th>
       <th>{{'USERS.DISTANCE' | translate}}</th>
+      <th>{{'USERS.LOCATE' | translate}}</th>
     </thead>
     <tbody>
-      <tr ng-repeat="user in $ctrl.users track by user.id"
-        ui-sref="main.user({id: user.id})"
-        ng-mouseenter="$ctrl.userMouseIn(user)"
-        ng-mouseleave="$ctrl.userMouseOut(user)"
-      >
+      <tr ng-repeat="user in $ctrl.users track by user.id" ui-sref="main.user({id: user.id})">
         <td>{{user.name | uppercase}}</td>
         <td>{{user.email | lowercase}}</td>
         <td>{{user.createdAt | date:'dd/MM/yyyy'}}</td>
         <td>{{user.isAdmin}}</td>
         <td>{{user.recipesCount}}</td>
         <td>{{user.distance}}</td>
+        <td><button class="button" ng-click="$ctrl.userLocate($event, user)"><fa name="location-arrow"></fa></button></td>
       </tr>
     </tbody>
   </table>

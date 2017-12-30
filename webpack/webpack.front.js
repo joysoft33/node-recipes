@@ -66,6 +66,10 @@ module.exports = (PRODUCTION, base) => {
       }),
       new CopyWebpackPlugin([{
         from: path.resolve('public/cloudinary_cors.html')
+      }, {
+        from: path.resolve('node_modules/js-marker-clusterer/images/m*.png'),
+        flatten: true,
+        to: 'images'
       }])
     ],
     devtool: PRODUCTION ? false : 'inline-source-map'
