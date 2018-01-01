@@ -34,7 +34,8 @@ export default {
     ERRORS: {
       MESSAGE: 'Message',
       STATUS: 'Status',
-      RETURN: 'Return to home page'
+      RETURN: 'Return to home page',
+      EMAIL: 'Bad email address format'
     }
   },
   fr: {
@@ -69,7 +70,8 @@ export default {
     ERRORS: {
       MESSAGE: 'Message',
       STATUS: 'Statut',
-      RETURN: 'Retour à l\'accueil'
+      RETURN: 'Retour à l\'accueil',
+      EMAIL: 'Adresse mail mal formatée'
     }
   }
 };
