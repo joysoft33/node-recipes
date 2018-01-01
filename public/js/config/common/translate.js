@@ -22,7 +22,14 @@ export default {
       NAME: 'Name',
       EMAIL: 'Mail address',
       PASSWORD: 'Password',
-      CREATE: 'Create my account'
+      CREATE: 'Create a new account',
+      LOSTPWD: 'Password lost ?'
+    },
+    LOSTPWD: {
+      TITLE: 'Password recovery',
+      EMAIL: 'Mail address',
+      PASSWORD: 'Password',
+      CONFIRM: 'Confirmation'
     },
     ERRORS: {
       MESSAGE: 'Message',
@@ -50,7 +57,14 @@ export default {
       NAME: 'Nom',
       EMAIL: 'Adresse mail',
       PASSWORD: 'Mot de passe',
-      CREATE: 'Créer mon compte'
+      CREATE: 'Créer un nouveau compte',
+      LOSTPWD: 'Mot de passe perdu ?'
+    },
+    LOSTPWD: {
+      TITLE: 'Récupération de mot de passe',
+      EMAIL: 'Adresse mail',
+      PASSWORD: 'Mot de passe',
+      CONFIRM: 'Confirmation'
     },
     ERRORS: {
       MESSAGE: 'Message',

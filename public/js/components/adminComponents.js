@@ -7,6 +7,9 @@ import 'bulma/bulma.sass';
 
 import 'angular-fontawesome';
 
+import errorMessages from './common/errorMessages/errorMessages';
+import resetPassword from './common/resetPassword/resetPassword';
+import lostPassword from './common/lostPassword/lostPassword';
 import paginator from './common/paginator/paginator';
 import login from './common/login/login';
 import error from './common/error/error';
@@ -23,6 +26,9 @@ const components = angular.module('adminComponents', [
 ]);
 
 components
+  .component('errorMessages', errorMessages)
+  .component('resetPassword', resetPassword)
+  .component('lostPassword', lostPassword)
   .component('paginator', paginator)
   .component('navbar', navbar)
   .component('login', login)

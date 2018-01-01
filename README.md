@@ -51,3 +51,4 @@ Tags:
 - **v2.08**: Recipe delete confirmation modal dialog
 - **v2.09**: Admin users list with map and markers
 - **v2.10**: Markers clusterer
+- **v2.11**: Lost password recovery

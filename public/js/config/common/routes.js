@@ -20,6 +20,19 @@ export default [{
     }]
   }
 }, {
+  name: 'main.lostPassword',
+  url: '/lostPassword',
+  component: 'lostPassword'
+}, {
+  name: 'main.resetPassword',
+  url: '/resetPassword?token',
+  component: 'resetPassword',
+  resolve: {
+    token: ['$transition$', ($transition$) => {
+      return $transition$.params().token;
+    }]
+  }
+}, {
   name: 'main.error',
   url: '/error?message&status',
   component: 'error',

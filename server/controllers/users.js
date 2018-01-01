@@ -85,7 +85,7 @@ module.exports = class {
       models.user.findById(req.params.id).then((user) => {
         req.body.location = models.sequelize.fn('GeomFromText', `POINT(${parseFloat(req.body.lat)} ${parseFloat(req.body.lng)})`);
         return user.updateAttributes(req.body);
-      }).then((user) => {
+      }).then(() => {
         res.sendStatus(200);
       }).catch((err) => {
         next(err);

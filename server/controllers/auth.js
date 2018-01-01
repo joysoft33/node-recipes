@@ -1,4 +1,5 @@
 const ServerError = require('../utilities/errors');
+const mails = require('../utilities/mails');
 const models = require('../models');
 
 module.exports = class {
@@ -31,4 +32,50 @@ module.exports = class {
     });
   }
 
+  /**
+   * Start password recovery process
+   * @param {*} req
+   * @param {*} res
+   */
+  lostPassword(req, res, next) {
+    // First retrieve the user given its email address
+    models.user.findOne({
+      where: {
+        email: req.body.email
+      }
+    }).then((user) => {
+      if (!user) {
+        throw new ServerError(404, 'Invalid credential supplied');
+      }
+      const token = user.generateJWT();
+      const url = `${req.headers.origin}/resetPassword?token=${token}`;
+      // Send reset password email to the user
+      mails.sendLostPassword(url, user.email);
+      res.sendStatus(200);
+    }).catch((err) => {
+      next(err);
+    });
+  }
+
+  /**
+   * Save new user password
+   * @param {*} req
+   * @param {*} res
+   */
+  resetPassword(req, res, next) {
+    // First retrieve the user given its email address
+    models.user.findById(req.user.id).then((user) => {
+      if (!user) {
+        throw new ServerError(404, 'Invalid credential supplied');
+      }
+      // Change the user passowrd
+      return user.updateAttributes({
+        password: req.body.password
+      });
+    }).then(() => {
+      res.sendStatus(200);
+    }).catch((err) => {
+      next(err);
+    });
+  }
 };

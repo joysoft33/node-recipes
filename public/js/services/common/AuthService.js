@@ -18,10 +18,13 @@ function authService(CONSTANTS, $http, $q, $timeout, $window, $rootScope, localS
 
   const service = {};
 
+  /**
+   * Let server authenticate the given email/password
+   * @param {*} credential
+   */
   service.login = function login(credential) {
     return $q((resolve, reject) => {
-      // Let server authenticate the given email/password
-      $http.post('/api/auth', credential).then((res) => {
+      $http.post('/api/auth/login', credential).then((res) => {
         service.setToken(res.data.token);
         const payload = decodeToken(res.data.token);
         $rootScope.$broadcast(CONSTANTS.AUTH_EVENT, payload);
@@ -37,12 +40,65 @@ function authService(CONSTANTS, $http, $q, $timeout, $window, $rootScope, localS
     });
   };
 
+  /**
+   * Disconnect password
+   */
   service.logout = function logout() {
     return $timeout(() => {
       service.removeToken();
     }, 0);
   };
 
+  /**
+   * Start password reset process
+   * @param {*S} email
+   */
+  service.lostPassword = function lostPassword(email) {
+    return $q((resolve, reject) => {
+      $http.post('/api/auth/lostPassword', {
+        email
+      }).then(() => {
+        resolve();
+      }).catch((err) => {
+        let message;
+        if (err.data) {
+          message = typeof err.data === 'string' ? err.data : err.data.message;
+        }
+        reject(message || err.statusText);
+      });
+    });
+  };
+
+  /**
+   * Save new user password
+   * @param {*} token
+   * @param {*} password
+   */
+  service.resetPassword = function resetPassword(token, password) {
+    return $q((resolve, reject) => {
+      $http.post('/api/auth/resetPassword', {
+        token,
+        password
+      }, {
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }).then(() => {
+        resolve();
+      }).catch((err) => {
+        let message;
+        if (err.data) {
+          message = typeof err.data === 'string' ? err.data : err.data.message;
+        }
+        reject(message || err.statusText);
+      });
+    });
+  };
+
+  /**
+   * Return the connected user or undefined
+   */
   service.getUser = function getUser() {
     const token = service.getToken();
     if (token) {
@@ -54,14 +110,24 @@ function authService(CONSTANTS, $http, $q, $timeout, $window, $rootScope, localS
     }
   };
 
+  /**
+   * Save the received JWT token
+   * @param {*} token
+   */
   service.setToken = function setToken(token) {
     localStorageService.set(CONSTANTS.AUTH_TOKEN, token);
   };
 
+  /**
+   * Return the saved JWT token
+   */
   service.getToken = function getToken() {
     return localStorageService.get(CONSTANTS.AUTH_TOKEN);
   };
 
+  /**
+   * Destroy the saved JWT token
+   */
   service.removeToken = function removeToken() {
     if (localStorageService.get(CONSTANTS.AUTH_TOKEN)) {
       localStorageService.remove(CONSTANTS.AUTH_TOKEN);
