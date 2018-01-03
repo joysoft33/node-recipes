@@ -47,7 +47,7 @@ module.exports = (PRODUCTION, base) => {
         from: path.resolve('public/cloudinary_cors.html')
       }])
     ],
-    devtool: PRODUCTION ? false : 'inline-source-map'
+    devtool: PRODUCTION ? 'none' : 'inline-source-map'
   };
 
   if (PRODUCTION) {

@@ -72,7 +72,7 @@ module.exports = (PRODUCTION, base) => {
         to: 'images'
       }])
     ],
-    devtool: PRODUCTION ? false : 'inline-source-map'
+    devtool: PRODUCTION ? 'none' : 'inline-source-map'
   };
 
   if (PRODUCTION) {

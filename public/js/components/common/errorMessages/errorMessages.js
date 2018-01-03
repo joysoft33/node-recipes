@@ -7,14 +7,5 @@ export default {
   bindings: {
     form: '<',
     field: '@'
-  },
-
-  controller: function controller($log) {
-    this.$onInit = () => {
-      $log.info(this.field);
-    };
-    this.$onChanges = (changes) => {
-      $log.info(changes);
-    };
   }
 };
