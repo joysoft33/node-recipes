@@ -17,9 +17,5 @@ module.exports = (express, auth) => {
     authController.resetPassword(req, res, next);
   });
 
-  router.post('/presign', auth.user, (req, res, next) => {
-    authController.presign(req, res, next);
-  });
-
   return router;
 };
