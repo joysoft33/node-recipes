@@ -41,7 +41,7 @@ app.get('/*', (req, res) => {
 
 // Synchronize database with the previously declared models
 models.sequelize.sync({
-  alter: false
+  alter: process.env.SYNC_ALTER || false
 }).then(() => {
   logger.info('Database connected');
 }).catch((err) => {
