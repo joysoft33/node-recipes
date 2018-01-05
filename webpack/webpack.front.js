@@ -31,7 +31,7 @@ module.exports = (PRODUCTION, base) => {
         configTranspile(PRODUCTION, 'public'),
         configStyles(PRODUCTION),
         {
-          test: /\.(jpe?g|gif|png|svg|woff|woff2|ttf|eot|wav|mp3|ico)$/,
+          test: /\.(jpe?g|gif|png|svg|woff|woff2|ttf|eot|wav|mp3|ico|pdf)$/,
           use: [{
             loader: 'url-loader',
             options: {

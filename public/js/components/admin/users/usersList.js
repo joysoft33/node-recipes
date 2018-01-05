@@ -75,21 +75,23 @@ export default {
     this.createMarkers = () => {
       // Create a marker for every users
       this.users.forEach((user) => {
-        const latLng = new google.maps.LatLng(user.location.coordinates[0], user.location.coordinates[1]);
-        user.marker = new google.maps.Marker({
-          title: user.address,
-          position: latLng,
-          id: user.id
-        });
-        // Bind click event on infoWindow
-        user.marker.addListener('click', ((item) => {
-          return () => {
-            self.user = item;
-            this.map.showInfoWindow('iw', item.marker);
-          };
-        })(user));
-        // Add marker to the markers list
-        this.markers.push(user.marker);
+        if (user.location) {
+          const latLng = new google.maps.LatLng(user.location.coordinates[0], user.location.coordinates[1]);
+          user.marker = new google.maps.Marker({
+            title: user.address,
+            position: latLng,
+            id: user.id
+          });
+          // Bind click event on infoWindow
+          user.marker.addListener('click', ((item) => {
+            return () => {
+              self.user = item;
+              this.map.showInfoWindow('iw', item.marker);
+            };
+          })(user));
+          // Add marker to the markers list
+          this.markers.push(user.marker);
+        }
       });
       // Build clusterer from markers list
       this.markerClusterer = new MarkerClusterer(this.map, this.markers, {});

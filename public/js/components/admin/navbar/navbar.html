@@ -2,8 +2,13 @@
   <div class="container">
     <div class="navbar-brand">
       <a href="#" class="navbar-item">{{'NAVBAR.TITLE' | translate}}</a>
+      <button class="button navbar-burger" ng-class="{'is-active': burger}" ng-click="burger=!burger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
-    <div class="navbar-menu">
+    <div class="navbar-menu" ng-class="{'is-active': burger}">
       <div class="navbar-end">
         <a class="navbar-item" href="/">{{'NAVBAR.EXIT' | translate}}</a>
       </div>

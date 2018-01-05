@@ -18,8 +18,10 @@ export default {
       $log.info('userEdit component init');
       // Load Google Maps API script
       MapsService.loadGoogleApi().then(() => {
-        this.user.lat = this.user.location.coordinates[0];
-        this.user.lng = this.user.location.coordinates[1];
+        if (this.user.location) {
+          this.user.lat = this.user.location.coordinates[0];
+          this.user.lng = this.user.location.coordinates[1];
+        }
         this.loaded = true;
         // Be notified when place has changed (save this)
         this.onPlaceChanged = function onPlaceChanged() {
