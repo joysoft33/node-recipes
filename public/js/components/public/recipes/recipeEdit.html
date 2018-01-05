@@ -71,7 +71,7 @@
         </div>
         <hr/>
         <div class="commands">
-          <button type="submit" class="button is-primary" ng-class="{'is-loading': $ctrl.isLoading}" ng-disabled="$ctrl.submitted && $ctrl.form.$invalid">{{'BUTTON.SAVE' | translate}}</button>
+          <button type="submit" class="button is-primary" ng-class="{'is-loading': $ctrl.isLoading}" ng-disabled="$ctrl.form.$submitted && $ctrl.form.$invalid">{{'BUTTON.SAVE' | translate}}</button>
           <button type="button" class="button" ui-sref="main.recipes.list">{{'BUTTON.CANCEL' | translate}}</button>
         </div>
       </form>
