@@ -115,10 +115,10 @@ module.exports = class {
    */
   update(req, res, next) {
     models.recipe.findById(req.params.id).then((recipe) => {
-      if (!req.user.isAdmin && (req.user.id !== recipe.userId)) {
-        throw new ServerError(401, 'Not owner, cannot modify recipe');
+      if ((req.user.id === recipe.userId) || req.user.isAdmin) {
+        return recipe.updateAttributes(req.body);
       }
-      return recipe.updateAttributes(req.body);
+      throw new ServerError(401, 'Not owner, cannot modify recipe');
     }).then((recipe) => {
       res.json(recipe);
     }).catch((err) => {
@@ -135,10 +135,10 @@ module.exports = class {
    */
   delete(req, res, next) {
     models.recipe.findById(req.params.id).then((recipe) => {
-      if (!req.user.isAdmin && (req.user.id !== recipe.userId)) {
-        throw new ServerError(401, 'Not owner, cannot delete recipe');
+      if ((req.user.id === recipe.userId) || req.user.isAdmin) {
+        return recipe.destroy();
       }
-      return recipe.destroy();
+      throw new ServerError(401, 'Not owner, cannot delete recipe');
     }).then(() => {
       res.sendStatus(200);
     }).catch((err) => {

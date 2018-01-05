@@ -37,9 +37,7 @@ module.exports = class {
    * @param {*} next
    */
   findOne(req, res, next) {
-    if ((req.user.id !== req.params.id) && !req.user.isAdmin) {
-      res.sendStatus(403);
-    } else {
+    if ((req.user.id === +(req.params.id)) || req.user.isAdmin) {
       models.user.findById(req.params.id, {
         include: [{
           attributes: ['id', 'title'],
@@ -55,6 +53,8 @@ module.exports = class {
       }).catch((err) => {
         next(err);
       });
+    } else {
+      res.sendStatus(403);
     }
   }
 
@@ -65,6 +65,8 @@ module.exports = class {
    * @param {*} next
    */
   create(req, res, next) {
+    // Never allows admin creation
+    req.body.isAdmin = false;
     models.user.create(req.body).then((user) => {
       res.json(user);
     }).catch((err) => {
@@ -79,17 +81,19 @@ module.exports = class {
    * @param {*} next
    */
   update(req, res, next) {
-    if ((req.user.id !== req.params.id) && !req.user.isAdmin) {
-      res.sendStatus(403);
-    } else {
+    if ((req.user.id === +(req.params.id)) || req.user.isAdmin) {
       models.user.findById(req.params.id).then((user) => {
-        req.body.location = models.sequelize.fn('GeomFromText', `POINT(${parseFloat(req.body.lat)} ${parseFloat(req.body.lng)})`);
+        if (req.body.lat && req.body.lng) {
+          req.body.location = models.sequelize.fn('GeomFromText', `POINT(${parseFloat(req.body.lat)} ${parseFloat(req.body.lng)})`);
+        }
         return user.updateAttributes(req.body);
       }).then(() => {
         res.sendStatus(200);
       }).catch((err) => {
         next(err);
       });
+    } else {
+      res.sendStatus(403);
     }
   }
 

@@ -76,12 +76,13 @@ describe('Testing /api/users route', function test() {
           res.body.name.should.equal('Lucien');
           res.body.should.have.property('email');
           res.body.should.have.property('isAdmin');
+          res.body.isAdmin.should.equal(false);
           done();
         }
       });
   });
 
-  it('GET /users/1 should fail 403', (done) => {
+  it('GET /users/1 should fail 401', (done) => {
     server
       .get('/api/users/1')
       .expect(401)
@@ -90,9 +91,9 @@ describe('Testing /api/users route', function test() {
       });
   });
 
-  it('POST /api/auth should fail 401', (done) => {
+  it('POST /api/auth should authenticate', (done) => {
     server
-      .post('/api/auth')
+      .post('/api/auth/login')
       .send({
         email: 'lucien@free.fr',
         password: 'toto'
@@ -103,7 +104,7 @@ describe('Testing /api/users route', function test() {
           done(err);
         }
         res.body.should.have.property('token');
-        token = res.body.token;
+        token = `Bearer ${res.body.token}`;
         done();
       });
   });
@@ -111,7 +112,7 @@ describe('Testing /api/users route', function test() {
   it('GET /api/users/1 should return Lucien', (done) => {
     server
       .get('/api/users/1')
-      .set('Authorization', `Bearer ${token}`)
+      .set('Authorization', token)
       .expect(200)
       .end((err, res) => {
         if (err) {
@@ -127,7 +128,7 @@ describe('Testing /api/users route', function test() {
   it('PUT /api/users/1 should rename Lucien to Jean', (done) => {
     server
       .put('/api/users/1')
-      .set('Authorization', `Bearer ${token}`)
+      .set('Authorization', token)
       .send({
         name: 'Jean'
       })
@@ -140,7 +141,7 @@ describe('Testing /api/users route', function test() {
   it('GET /api/users/1 should return Jean', (done) => {
     server
       .get('/api/users/1')
-      .set('Authorization', `Bearer ${token}`)
+      .set('Authorization', token)
       .expect(200)
       .end((err, res) => {
         if (err) {
@@ -151,21 +152,11 @@ describe('Testing /api/users route', function test() {
       });
   });
 
-  it('DELETE /api/users/1 should delete Jean', (done) => {
+  it('DELETE /api/users/1 should fail 403', (done) => {
     server
       .delete('/api/users/1')
-      .set('Authorization', `Bearer ${token}`)
-      .expect(200)
-      .end((err, res) => {
-        err ? done(err) : done();
-      });
-  });
-
-  it('DELETE /api/users/1 should fail 404', (done) => {
-    server
-      .delete('/api/users/1')
-      .set('Authorization', `Bearer ${token}`)
-      .expect(404)
+      .set('Authorization', token)
+      .expect(403)
       .end((err, res) => {
         err ? done(err) : done();
       });

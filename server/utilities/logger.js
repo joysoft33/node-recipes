@@ -2,10 +2,10 @@ const path = require('path');
 const winston = require('winston');
 const config = require('../config')();
 
-const logger = winston.createLogger({
-  level: 'info',
-  format: winston.format.json(),
-  transports: [
+let transports = [];
+
+if (process.env.NODE_ENV !== 'test') {
+  transports = [
     // Write to all logs with level `info` and below to `combined.log`
     // Write all logs error (and below) to `error.log`.
     new winston.transports.File({
@@ -15,7 +15,13 @@ const logger = winston.createLogger({
     new winston.transports.File({
       filename: path.resolve(config.serverPath, 'combined.log')
     })
-  ]
+  ];
+}
+
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.json(),
+  transports: transports
 });
 
 // If we're not in production then log to the `console` with the format:

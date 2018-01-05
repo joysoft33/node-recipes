@@ -36,8 +36,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING
     },
     location: {
-      type: DataTypes.GEOMETRY('POINT'),
-      allowNull: false
+      type: DataTypes.GEOMETRY('POINT')
     }
   });
 
