@@ -65,7 +65,8 @@ module.exports = (PRODUCTION, base) => {
         }) => /node_modules/.test(resource)
       }),
       new CopyWebpackPlugin([{
-        from: path.resolve('public/cloudinary_cors.html')
+        from: path.resolve('public/externals/*'),
+        flatten: true
       }, {
         from: path.resolve('node_modules/js-marker-clusterer/images/m*.png'),
         flatten: true,
