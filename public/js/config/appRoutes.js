@@ -1,6 +1,6 @@
 import routes from './common/routes';
 
-export default (specific, defaultUrl, html5) => {
+export default (specific, defaultUrl) => {
 
   /**
    * The routes configuration
@@ -15,10 +15,7 @@ export default (specific, defaultUrl, html5) => {
     });
 
     $urlRouterProvider.otherwise(defaultUrl);
-
-    if (html5) {
-      $locationProvider.html5Mode(true);
-    }
+    $locationProvider.html5Mode(true);
   }
 
   return routesConfig;

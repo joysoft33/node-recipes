@@ -35,6 +35,11 @@ app.use(express.static(path.join(config.serverPath, 'public')));
 // Set API routes
 routes(app, express);
 
+// Fot HTML5 no hashbang mode
+app.get('/admin/*', (req, res) => {
+  res.sendFile(path.join(config.serverPath, 'admin/index.html'));
+});
+
 app.get('/*', (req, res) => {
   res.sendFile(path.join(config.serverPath, 'public/index.html'));
 });
