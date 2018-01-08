@@ -116,7 +116,7 @@ module.exports = class {
   update(req, res, next) {
     models.recipe.findById(req.params.id).then((recipe) => {
       if ((req.user.id === recipe.userId) || req.user.isAdmin) {
-        return recipe.updateAttributes(req.body);
+        return recipe.update(req.body);
       }
       throw new ServerError(401, 'Not owner, cannot modify recipe');
     }).then((recipe) => {
