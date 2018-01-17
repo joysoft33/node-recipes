@@ -44,7 +44,7 @@ module.exports = (PRODUCTION, base) => {
         copyUnmodified: true
       }),
       new CopyWebpackPlugin([{
-        from: path.resolve('public/cloudinary_cors.html')
+        from: path.resolve('public/externals/cloudinary_cors.html')
       }])
     ],
     devtool: PRODUCTION ? 'none' : 'inline-source-map'
