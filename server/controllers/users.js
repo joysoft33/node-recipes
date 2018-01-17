@@ -12,7 +12,9 @@ module.exports = class {
     models.user.findAll({
       attributes: ['id', 'name', 'email', 'isAdmin', 'createdAt', 'address', 'location'],
       include: [{
-        attributes: [[models.sequelize.fn('COUNT', models.sequelize.col('recipes.id')), 'count']],
+        attributes: [
+          [models.sequelize.fn('COUNT', models.sequelize.col('recipes.id')), 'count']
+        ],
         model: models.recipe,
         duplicating: false,
         required: false
@@ -59,13 +61,34 @@ module.exports = class {
   }
 
   /**
+   * Find users near the given position
+   * @param {*} req
+   * @param {*} res
+   * @param {*} next
+   */
+  findAround(req, res, next) {
+    models.sequelize.query('CALL findAround(:latitude, :longitude, :radius, :limit)', {
+      replacements: {
+        latitude: parseFloat(req.query.lat),
+        longitude: parseFloat(req.query.lng),
+        radius: parseInt(req.query.radius, 10),
+        limit: parseInt(req.query.limit, 10)
+      }
+    }).then((results) => {
+      res.json(results);
+    }).catch((err) => {
+      next(err);
+    });
+  }
+
+  /**
    * Create a new user from the body
    * @param {*} req
    * @param {*} res
    * @param {*} next
    */
   create(req, res, next) {
-    // Never allows admin creation
+    // Never allows to create an admin user !
     req.body.isAdmin = false;
     models.user.create(req.body).then((user) => {
       res.json(user);

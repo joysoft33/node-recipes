@@ -1,5 +1,5 @@
 const supertest = require('supertest');
-const should = require('should');
+require('should');
 
 // Load and start the server (force test mode just in case env variable not correctly set)
 process.env.NODE_ENV = 'test';

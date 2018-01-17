@@ -101,54 +101,59 @@ module.exports = (sequelize, DataTypes) => {
     });
   };
 
-  /**
-   * Disable password retrieval for all find requests
-   * @param {*} options The options object given to the before callbacks
-   * @return {*}
-   */
-  function excludePassword(options) {
-    if (typeof options.attributes === 'undefined') {
-      options.attributes = {};
-    }
-    options.attributes.exclude = ['password'];
-    return options;
-  }
-
-  /**
-   * Sanitize the given user object before storing it into db
-   * @param {*} user
-   * @return {*}
-   */
-  function sanitize(user) {
-    user.email = user.email.toLowerCase();
-    return user.password ? changePassword(user) : null;
-  }
-
-  /**
-   * Delete the password field before sending user back
-   * @param {*} user
-   */
-  function emptyPassword(user) {
-    user.password = undefined;
-  }
-
-  /**
-   * Do some user object sanitization before storing it in db
-   * @param {*} user The user object beeing stored
-   * @return {*}
-   */
-  function changePassword(user) {
-    return new Promise((resolve, reject) => {
-      bcrypt.hash(user.password, SALT_FACTOR, (err, hash) => {
-        if (err) {
-          reject(err);
-        } else {
-          user.password = hash;
-          resolve(user);
-        }
-      });
-    });
-  }
-
   return User;
 };
+
+/**
+ * Disable password retrieval for all find requests
+ * @param {*} options The options object given to the before callbacks
+ * @return {*}
+ */
+function excludePassword(options) {
+  if (options.attributes && (typeof options.attributes.length > 0)) {
+    options.attributes = {
+      include: options.attributes
+    };
+  } else {
+    options.attributes = options.attributes || {};
+  }
+  options.attributes.exclude = options.attributes.exclude || [];
+  options.attributes.exclude.push('password');
+  return options;
+}
+
+/**
+ * Sanitize the given user object before storing it into db
+ * @param {*} user
+ * @return {*}
+ */
+function sanitize(user) {
+  user.email = user.email.toLowerCase();
+  return user.password ? changePassword(user) : null;
+}
+
+/**
+ * Delete the password field before sending user back
+ * @param {*} user
+ */
+function emptyPassword(user) {
+  user.password = undefined;
+}
+
+/**
+ * Do some user object sanitization before storing it in db
+ * @param {*} user The user object beeing stored
+ * @return {*}
+ */
+function changePassword(user) {
+  return new Promise((resolve, reject) => {
+    bcrypt.hash(user.password, SALT_FACTOR, (err, hash) => {
+      if (err) {
+        reject(err);
+      } else {
+        user.password = hash;
+        resolve(user);
+      }
+    });
+  });
+}

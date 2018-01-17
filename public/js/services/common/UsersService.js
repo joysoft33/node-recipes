@@ -13,6 +13,11 @@ function usersService($resource) {
   }, {
     update: {
       method: 'PUT'
+    },
+    findAround: {
+      url: '/api/users/around',
+      method: 'GET',
+      isArray: true
     }
   });
 }

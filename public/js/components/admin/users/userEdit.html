@@ -35,8 +35,8 @@
           </div>
         </div>
         <div class="field" ng-if="$ctrl.loaded">
-          <ng-map center="{{$ctrl.user.lat}}, {{$ctrl.user.lng}}">
-            <marker position="{{$ctrl.user.lat}}, {{$ctrl.user.lng}}"></marker>
+          <ng-map center="{{$ctrl.position}}">
+            <marker ng-if="$ctrl.user.lat && $ctrl.user.lng" position="{{$ctrl.position}}"></marker>
           </ng-map>
         </div>
         <div class="field">

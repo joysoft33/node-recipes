@@ -51,7 +51,7 @@ function authService(CONSTANTS, $http, $q, $timeout, $window, $rootScope, localS
 
   /**
    * Start password reset process
-   * @param {*S} email
+   * @param {*} email
    */
   service.lostPassword = function lostPassword(email) {
     return $q((resolve, reject) => {

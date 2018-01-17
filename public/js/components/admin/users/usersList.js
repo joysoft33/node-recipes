@@ -60,10 +60,12 @@ export default {
         this.current = coords;
         // Update distance of every users
         this.users.forEach((user) => {
-          user.distance = GeolocationService.getDistance(coords, {
-            lat: user.location.coordinates[0],
-            lng: user.location.coordinates[1]
-          }).toFixed(1);
+          if (user.location) {
+            user.distance = GeolocationService.getDistance(coords, {
+              lat: user.location.coordinates[0],
+              lng: user.location.coordinates[1]
+            }).toFixed(1);
+          }
         });
       });
       // No geoloc on the client browser ?

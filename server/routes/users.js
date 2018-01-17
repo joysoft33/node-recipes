@@ -9,6 +9,10 @@ module.exports = (express, auth) => {
     usersController.findAll(req, res, next);
   });
 
+  router.get('/around', auth.admin, (req, res, next) => {
+    usersController.findAround(req, res, next);
+  });
+
   router.get('/:id', auth.user, (req, res, next) => {
     usersController.findOne(req, res, next);
   });
