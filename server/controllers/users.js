@@ -90,6 +90,7 @@ module.exports = class {
   create(req, res, next) {
     // Never allows to create an admin user !
     req.body.isAdmin = false;
+    req.body.location = models.sequelize.gpsToLocation(req.body.lat, req.body.lng);
     models.user.create(req.body).then((user) => {
       res.json(user);
     }).catch((err) => {
@@ -106,9 +107,7 @@ module.exports = class {
   update(req, res, next) {
     if ((req.user.id === +(req.params.id)) || req.user.isAdmin) {
       models.user.findById(req.params.id).then((user) => {
-        if (req.body.lat && req.body.lng) {
-          req.body.location = models.sequelize.fn('GeomFromText', `POINT(${parseFloat(req.body.lat)} ${parseFloat(req.body.lng)})`);
-        }
+        req.body.location = models.sequelize.gpsToLocation(req.body.lat, req.body.lng);
         return user.update(req.body);
       }).then(() => {
         res.sendStatus(200);

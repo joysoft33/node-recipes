@@ -1,3 +1,5 @@
+import angular from 'angular';
+
 import htmlTemplate from './login.html';
 
 export default {
@@ -5,7 +7,8 @@ export default {
   template: htmlTemplate,
 
   bindings: {
-    redirect: '@'
+    redirect: '@',
+    params: '@'
   },
 
   controller: function controller(AuthService, UsersService, $log, $state) {
@@ -28,7 +31,11 @@ export default {
           });
         } else {
           AuthService.login(this.user).then(() => {
-            $state.go(this.redirect || 'main');
+            if (this.redirect) {
+              $state.go(this.redirect, angular.fromJson(this.params));
+            } else {
+              $state.go('main');
+            }
           }).catch((err) => {
             this.errorMessage = err;
           });

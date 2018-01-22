@@ -25,10 +25,7 @@ function authService(CONSTANTS, $http, $q, $timeout, $window, $rootScope, localS
   service.login = function login(credential) {
     return $q((resolve, reject) => {
       $http.post('/api/auth/login', credential).then((res) => {
-        service.setToken(res.data.token);
-        const payload = decodeToken(res.data.token);
-        $rootScope.$broadcast(CONSTANTS.AUTH_EVENT, payload);
-        resolve(payload);
+        resolve(service.setToken(res.data.token));
       }).catch((err) => {
         service.removeToken();
         let message;
@@ -115,7 +112,10 @@ function authService(CONSTANTS, $http, $q, $timeout, $window, $rootScope, localS
    * @param {*} token
    */
   service.setToken = function setToken(token) {
+    const payload = decodeToken(token);
+    $rootScope.$broadcast(CONSTANTS.AUTH_EVENT, payload);
     localStorageService.set(CONSTANTS.AUTH_TOKEN, token);
+    return payload;
   };
 
   /**

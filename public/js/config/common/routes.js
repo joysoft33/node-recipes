@@ -12,11 +12,14 @@ export default [{
   }
 }, {
   name: 'main.login',
-  url: '/login?redirect',
+  url: '/login?redirect&params',
   component: 'login',
   resolve: {
     redirect: ['$transition$', ($transition$) => {
       return $transition$.params().redirect;
+    }],
+    params: ['$transition$', ($transition$) => {
+      return $transition$.params().params;
     }]
   }
 }, {

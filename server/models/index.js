@@ -31,6 +31,12 @@ Object.keys(db).forEach((modelName) => {
   }
 });
 
+sequelize.gpsToLocation = function gpsToLocation(lat, lng) {
+  if (lat && lng) {
+    return this.fn('GeomFromText', `POINT(${parseFloat(lat)} ${parseFloat(lng)})`);
+  }
+};
+
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 

@@ -1,3 +1,5 @@
+import angular from 'angular';
+
 export default checkRouteService;
 
 /**
@@ -35,6 +37,7 @@ function checkRouteService(AuthService, $log, $q, $transitions) {
         $log.info(`${to.url} need authentication`);
         // Redirect to login page
         return transition.router.stateService.target('main.login', {
+          params: angular.toJson(transition.params()),
           redirect: to.name
         });
       }
