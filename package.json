@@ -13,7 +13,7 @@
     "seed": "sequelize db:seed:all",
     "test": "NODE_ENV='test' node_modules/.bin/mocha --exit test/**/*.js",
     "clean": "rm dist/*; find ./dist/* ! -name 'images' -type d -exec rm -rf {} + || true",
-    "heroku-postbuild": "webpack -p --config ./webpack.config.js --progress"
+    "heroku-postbuild": "webpack --config ./webpack.config.js --progress"
   },
   "engines": {
     "node": "^9.2.1",
