@@ -1,0 +1,19 @@
+version: '3'
+services:
+  node:
+    image: 'recipes:1.0.5'
+    links:
+      - db
+    env_file:
+      - ./Docker.env
+    ports:
+      - 8080:3000
+
+  db:
+    image: 'mysql:5.7'
+    volumes:
+      - /tmp/data/db:/var/lib/mysql
+    env_file:
+      - ./Docker.env
+    ports:
+      - 3306:3306

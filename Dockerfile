@@ -1,0 +1,7 @@
+FROM node:9.11.1
+CMD [ "npm", "start" ]
+ENV PORT=3000
+EXPOSE 3000
+WORKDIR /home/app
+COPY . /home/app/
+RUN npm config set registry http://registry.npmjs.org/ && npm install webpack -g && npm install && npm run build:prod
