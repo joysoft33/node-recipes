@@ -52,3 +52,4 @@ Tags:
 - **v2.09**: Admin users list with map and markers
 - **v2.10**: Markers clusterer
 - **v2.11**: Lost password recovery
+- **v2.12**: Docker integration (two containers: node app & mysql)
