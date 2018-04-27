@@ -12,7 +12,7 @@ services:
   db:
     image: 'mysql:5.7'
     volumes:
-      - /tmp/data/db:/var/lib/mysql
+      - /opt/db-recipes:/var/lib/mysql
     env_file:
       - ./Docker.env
     ports:
