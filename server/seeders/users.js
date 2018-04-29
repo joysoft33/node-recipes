@@ -6,9 +6,9 @@ module.exports = {
     const password = bcrypt.hashSync('toto', 10);
 
     return queryInterface.bulkInsert('users', [{
-      email: 'john@free.fr',
+      email: 'user@free.fr',
       password: password,
-      name: 'John Doe',
+      name: 'User',
       isAdmin: false,
       createdAt: new Date(),
       updatedAt: new Date()

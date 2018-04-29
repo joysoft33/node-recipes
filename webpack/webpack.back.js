@@ -4,7 +4,6 @@ const path = require('path');
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const MinifyPlugin = require('babel-minify-webpack-plugin');
 
 const configTranspile = require('./webpack.babel');
 const configLinter = require('./webpack.eslint');
@@ -42,17 +41,10 @@ module.exports = (PRODUCTION, base) => {
         to: 'emails'
       }], {
         copyUnmodified: true
-      }),
-      new CopyWebpackPlugin([{
-        from: path.resolve('public/externals/cloudinary_cors.html')
-      }])
+      })
     ],
-    devtool: PRODUCTION ? 'none' : 'inline-source-map'
+    devtool: PRODUCTION ? 'source-map' : 'inline-source-map'
   };
-
-  if (PRODUCTION) {
-    config.plugins.push(new MinifyPlugin());
-  }
 
   return config;
 };

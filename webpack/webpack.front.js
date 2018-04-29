@@ -4,7 +4,6 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const MinifyPlugin = require('babel-minify-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const configTranspile = require('./webpack.babel');
@@ -49,6 +48,17 @@ module.exports = (PRODUCTION, base) => {
         }
       ]
     },
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          commons: {
+            test: /[\\/]node_modules[\\/]/,
+            name: "vendors",
+            chunks: "all"
+          }
+        }
+      }
+    },
     plugins: [
       new ExtractTextPlugin('[name].css'),
       new webpack.DefinePlugin({
@@ -57,12 +67,6 @@ module.exports = (PRODUCTION, base) => {
       new HtmlWebpackPlugin({
         template: path.resolve(`public/${base}.html`),
         favicon: path.resolve('public/favicon.ico')
-      }),
-      new webpack.optimize.CommonsChunkPlugin({
-        name: 'vendor',
-        minChunks: ({
-          resource
-        }) => /node_modules/.test(resource)
       }),
       new CopyWebpackPlugin([{
         from: path.resolve('public/externals/*'),
@@ -73,12 +77,8 @@ module.exports = (PRODUCTION, base) => {
         to: 'images'
       }])
     ],
-    devtool: PRODUCTION ? 'none' : 'inline-source-map'
+    devtool: PRODUCTION ? 'source-map' : 'inline-source-map'
   };
-
-  if (PRODUCTION) {
-    config.plugins.push(new MinifyPlugin());
-  }
 
   if (INCLUDE_JQUERY) {
     config.plugins.push(new webpack.ProvidePlugin({
