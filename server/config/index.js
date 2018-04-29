@@ -1,5 +1,8 @@
 const dbConfig = require('./config.json');
 
+// Retrieve env variables from .env file if present
+require('dotenv').config();
+
 const settings = {
   serverPort: process.env.PORT || 3000,
   imagesPath: 'images',

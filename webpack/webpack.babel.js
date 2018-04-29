@@ -18,7 +18,6 @@ module.exports = (PRODUCTION, base) => {
       loader: 'babel-loader',
       options: {
         presets: [
-          ['es2015'],
           ['env', {
             targets: targets,
             modules: false,

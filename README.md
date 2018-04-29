@@ -1,18 +1,22 @@
 # node-recipes
+
 Minimal node/express DOM sample (Livecoding) evoluting to a light AngularJS application.
 Each step is referenced by its own tag.
 
 Run the following command to see all tags:
-```
+
+```shell
 git tag -n
 ```
 
 The following command will create a new branch based on the given tag name:
-```
+
+```shell
 git checkout tags/<tag_name> -b <branch_name>
 ```
 
 Tags:
+
 - **v1.00**: a minimal node/express server, and a front that dynamically insert data to an HTML page via basic navigator JS libraries
 - **v1.01**: sequelize ORM
 - **v1.02**: sequelize associations (categories)
@@ -53,3 +57,4 @@ Tags:
 - **v2.10**: Markers clusterer
 - **v2.11**: Lost password recovery
 - **v2.12**: Docker integration (two containers: node app & mysql)
+- **v2.13**: Webpack 4 compatible

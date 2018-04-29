@@ -6,6 +6,7 @@ export default (specific, defaultUrl) => {
    * The routes configuration
    * @param {*} $stateProvider
    * @param {*} $urlRouterProvider
+   * @param {*} $locationProvider
    */
   function routesConfig($stateProvider, $urlRouterProvider, $locationProvider) {
     'ngInject';

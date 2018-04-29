@@ -4,8 +4,9 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const MinifyPlugin = require('babel-minify-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const configTranspile = require('./webpack.babel');
 const configLinter = require('./webpack.eslint');
@@ -49,20 +50,27 @@ module.exports = (PRODUCTION, base) => {
         }
       ]
     },
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          commons: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendors',
+            chunks: 'all'
+          }
+        }
+      }
+    },
     plugins: [
-      new ExtractTextPlugin('[name].css'),
+      new MiniCssExtractPlugin({
+        filename: PRODUCTION ? '[name].[hash].css' : '[name].css'
+      }),
       new webpack.DefinePlugin({
-        PRODUCTION: JSON.stringify(PRODUCTION)
+        'process.env.PRODUCTION': JSON.stringify(PRODUCTION)
       }),
       new HtmlWebpackPlugin({
         template: path.resolve(`public/${base}.html`),
         favicon: path.resolve('public/favicon.ico')
-      }),
-      new webpack.optimize.CommonsChunkPlugin({
-        name: 'vendor',
-        minChunks: ({
-          resource
-        }) => /node_modules/.test(resource)
       }),
       new CopyWebpackPlugin([{
         from: path.resolve('public/externals/*'),
@@ -73,12 +81,8 @@ module.exports = (PRODUCTION, base) => {
         to: 'images'
       }])
     ],
-    devtool: PRODUCTION ? 'none' : 'inline-source-map'
+    devtool: PRODUCTION ? 'source-map' : 'inline-source-map'
   };
-
-  if (PRODUCTION) {
-    config.plugins.push(new MinifyPlugin());
-  }
 
   if (INCLUDE_JQUERY) {
     config.plugins.push(new webpack.ProvidePlugin({
@@ -87,6 +91,17 @@ module.exports = (PRODUCTION, base) => {
       jquery: 'jquery',
       $: 'jquery'
     }));
+  }
+
+  if (PRODUCTION) {
+    config.optimization.minimizer = [
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true,
+        sourceMap: true
+      }),
+      new OptimizeCSSAssetsPlugin({})
+    ]
   }
 
   return config;
