@@ -1,7 +1,7 @@
 version: '3'
 services:
   node:
-    image: 'recipes:1.0.5'
+    image: 'recipes:1.0.6'
     links:
       - db
     env_file:

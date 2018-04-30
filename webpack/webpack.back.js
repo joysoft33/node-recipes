@@ -4,6 +4,7 @@ const path = require('path');
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const configTranspile = require('./webpack.babel');
 const configLinter = require('./webpack.eslint');
@@ -30,6 +31,9 @@ module.exports = (PRODUCTION, base) => {
       ]
     },
     plugins: [
+      new CleanWebpackPlugin(['dist'], {
+        root: path.resolve('.')
+      }),
       new webpack.BannerPlugin({
         banner: 'require("source-map-support").install();',
         entryOnly: false,

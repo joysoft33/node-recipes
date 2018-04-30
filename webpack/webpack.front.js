@@ -4,7 +4,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const configTranspile = require('./webpack.babel');
 const configLinter = require('./webpack.eslint');
@@ -53,16 +53,18 @@ module.exports = (PRODUCTION, base) => {
         cacheGroups: {
           commons: {
             test: /[\\/]node_modules[\\/]/,
-            name: "vendors",
-            chunks: "all"
+            name: 'vendors',
+            chunks: 'all'
           }
         }
       }
     },
     plugins: [
-      new ExtractTextPlugin('[name].css'),
+      new MiniCssExtractPlugin({
+        filename: PRODUCTION ? '[name].[hash].css' : '[name].css'
+      }),
       new webpack.DefinePlugin({
-        PRODUCTION: JSON.stringify(PRODUCTION)
+        'process.env.PRODUCTION': JSON.stringify(PRODUCTION)
       }),
       new HtmlWebpackPlugin({
         template: path.resolve(`public/${base}.html`),
