@@ -5,6 +5,8 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const configTranspile = require('./webpack.babel');
 const configLinter = require('./webpack.eslint');
@@ -89,6 +91,17 @@ module.exports = (PRODUCTION, base) => {
       jquery: 'jquery',
       $: 'jquery'
     }));
+  }
+
+  if (PRODUCTION) {
+    config.optimization.minimizer = [
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true,
+        sourceMap: true
+      }),
+      new OptimizeCSSAssetsPlugin({})
+    ]
   }
 
   return config;

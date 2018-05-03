@@ -57,8 +57,10 @@
     "ng-file-upload": "^12.2.13",
     "ngmap": "^1.18.4",
     "nodemailer": "^4.6.4",
+    "optimize-css-assets-webpack-plugin": "^4.0.1",
     "sequelize": "^4.37.6",
     "sha1": "^1.1.1",
+    "uglifyjs-webpack-plugin": "^1.2.5",
     "uuid": "^3.2.1",
     "winston": "^3.0.0-rc5"
   },
