@@ -1,19 +1,31 @@
 version: '3'
 services:
-  node:
+  recipes:
     image: 'recipes:1.0.6'
-    links:
-      - db
     env_file:
-      - ./Docker.env
+      - ./.env.docker
+    networks:
+      - lan
     ports:
-      - 8080:3000
+      - '3000:3000'
 
   db:
     image: 'mysql:5.7'
     volumes:
-      - /opt/db-recipes:/var/lib/mysql
+      - /opt/docker-volumes/recipes:/var/lib/mysql
     env_file:
-      - ./Docker.env
+      - ./.env.docker
+    networks:
+      - lan
     ports:
-      - 3306:3306
+      - '3306:3306'
+
+  nginx:
+    image: 'nginx:1.0.0'
+    networks:
+      - lan
+    ports:
+      - '8080:8080'
+
+networks:
+  lan:

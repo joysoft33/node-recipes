@@ -14,7 +14,8 @@
     "test": "NODE_ENV='test' node_modules/.bin/mocha --exit test/**/*.js",
     "clean": "rm dist/*; find ./dist/* ! -name 'images' -type d -exec rm -rf {} + || true",
     "heroku-postbuild": "webpack --mode production --config ./webpack.config.js --progress",
-    "docker:build": "docker build -t recipes:1.0.6 .",
+    "docker:build:recipes": "docker build --rm -f Dockerfile.recipes -t recipes:1.0.6 .",
+    "docker:build:nginx": "docker build --rm -f Dockerfile.nginx -t nginx:1.0.0 .",
     "docker:up": "docker-compose up -d",
     "docker:down": "docker-compose down"
   },

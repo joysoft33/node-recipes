@@ -58,3 +58,5 @@ Tags:
 - **v2.11**: Lost password recovery
 - **v2.12**: Docker integration (two containers: node app & mysql)
 - **v2.13**: Webpack 4 compatible
+- **v2.14**: Docker nginx integration
+

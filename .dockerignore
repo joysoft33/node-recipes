@@ -1,4 +1,6 @@
+.DS_Store
+.vscode/
 node_modules/
 dist/
 db/
-.vscode/
+.env*
